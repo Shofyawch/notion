@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tabel Tugas!</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;700&display=swap" rel="stylesheet">
+
+    <style>
+        
+        body {
+            font-family: 'Fredoka', sans-serif;
+            background-color: #FFF0F5; 
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+            flex-direction: column;
+        }
+
+        
+        h1 {
+            color: #FF69B4; 
+            text-shadow: 3px 3px 0px #FFC0CB; 
+            font-size: 3rem;
+            margin-bottom: 20px;
+        }
+
+        .form-container {
+            background-color: #ffffff;
+            padding: 25px;
+            border-radius: 20px;
+            box-shadow: 0px 10px 20px rgba(255, 105, 180, 0.3);
+            margin-bottom: 30px;
+            width: 80%;
+            max-width: 900px;
+        }
+
+        #form-tugas {
+            display: flex;
+            flex-wrap: wrap; 
+            gap: 15px; 
+            align-items: flex-end; 
+        }
+
+        #form-tugas input, 
+        #form-tugas select {
+            font-family: 'Fredoka', sans-serif;
+            font-size: 1rem;
+            padding: 12px;
+            border: 2px dashed #FFC0CB; 
+            border-radius: 10px;
+            flex-grow: 1; 
+        }
+        
+        #form-tugas input:focus, 
+        #form-tugas select:focus {
+            outline: none;
+            border-style: solid; 
+            border-color: #FF69B4; 
+            box-shadow: 0 0 5px #FFB6C1; 
+        }
+
+        .tambah-btn {
+            font-family: 'Fredoka', sans-serif;
+            font-size: 1rem;
+            font-weight: 700;
+            background-color: #FF69B4; 
+            color: white;
+            padding: 14px 25px;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: transform 0.2s ease, background-color 0.2s ease;
+        }
+        
+        .tambah-btn:hover {
+            background-color: #F355A1; 
+            transform: scale(1.05); 
+        }
+
+        table {
+            width: 80%;
+            max-width: 900px;
+            border-collapse: separate;
+            border-spacing: 0;
+            border-radius: 25px;
+            box-shadow: 0px 10px 20px rgba(255, 105, 180, 0.3);
+            overflow: hidden;
+            background-color: #ffffff;
+        }
+
+        th {
+            background-color: #FF69B4;
+            color: white;
+            padding: 20px;
+            font-size: 1.2rem;
+            font-weight: 700;
+            text-align: left;
+        }
+
+        td {
+            padding: 18px 20px;
+            color: #333;
+            border-bottom: 2px dashed #FFC0CB;
+        }
+
+        tbody tr:nth-child(even) {
+            background-color: #FFF5FA; 
+        }
+
+        tbody tr:hover {
+            background-color: #FFE4E1;
+            cursor: default; 
+        }
+
+        tbody tr:last-child td {
+            border-bottom: none;
+        }
+
+        .hapus-btn {
+            font-family: 'Fredoka', sans-serif;
+            font-size: 0.9rem;
+            background-color: #FF7F7F; 
+            color: white;
+            border: none;
+            padding: 8px 12px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: transform 0.2s ease;
+        }
+
+        .hapus-btn:hover {
+            background-color: #E66A6A;
+            transform: scale(1.1); 
+        }
+
+    </style>
+</head>
+<body>
+
+    <h1> Table Tugas </h1>
+
+    <div class="form-container">
+        <form id="form-tugas">
+            <input type="text" id="input-mapel" placeholder="Mata Pelajaran" required>
+            
+            <input type="text" id="input-detail" placeholder="Detail Tugas" required>
+            
+            <input type="text" id="input-deadline" placeholder="Deadline (cth: Jumat, 21 Nov)" required>
+            
+            <select id="input-status" required>
+                <option value="Belum ❌">Belum ❌</option>
+                <option value="Proses... ">Proses... </option>
+                <option value="Selesai ✅">Selesai ✅</option>
+            </select>
+            
+            <button type="submit" class="tambah-btn">Tambah Tugas!</button>
+        </form>
+    </div>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Mata Pelajaran</th>
+                <th>Detail Tugas</th>
+                <th>Deadline</th>
+                <th>Status</th>
+                <th>Aksi</th> </tr>
+        </thead>
+        <tbody id="isi-tabel">
+            <tr>
+                <td>Matematika</td>
+                <td>Mengerjakan Latihan 5 (Hal. 78)</td>
+                <td>Rabu, 19 Nov</td>
+                <td>Mantep Udah selesai</td>
+                <td><button class="hapus-btn">Hapus</button></td>
+            </tr>
+            <tr>
+                <td>Bahasa Inggris</td>
+                <td>Membuat esai "My Holiday"</td>
+                <td>Kamis, 20 Nov</td>
+                <td>Tugas anda belum selesai💀</td>
+                <td><button class="hapus-btn">Hapus</button></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <script>
+        const formTugas = document.getElementById('form-tugas');
+        const isiTabel = document.getElementById('isi-tabel');
+
+        function tambahTugas(mapel, detail, deadline, status) {
+            const barisBaru = document.createElement('tr');
+
+            const selMapel = document.createElement('td');
+            selMapel.textContent = mapel;
+            barisBaru.appendChild(selMapel);
+
+            const selDetail = document.createElement('td');
+            selDetail.textContent = detail;
+            barisBaru.appendChild(selDetail);
+
+            const selDeadline = document.createElement('td');
+            selDeadline.textContent = deadline;
+            barisBaru.appendChild(selDeadline);
+
+            const selStatus = document.createElement('td');
+            selStatus.textContent = status;
+            barisBaru.appendChild(selStatus);
+
+            const selAksi = document.createElement('td');
+            const tombolHapus = document.createElement('button');
+            tombolHapus.textContent = 'Hapus';
+            tombolHapus.className = 'hapus-btn'; 
+
+            tombolHapus.addEventListener('click', function() {
+                barisBaru.remove(); 
+            });
+
+            selAksi.appendChild(tombolHapus); 
+            barisBaru.appendChild(selAksi); 
+
+            isiTabel.appendChild(barisBaru);
+        }
+
+        formTugas.addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            const mapel = document.getElementById('input-mapel').value;
+            const detail = document.getElementById('input-detail').value;
+            const deadline = document.getElementById('input-deadline').value;
+            const status = document.getElementById('input-status').value;
+
+            tambahTugas(mapel, detail, deadline, status);
+
+            formTugas.reset();
+        });
+
+        document.querySelectorAll('.hapus-btn').forEach(function(tombol) {
+            tombol.addEventListener('click', function() {
+                this.closest('tr').remove();
+            });
+        });
+
+    </script>
+
+</body>
+</html>
