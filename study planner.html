@@ -1,131 +1,141 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="studyplanner.css">
-    <title>Study Planner</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Student Planner</title>
+<link rel="stylesheet" href="studyplanner.css">
 </head>
+
 <body>
-    <div class="wrapper">
-        <div class="header">
+
+<div class="wrapper">
+
+    <!-- HEADER -->
+    <div class="header">
         <h1>2025 Student Planner</h1>
         <p>The Future Depends on What You Do Today</p>
-        </div>
+    </div>
 
-        <div class="columns">
+    <!-- MAIN CONTENT: LEFT = STUDY PLAN, RIGHT = CLASS SCHEDULE + WIDGETS -->
+    <div class="main">
 
+        <!-- STUDY PLAN (LEFT) -->
         <div class="studyplanner">
-        <h3>Study Plan</h3>
-        <table>
-            <thead>
-                <tr>
-                    <th>Time</th>
-                    <th>Activity</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr><td>06:00 - 07:00</td><td>Morning Exercise</td></tr>
-                <tr><td>07:00 - 08:00</td><td>Breakfast & Prepare for School</td></tr>
-                <tr><td>08:00 - 12:00</td><td>School Classes</td></tr>
-                <tr><td>12:00 - 13:00</td><td>Lunch Break</td></tr>
-                <tr><td>13:00 - 15:00</td><td>Afternoon Study Session</td></tr>
-                <tr><td>15:00 - 16:00</td><td>Extracurricular Activities</td></tr>
-                <tr><td>16:00 - 17:00</td><td>Free Time / Relaxation</td></tr>
-                <tr><td>17:00 - 18:00</td><td>Dinner with Family</td></tr>
-                <tr><td>18:00 - 20:00</td><td>Evening Study / Homework</td></tr>
-                <tr><td>20:00 - 21:00</td><td>Prepare for Next Day & Leisure Time</td></tr>
-                <tr><td>21:00 - 22:00</td><td>Reading / Wind Down</td></tr>
-                <tr><td>22:00 - 06:00</td><td>Sleep</td></tr>
-            </tbody>
-        </table>
+            <h3>Study Plan</h3>
+            <table>
+                <thead>
+                    <tr><th>Time</th><th>Activity</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td>06:00 - 07:00</td><td>Morning Exercise</td></tr>
+                    <tr><td>07:00 - 08:00</td><td>Breakfast & Prepare for School</td></tr>
+                    <tr><td>08:00 - 12:00</td><td>School Classes</td></tr>
+                    <tr><td>12:00 - 13:00</td><td>Lunch Break</td></tr>
+                    <tr><td>13:00 - 15:00</td><td>Afternoon Study Session</td></tr>
+                    <tr><td>15:00 - 16:00</td><td>Extracurricular Activities</td></tr>
+                    <tr><td>16:00 - 17:00</td><td>Relaxation</td></tr>
+                    <tr><td>17:00 - 18:00</td><td>Dinner</td></tr>
+                    <tr><td>18:00 - 20:00</td><td>Homework</td></tr>
+                    <tr><td>20:00 - 21:00</td><td>Prep for Next Day</td></tr>
+                    <tr><td>21:00 - 22:00</td><td>Wind Down</td></tr>
+                    <tr><td>22:00 - 06:00</td><td>Sleep</td></tr>
+                </tbody>
+            </table>
         </div>
 
-        <div class="class-schedule">
-            <h3>Class Schedule</h3>
-            <form>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Time</th>
-                            <th>Monday</th>
-                            <th>Tuesday</th>
-                            <th>Wednesday</th>
-                            <th>Thursday</th>
-                            <th>Friday</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td><input type="text" placeholder="08:00 - 09:00"></td>
-                            <td><input type="text" placeholder="Subject"></td>
-                            <td><input type="text" placeholder="Subject"></td>
-                            <td><input type="text" placeholder="Subject"></td>
-                            <td><input type="text" placeholder="Subject"></td>
-                            <td><input type="text" placeholder="Subject"></td>
-                        </tr>
-                        <tr>
-                            <td><input type="text" placeholder="09:00 - 10:00"></td>
-                            <td><input type="text" placeholder="Subject"></td>
-                            <td><input type="text" placeholder="Subject"></td>
-                            <td><input type="text" placeholder="Subject"></td>
-                            <td><input type="text" placeholder="Subject"></td>
-                            <td><input type="text" placeholder="Subject"></td>
-                        </tr>
-                        <tr>
-                            <td><input type="text" placeholder="10:00 - 11:00"></td>
-                            <td><input type="text" placeholder="Subject"></td>
-                            <td><input type="text" placeholder="Subject"></td>
-                            <td><input type="text" placeholder="Subject"></td>
-                            <td><input type="text" placeholder="Subject"></td>
-                            <td><input type="text" placeholder="Subject"></td>
-                        </tr>
-                        <tr>
-                            <td><input type="text" placeholder="11:00 - 12:00"></td>
-                            <td><input type="text" placeholder="Subject"></td>
-                            <td><input type="text" placeholder="Subject"></td>
-                            <td><input type="text" placeholder="Subject"></td>
-                            <td><input type="text" placeholder="Subject"></td>
-                            <td><input type="text" placeholder="Subject"></td>
-                        </tr>
-                        <tr>
-                            <td><input type="text" placeholder="11:00 - 12:00"></td>
-                            <td><input type="text" placeholder="Subject"></td>
-                            <td><input type="text" placeholder="Subject"></td>
-                            <td><input type="text" placeholder="Subject"></td>
-                            <td><input type="text" placeholder="Subject"></td>
-                            <td><input type="text" placeholder="Subject"></td>
-                        </tr>
-                        <tr>
-                            <td><input type="text" placeholder="11:00 - 12:00"></td>
-                            <td><input type="text" placeholder="Subject"></td>
-                            <td><input type="text" placeholder="Subject"></td>
-                            <td><input type="text" placeholder="Subject"></td>
-                            <td><input type="text" placeholder="Subject"></td>
-                            <td><input type="text" placeholder="Subject"></td>
-                        </tr>
-                        <tr>
-                            <td><input type="text" placeholder="11:00 - 12:00"></td>
-                            <td><input type="text" placeholder="Subject"></td>
-                            <td><input type="text" placeholder="Subject"></td>
-                            <td><input type="text" placeholder="Subject"></td>
-                            <td><input type="text" placeholder="Subject"></td>
-                            <td><input type="text" placeholder="Subject"></td>
-                        </tr>
-                    </tbody>
-                </table>
-            </form>
-        </div>
+        <!-- RIGHT SIDE -->
+        <div class="right-column">
 
-        <div class="notification">
-            <h3>Notifications</h3>
-            <ul>
-                <li>Don't forget to review your notes daily!</li>
-                <li>Upcoming exam on Friday: Mathematics.</li>
-                <li>Group study session scheduled for Wednesday at 4 PM.</li>
-            </ul>
-        </div>
+            <!-- CLASS SCHEDULE -->
+            <div class="class-schedule">
+    <h3>Class Schedule</h3>
+    <table>
+        <thead>
+            <tr>
+                <th>Time</th>
+                <th>Monday</th>
+                <th>Tuesday</th>
+                <th>Wednesday</th>
+                <th>Thursday</th>
+                <th>Friday</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><input type="text" placeholder="08:00-09:00"></td>
+                <td><input type="text" placeholder="Subject"></td>
+                <td><input type="text" placeholder="Subject"></td>
+                <td><input type="text" placeholder="Subject"></td>
+                <td><input type="text" placeholder="Subject"></td>
+                <td><input type="text" placeholder="Subject"></td>
+            </tr>
+            <tr>
+                <td><input type="text" placeholder="08:00-09:00"></td>
+                <td><input type="text" placeholder="Subject"></td>
+                <td><input type="text" placeholder="Subject"></td>
+                <td><input type="text" placeholder="Subject"></td>
+                <td><input type="text" placeholder="Subject"></td>
+                <td><input type="text" placeholder="Subject"></td>
+            </tr>
+            <tr>
+                <td><input type="text" placeholder="08:00-09:00"></td>
+                <td><input type="text" placeholder="Subject"></td>
+                <td><input type="text" placeholder="Subject"></td>
+                <td><input type="text" placeholder="Subject"></td>
+                <td><input type="text" placeholder="Subject"></td>
+                <td><input type="text" placeholder="Subject"></td>
+            </tr>
+            <tr>
+                <td><input type="text" placeholder="08:00-09:00"></td>
+                <td><input type="text" placeholder="Subject"></td>
+                <td><input type="text" placeholder="Subject"></td>
+                <td><input type="text" placeholder="Subject"></td>
+                <td><input type="text" placeholder="Subject"></td>
+                <td><input type="text" placeholder="Subject"></td>
+            </tr>
+            <tr>
+                <td><input type="text" placeholder="08:00-09:00"></td>
+                <td><input type="text" placeholder="Subject"></td>
+                <td><input type="text" placeholder="Subject"></td>
+                <td><input type="text" placeholder="Subject"></td>
+                <td><input type="text" placeholder="Subject"></td>
+                <td><input type="text" placeholder="Subject"></td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+
+            <!-- NOTIFICATION + TODO LIST (SIDE-BY-SIDE) -->
+            <div class="bottom-widgets">
+
+                <div class="notification">
+                    <h3>Notifications</h3>
+                    <ul>
+                        <li>Don't forget to review your notes daily!</li>
+                        <li>Upcoming exam on Friday: Mathematics.</li>
+                        <li>Group study session on Wednesday at 4 PM.</li>
+                    </ul>
+                </div>
+
+                <div class="todo">
+                    <h3>To-Do List</h3>
+
+                    <ul>
+                        <li><input type="checkbox"> Finish homework</li>
+                        <li><input type="checkbox"> Review notes</li>
+                        <li><input type="checkbox"> Prepare tomorrow</li>
+                    </ul>
+
+                    <input class="todo-input" placeholder="New task...">
+                    <button class="todo-btn">Add</button>
+                </div>
+
+            </div>
         </div>
     </div>
+</div>
+
 </body>
 </html>
