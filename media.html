@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Media Page</title>
+
+    <style>
+      body {
+        font-family: "Arial", sans-serif;
+        background: #00ffff42;
+        margin: 0;
+        padding: 25px;
+      }
+
+      h1 {
+        font-size: 32px;
+        font-weight: 600;
+        margin-bottom: 5px;
+      }
+
+      .subtitle {
+        background: #fff3fc;
+        padding: 8px 15px;
+        display: inline-block;
+        border-radius: 20px;
+        font-size: 14px;
+        border: 1px solid #f6ff0062;
+      }
+
+      /* Main container */
+      .media-container {
+        margin-top: 25px;
+        background: #fff20036;
+        padding: 20px;
+        border-radius: 14px;
+        border: 1px solid #f1b7d8;
+        box-shadow: 0 0 10px rgba(255, 163, 204, 0.25);
+      }
+
+      /* Upload box */
+      .upload-box {
+        border: 2px dashed #ff8dbd;
+        padding: 30px;
+        text-align: center;
+        border-radius: 14px;
+        background: #ff006286;
+        cursor: pointer;
+        margin-bottom: 25px;
+        transition: 0.3s;
+      }
+
+      .upload-box:hover {
+        background: #fffb006c;
+        border-color: #ff74b0;
+      }
+
+      .upload-box input {
+        display: none;
+      }
+
+      /* Preview grid */
+      .preview-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+        gap: 15px;
+      }
+
+      .preview-item {
+        background: rgba(255, 255, 0, 0.486);
+        padding: 8px;
+        border-radius: 12px;
+        box-shadow: 0 0 6px rgba(0, 0, 0, 0.12);
+      }
+
+      .preview-item img {
+        width: 100%;
+        height: 140px;
+        object-fit: cover;
+        border-radius: 10px;
+      }
+    </style>
+  </head>
+
+  <body>
+    <h1>Media Upload 𓇼</h1>
+    <div class="subtitle">Add your files & images here</div>
+
+    <div class="media-container">
+      <!-- Upload Box -->
+      <label class="upload-box">
+        <p style="font-size: 16px; margin: 0">📁 Click here to upload images</p>
+        <input type="file" id="upload" accept="image/*" multiple />
+      </label>
+
+      <!-- Image Preview -->
+      <div class="preview-grid" id="preview"></div>
+    </div>
+
+    <script>
+      const upload = document.getElementById("upload");
+      const preview = document.getElementById("preview");
+
+      upload.addEventListener("change", function () {
+        preview.innerHTML = ""; // clear old preview
+
+        [...this.files].forEach((file) => {
+          const reader = new FileReader();
+          reader.onload = function (e) {
+            const item = document.createElement("div");
+            item.classList.add("preview-item");
+
+            item.innerHTML = `
+            <img src="${e.target.result}">
+          `;
+
+            preview.appendChild(item);
+          };
+          reader.readAsDataURL(file);
+        });
+      });
+    </script>
+    <br />
+    <img src="swipe-up-swipe-ezgif.com-gif-maker.gif" width="200" />
+  </body>
+</html>
