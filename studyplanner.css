@@ -1,0 +1,141 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+body {
+    background: #00bfff25;
+    padding: 20px;
+}
+
+.wrapper {
+    max-width: 1400px;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+/* === HEADER === */
+.header {
+    text-align: center;
+    padding: 15px 0;
+}
+
+.header h1 {
+    font-size: 36px;
+    font-weight: 700;
+    color: #2b1b24;
+}
+
+.header p {
+    font-size: 16px;
+    color: #4a555a;
+}
+
+/* === 3 COLUMN LAYOUT === */
+.columns {
+    display: grid;
+    grid-template-columns: 0.6fr 2.2fr 0.6fr;
+    gap: 25px;
+    align-items: start;
+}
+
+.studyplanner,
+.class-schedule,
+.notification {
+    background: white;
+    padding: 20px;
+    border-radius: 20px;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+    flex: 2.2;
+}
+
+/* === TITLES === */
+h3 {
+    margin-bottom: 12px;
+    color: #8b6201d4;
+    font-size: 20px;
+    font-weight: 600;
+}
+
+/* === TABLE STYLE === */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background: white;
+    overflow: hidden;
+    border-radius: 10px;
+}
+
+table thead th {
+    background: #e8d8bf;
+    padding: 10px;
+    text-align: left;
+    font-size: 14px;
+    color: #3b2b33;
+}
+
+td, th {
+    border: 1px solid #e5e2d2;
+    padding: 10px;
+    font-size: 14px;
+}
+
+/* === INPUTS === */
+input[type=text] {
+    width: 100%;
+    padding: 8px;
+    border-radius: 8px;
+    border: 1px solid #d9c6a8;
+    outline: none;
+}
+
+input[type=text]:focus {
+    border-color: #b4926a;
+    background: #faf4f7;
+}
+
+/* === NOTIFICATION === */
+.notification p {
+    font-size: 14px;
+    color: #5c3a47;
+    margin-bottom: 10px;
+}
+
+.notification ul {
+    list-style: square;
+    padding-left: 20px;
+    color: #8b6201d4;
+}
+
+.notification li {
+    margin: 10px 0;
+}
+
+/* === COMPACT STUDY PLAN === */
+.studyplanner {
+    padding: 15px;
+}
+
+.studyplanner h3 {
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+
+.studyplanner table thead th {
+    font-size: 13px;
+    padding: 8px;
+}
+
+.studyplanner table td {
+    font-size: 13px;
+    padding: 6px 8px; /* dari 10px -> lebih kecil */
+}
+
+.studyplanner table {
+    border-radius: 8px;
+}
+
