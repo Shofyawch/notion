@@ -22,7 +22,7 @@ body{
     backdrop-filter: blur(10px);
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
     color: #fff;
-    border-radius: 10px;
+    border-radius: 20px;
     padding: 30px 40px;
 }
 
@@ -45,7 +45,7 @@ body{
     border: none;
     outline: none;
     border: 2px solid rgba(255,255,255,0.2);
-    border-radius: 40px;
+    border-radius: 30px;
     font-size: 16px;
     color: #fff; 
     padding: 20px 45px 20px 20px;
@@ -93,7 +93,7 @@ body{
     color: #333;
     font-size: 16px;
     font-weight: 600;
-    border-radius: 40px;
+    border-radius: 30px;
     cursor: pointer;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
@@ -112,4 +112,100 @@ body{
 
 .register-link p a:hover{
     text-decoration: underline;
+}
+
+<!-- BUAT REGISTER -- >
+.input-group {
+    margin-bottom: 20px;
+}
+
+.input-group label {
+    display: block;
+    margin-bottom: 6px;
+    font-weight: bold;
+}
+
+.input-box input {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 20px;
+    outline: none;
+    font-size: 14px;
+    transition: 0.2s;
+}
+
+.input-box input:focus {
+    border-color: #e2a04a;
+}
+
+.remember-forgot {
+    margin: 10px 0;
+    font-size: 14px;
+}
+
+.btn {
+    width: 100%;
+    padding: 12px;
+    border: none;
+    background: #975d11;
+    color: #cb8c3a;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: 0.3s;
+    margin-top: 10px;
+}
+
+.btn:hover {
+    background: #e2a04a;
+}
+
+.register-link {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.register-link a {
+    color: #e2a04a;
+    text-decoration: none;
+}
+
+input[type="password"] {
+    padding-right: 50px; /* geser ikon mata ke kiri */
+    color: #fff;
+}
+
+
+/* Latar belakang gelap */
+.popup {
+    display: none; /* awalnya disembunyikan */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.4);
+    border-radius: 20px;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Kotak pop-up */
+.popup-content {
+    background: rgba(0, 0, 0, 0.1);
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(10px);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    padding: 20px;
+    width: 300px;
+    border-radius: 20px;
+    text-align: center;
+}
+
+.close {
+    float: right;
+    cursor: pointer;
+    font-size: 20px;
+    font-weight: bold;
 }

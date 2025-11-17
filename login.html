@@ -21,10 +21,23 @@
                 <i class='bx bxs-lock-alt'></i>
             </div>
 
+            <!-- Popup Reset Password -->
+            <div id="popup" class="popup">
+                <div class="popup-content">
+                    <span id="closePopup" class="close">&times;</span>
+                    <h3>Reset Password</h3>
+                    <p>Masukkan email Anda untuk menerima link reset password:</p>
+                    <br>
+                    <input type="email" id="emailInput" placeholder="Masukkan email">
+                    <button type="button" id="sendEmail" class="btn">Kirim</button>
+                    <p id="successMsg"></p>
+                </div>
+            </div>
+
             <div class="remember-forgot">
                 <label>
                     <input type="checkbox"> Remember me </label>
-                    <a href="#">Forgot Password?</a>
+                    <a href="#" id="forgotPassword">Forgot Password?</a>
                 </label>
             </div>
 
@@ -32,13 +45,64 @@
 
             <div class="register-link">
                 <p>Don't have an account? 
-                    <a href="#">Register</a>
+                    <a href="register.html">Register</a>
                 </p>
             </div>
         </form>
     </div>
 
-    
+    <script>
+        const forgotPassword = document.getElementById("forgotPassword");
+        const popup = document.getElementById("popup");
+        const closePopup = document.getElementById("closePopup");
 
+        // Ketika Forgot Password diklik → popup muncul
+        forgotPassword.onclick = function () {
+            
+            popup.style.display = "flex";
+        };
+
+        // Ketika X diklik → popup hilang
+        closePopup.onclick = function () {
+            popup.style.display = "none";
+        };
+
+        // Klik luar popup → tutup juga
+        window.onclick = function(event) {
+            if (event.target == popup) {
+                popup.style.display = "none";
+            }
+        };
+
+        document.getElementById("sendEmail").onclick = function() {
+    let email = document.getElementById("emailInput").value;
+
+    if (email.trim() === "") {
+        alert("Email tidak boleh kosong!");
+        return;
+    }
+
+    // Cek format email sederhana
+    if (!email.includes("@") || !email.includes(".")) {
+        alert("Format email tidak valid!");
+        return;
+    }
+
+    document.getElementById("successMsg").innerHTML =
+        "📩 Link reset password telah dikirim ke " + email;
+    };
+
+    document.getElementById("forgotPassword").onclick = function () {
+        document.getElementById("popup").style.display = "flex";
+        document.getElementById("successMsg").innerHTML = ""; // reset pesan
+    };
+
+    document.getElementById("closePopup").onclick = function () {
+        document.getElementById("popup").style.display = "none";
+        document.getElementById("successMsg").innerHTML = ""; // reset pesan
+        document.getElementById("emailInput").value = "";     // kosongkan input email juga
+    };
+
+    </script>
 </body>
 </html>
