@@ -145,6 +145,28 @@
             background-color: #3ec8ff;
             transform: scale(1.1); 
         }
+         #cassette-animation {
+       width: 100px; 
+          cursor: pointer;
+          
+          
+          position: fixed;   
+          bottom: 50px;      
+          right: 100px;       
+          z-index: 1000;     
+        }
+
+        
+        @keyframes spin {
+          from { transform: rotate(0deg); }
+          to { transform: rotate(360deg); }
+        }
+
+     
+        .spinning {
+          animation: spin 2s linear infinite;
+        }
+       
 
     </style>
 </head>
@@ -196,7 +218,19 @@
             </tr>
         </tbody>
     </table>
-
+ <footer>
+      <div id="player-container">
+        
+        <img id="cassette-animation" src="music.png" alt="Putar Musik">
+        
+        <audio id="audio-player" loop>
+          <source src="Dream lantern.mp3" type="audio/mpeg">
+          Browser kamu tidak mendukung audio.
+        </audio>
+      </div>
+      
+    
+    </footer>
     <script>
         const formTugas = document.getElementById('form-tugas');
         const isiTabel = document.getElementById('isi-tabel');
@@ -253,6 +287,35 @@
                 this.closest('tr').remove();
             });
         });
+
+        document.addEventListener("DOMContentLoaded", function() {
+        const audioPlayer = document.getElementById('audio-player');
+        const cassetteImg = document.getElementById('cassette-animation');
+        
+        
+        cassetteImg.addEventListener('click', () => {
+        
+          if (audioPlayer.paused) {
+            audioPlayer.play(); 
+          } else {
+            audioPlayer.pause(); 
+          }
+        });
+       
+        audioPlayer.addEventListener('play', () => {
+          cassetteImg.classList.add('spinning');
+        });
+
+       
+        audioPlayer.addEventListener('pause', () => {
+          cassetteImg.classList.remove('spinning');
+        });
+
+       
+        audioPlayer.addEventListener('ended', () => {
+          cassetteImg.classList.remove('spinning');
+        });
+      });
 
     </script>
 
