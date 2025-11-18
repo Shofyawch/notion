@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manajer Proyek Belajar</title>
+    
+    <style>
+
+        
+        body {
+            font-family: 'Fredoka', sans-serif;
+            background-image: url('bg3.gif');
+            background-size: cover;     
+            background-position: center;    
+            background-repeat: no-repeat; 
+            background-attachment: fixed; 
+        }
+
+      
+        header {
+            background-color: #0056b3; color: #ffffff; padding: 1.5rem; text-align: center;
+        }
+        header h1 { margin: 0; font-size: 2rem; }
+
+      
+        nav { background-color: #004085; padding: 0.5rem; }
+        nav ul { list-style: none; padding: 0; margin: 0; text-align: center; }
+        nav ul li { display: inline-block; margin: 0 15px; }
+        nav ul li a { color: #ffffff; text-decoration: none; font-weight: bold; padding: 0.5rem 1rem; border-radius: 5px; transition: background-color 0.3s; }
+        nav ul li a:hover { background-color: #007bff; }
+
+        
+        main { padding: 2rem; max-width: 1200px; margin: 0 auto; min-height: 60vh; }
+
+      
+        .card { background-color: #ffffff; border-radius: 8px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); margin-bottom: 2rem; padding: 1.5rem; }
+        .card h2 { color: #0056b3; border-bottom: 2px solid #e6f0ff; padding-bottom: 0.5rem; }
+        
+      
+        #proyek ul { list-style: none; padding: 0; }
+        #proyek li { background-color: #e6f0ff; padding: 0.75rem; margin-bottom: 0.5rem; border-radius: 4px; font-weight: bold; }
+
+     
+        footer { 
+            text-align: center; 
+            padding: 1.5rem; 
+            background-color: transparent; 
+            color: #000000;              
+            margin-top: 2rem; 
+        }
+       
+
+
+       
+        #cassette-animation {
+          width: 100px; 
+          cursor: pointer;
+          
+          
+          position: fixed;   
+          bottom: 50px;      
+          right: 100px;       
+          z-index: 1000;     
+        }
+
+     
+        @keyframes spin {
+          from { transform: rotate(0deg); }
+          to { transform: rotate(360deg); }
+        }
+
+      
+        .spinning {
+          animation: spin 2s linear infinite;
+        }
+      
+
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Manajer Proyek Belajar</h1>
+    </header>
+
+    <nav>
+        <ul>
+            <li><a href="#proyek">Proyek Saya</a></li>
+        </ul>
+    </nav>
+
+    <main>
+        <section id="proyek" class="card">
+            <h2>Proyek Saya</h2>
+            <ul>
+                <li>Skripsi: Bab 1 Pendahuluan</li>
+                <li>Ujian Tengah Semester: Kalkulus</li>
+                <li>Proyek Kelompok: Aplikasi Web</li>
+            </ul>
+        </section>
+    </main>
+
+    <footer>
+      <div id="player-container">
+        
+        <img id="cassette-animation" src="music.png" alt="Putar Musik">
+        
+        <audio id="audio-player" loop>
+          <source src="Nandemonaiya - movie ver..mp3" type="audio/mpeg">
+          Browser kamu tidak mendukung audio.
+        </audio>
+      </div>
+      
+    
+    </footer>
+    <script>
+      document.addEventListener("DOMContentLoaded", function() {
+        const audioPlayer = document.getElementById('audio-player');
+        const cassetteImg = document.getElementById('cassette-animation');
+        
+       
+        cassetteImg.addEventListener('click', () => {
+          
+          if (audioPlayer.paused) {
+            audioPlayer.play(); 
+          } else {
+            audioPlayer.pause(); 
+          }
+        });
+       
+
+        
+        
+        audioPlayer.addEventListener('play', () => {
+          cassetteImg.classList.add('spinning');
+        });
+
+        
+        audioPlayer.addEventListener('pause', () => {
+          cassetteImg.classList.remove('spinning');
+        });
+
+        
+        audioPlayer.addEventListener('ended', () => {
+          cassetteImg.classList.remove('spinning');
+        });
+      });
+    </script>
+    </body>
+</html>

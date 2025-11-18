@@ -11,9 +11,16 @@
 
     <style>
         
-        body {
+       body {
             font-family: 'Fredoka', sans-serif;
-            background-color: #FFF0F5; 
+            
+           
+            background-image: url('bg1.gif');
+            background-size: cover;     
+            background-position: center;  
+            background-repeat: no-repeat; 
+            background-attachment: fixed; 
+            
             display: flex;
             justify-content: center;
             align-items: center;
@@ -24,8 +31,8 @@
 
         
         h1 {
-            color: #FF69B4; 
-            text-shadow: 3px 3px 0px #FFC0CB; 
+            color: #61e1ce; 
+            text-shadow: 3px 3px 0px #acfad1; 
             font-size: 3rem;
             margin-bottom: 20px;
         }
@@ -52,7 +59,7 @@
             font-family: 'Fredoka', sans-serif;
             font-size: 1rem;
             padding: 12px;
-            border: 2px dashed #FFC0CB; 
+            border: 2px dashed #3ec8ff; 
             border-radius: 10px;
             flex-grow: 1; 
         }
@@ -61,15 +68,15 @@
         #form-tugas select:focus {
             outline: none;
             border-style: solid; 
-            border-color: #FF69B4; 
-            box-shadow: 0 0 5px #FFB6C1; 
+            border-color: #3ec8ff; 
+            box-shadow: 0 0 5px #b6efff; 
         }
 
         .tambah-btn {
             font-family: 'Fredoka', sans-serif;
             font-size: 1rem;
             font-weight: 700;
-            background-color: #FF69B4; 
+            background-color: #68c8ed; 
             color: white;
             padding: 14px 25px;
             border: none;
@@ -79,7 +86,7 @@
         }
         
         .tambah-btn:hover {
-            background-color: #F355A1; 
+            background-color: #55c0ea; 
             transform: scale(1.05); 
         }
 
@@ -95,7 +102,7 @@
         }
 
         th {
-            background-color: #FF69B4;
+            background-color: #61e1ce;
             color: white;
             padding: 20px;
             font-size: 1.2rem;
@@ -106,7 +113,7 @@
         td {
             padding: 18px 20px;
             color: #333;
-            border-bottom: 2px dashed #FFC0CB;
+            border-bottom: 2px dashed;
         }
 
         tbody tr:nth-child(even) {
@@ -125,7 +132,7 @@
         .hapus-btn {
             font-family: 'Fredoka', sans-serif;
             font-size: 0.9rem;
-            background-color: #FF7F7F; 
+            background-color: #3ec8ff; 
             color: white;
             border: none;
             padding: 8px 12px;
@@ -135,9 +142,31 @@
         }
 
         .hapus-btn:hover {
-            background-color: #E66A6A;
+            background-color: #3ec8ff;
             transform: scale(1.1); 
         }
+         #cassette-animation {
+       width: 100px; 
+          cursor: pointer;
+          
+          
+          position: fixed;   
+          bottom: 50px;      
+          right: 100px;       
+          z-index: 1000;     
+        }
+
+        
+        @keyframes spin {
+          from { transform: rotate(0deg); }
+          to { transform: rotate(360deg); }
+        }
+
+     
+        .spinning {
+          animation: spin 2s linear infinite;
+        }
+       
 
     </style>
 </head>
@@ -189,7 +218,19 @@
             </tr>
         </tbody>
     </table>
-
+ <footer>
+      <div id="player-container">
+        
+        <img id="cassette-animation" src="music.png" alt="Putar Musik">
+        
+        <audio id="audio-player" loop>
+          <source src="Dream lantern.mp3" type="audio/mpeg">
+          Browser kamu tidak mendukung audio.
+        </audio>
+      </div>
+      
+    
+    </footer>
     <script>
         const formTugas = document.getElementById('form-tugas');
         const isiTabel = document.getElementById('isi-tabel');
@@ -246,6 +287,35 @@
                 this.closest('tr').remove();
             });
         });
+
+        document.addEventListener("DOMContentLoaded", function() {
+        const audioPlayer = document.getElementById('audio-player');
+        const cassetteImg = document.getElementById('cassette-animation');
+        
+        
+        cassetteImg.addEventListener('click', () => {
+        
+          if (audioPlayer.paused) {
+            audioPlayer.play(); 
+          } else {
+            audioPlayer.pause(); 
+          }
+        });
+       
+        audioPlayer.addEventListener('play', () => {
+          cassetteImg.classList.add('spinning');
+        });
+
+       
+        audioPlayer.addEventListener('pause', () => {
+          cassetteImg.classList.remove('spinning');
+        });
+
+       
+        audioPlayer.addEventListener('ended', () => {
+          cassetteImg.classList.remove('spinning');
+        });
+      });
 
     </script>
 

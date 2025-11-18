@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Menu kalender</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Fredoka+One&family=M+PLUS+Rounded+1c:wght@700&display=swap');
+
+        body {
+            font-family: 'M PLUS Rounded 1c', sans-serif;
+            background-color: #e0f7ff; 
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            min-height: 100vh;
+            position: relative;
+            background-image: url('bg2.gif'); 
+            background-size: cover;
+            background-attachment: fixed;
+            background-position: center top;
+        }
+
+        .calendar-container {
+            width: 95%;
+            max-width: 700px;
+            background: #fff;
+            border: 4px solid #333; 
+            border-radius: 15px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+            overflow: hidden;
+            position: relative;
+        }
+
+        .calendar-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 30px;
+            background-color: #FFC0CB; 
+            position: relative;
+            z-index: 0;
+            overflow: hidden;
+            background-image: none; 
+            border-bottom: 4px solid #333; 
+        }
+
+        .calendar-header h2 {
+            font-family: 'Fredoka One', cursive;
+            font-size: 2.5em;
+            color: #FF69B4; 
+            margin: 0;
+            text-transform: uppercase;
+            position: relative;
+            z-index: 2;
+            text-shadow: none; 
+        }
+
+        .calendar-header button {
+            background: #fff;
+            border: 3px solid #FF69B4; 
+            color: #FF69B4; 
+            font-size: 2em;
+            font-weight: bold;
+            cursor: pointer;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            line-height: 45px;
+            transition: all 0.3s ease;
+            position: relative;
+            z-index: 2;
+        }
+
+        .calendar-header button:hover {
+            background: #FF69B4; 
+            color: #fff;
+        }
+
+        .calendar-grid {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .calendar-grid th,
+        .calendar-grid td {
+            border: 3px solid #333; 
+            text-align: left;
+            vertical-align: top;
+            height: 100px;
+            padding: 8px;
+            position: relative;
+        }
+
+        .calendar-grid th {
+            background: #f0f0f0; 
+            font-size: 0.9em;
+            padding: 15px 8px;
+            text-align: center;
+            color: #555; 
+        }
+
+        .calendar-grid td.empty {
+            background-color: #f9f9f9; 
+        }
+        
+        .date-number {
+            font-size: 1.6em;
+            font-weight: 700;
+            color: #333; 
+        }
+        
+        .note {
+            font-size: 0.8em;
+            color: #d946ef; 
+            margin-top: 5px;
+            word-wrap: break-word;
+            line-height: 1.3;
+        }
+
+        .calendar-grid td:not(.empty) {
+            cursor: pointer;
+        }
+        
+        .calendar-grid td:not(.empty):hover {
+            background-color: #fffde7; 
+        }
+        
+        .calendar-grid td[data-special="event-blue"] {
+            background-color: #e6e6fa; 
+        }
+
+        .calendar-grid td[data-special="event-truck"] .note::after {
+            content: " 🚚";
+        }
+         #cassette-animation {
+          width: 100px; 
+          cursor: pointer;
+          
+          
+          position: fixed;   
+          bottom: 50px;      
+          right: 100px;       
+          z-index: 1000;     
+        }
+
+     
+        @keyframes spin {
+          from { transform: rotate(0deg); }
+          to { transform: rotate(360deg); }
+        }
+
+      
+        .spinning {
+          animation: spin 2s linear infinite;
+        }
+      
+
+    </style>
+</head>
+<body>
+
+    <div class="calendar-container">
+        <div class="calendar-header">
+            <button id="prevMonth">&lt;</button>
+            <h2 id="monthYear"></h2>
+            <button id="nextMonth">&gt;</button>
+        </div>
+        <table class="calendar-grid">
+            <thead>
+                <tr>
+                    <th>SUN</th>
+                    <th>MON</th>
+                    <th>TUES</th>
+                    <th>WED</th>
+                    <th>THURS</th>
+                    <th>FRI</th>
+                    <th>SAT</th>
+                </tr>
+            </thead>
+            <tbody id="calendarBody">
+                </tbody>
+        </table>
+    </div>
+    <footer>
+      <div id="player-container">
+        
+        <img id="cassette-animation" src="music.png" alt="Putar Musik">
+        
+        <audio id="audio-player" loop>
+          <source src="Nandemonaiya - movie ver..mp3" type="audio/mpeg">
+          Browser kamu tidak mendukung audio.
+        </audio>
+      </div>
+      
+    
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const monthYearEl = document.getElementById('monthYear');
+            const calendarBody = document.getElementById('calendarBody');
+            const prevBtn = document.getElementById('prevMonth');
+            const nextBtn = document.getElementById('nextMonth');
+
+            let currentDate = new Date(2024, 9, 1);
+
+            function renderCalendar() {
+                calendarBody.innerHTML = '';
+                
+                const year = currentDate.getFullYear();
+                const month = currentDate.getMonth();
+
+                monthYearEl.textContent = `${currentDate.toLocaleString('en-US', { month: 'long' })} ${year}`;
+
+                const firstDay = new Date(year, month, 1).getDay();
+                const daysInMonth = new Date(year, month + 1, 0).getDate();
+
+                let date = 1;
+                for (let i = 0; i < 6; i++) {
+                    let row = document.createElement('tr');
+
+                    for (let j = 0; j < 7; j++) {
+                        let cell = document.createElement('td');
+
+                        if (i === 0 && j < firstDay) {
+                            cell.classList.add('empty');
+                        } else if (date > daysInMonth) {
+                            cell.classList.add('empty');
+                        } else {
+                            let dateNum = document.createElement('div');
+                            dateNum.classList.add('date-number');
+                            dateNum.textContent = date;
+                            cell.appendChild(dateNum);
+
+                            let note = document.createElement('div');
+                            note.classList.add('note');
+                            cell.appendChild(note);
+
+                            if (year === 2024 && month === 9) {
+                                if ([13, 14, 15].includes(date)) {
+                                    cell.dataset.special = "event-blue";
+                                }
+                                if (date === 12) note.textContent = "아방 굿즈";
+                                if (date === 25) {
+                                    note.textContent = "발송";
+                                    cell.dataset.special = "event-truck";
+                                }
+                            }
+                            
+                            cell.addEventListener('click', () => {
+                                const existingNote = note.textContent;
+                                const newNote = prompt(`Tambah/Edit catatan untuk tanggal ${date}:`, existingNote);
+                                
+                                if (newNote !== null) {
+                                    note.textContent = newNote;
+                                }
+                            });
+                            
+                            date++;
+                        }
+                        row.appendChild(cell);
+                    }
+                    calendarBody.appendChild(row);
+
+                    if (date > daysInMonth) break;
+                }
+            }
+
+            prevBtn.addEventListener('click', () => {
+                currentDate.setMonth(currentDate.getMonth() - 1);
+                renderCalendar();
+            });
+
+            nextBtn.addEventListener('click', () => {
+                currentDate.setMonth(currentDate.getMonth() + 1);
+                renderCalendar();
+            });
+
+            renderCalendar();
+        });
+          document.addEventListener("DOMContentLoaded", function() {
+        const audioPlayer = document.getElementById('audio-player');
+        const cassetteImg = document.getElementById('cassette-animation');
+        
+       
+        cassetteImg.addEventListener('click', () => {
+          
+          if (audioPlayer.paused) {
+            audioPlayer.play(); 
+          } else {
+            audioPlayer.pause(); 
+          }
+        });
+       
+
+        
+        
+        audioPlayer.addEventListener('play', () => {
+          cassetteImg.classList.add('spinning');
+        });
+
+        
+        audioPlayer.addEventListener('pause', () => {
+          cassetteImg.classList.remove('spinning');
+        });
+
+        
+        audioPlayer.addEventListener('ended', () => {
+          cassetteImg.classList.remove('spinning');
+        });
+      });
+    </script>
+
+</body>
+</html>
