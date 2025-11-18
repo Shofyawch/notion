@@ -11,15 +11,12 @@
     #cassette-animation {
       width: 100px; 
           cursor: pointer;
-          
-          
           position: fixed;   
           bottom: 50px;      
           right: 100px;       
           z-index: 1000;     
         }
 
-        
         @keyframes spin {
           from { transform: rotate(0deg); }
           to { transform: rotate(360deg); }
@@ -127,16 +124,19 @@
         "📩 Link reset password telah dikirim ke " + email;
     };
 
+    // Reset popup saat dibuka dan ditutup
     document.getElementById("forgotPassword").onclick = function () {
         document.getElementById("popup").style.display = "flex";
-        document.getElementById("successMsg").innerHTML = ""; // reset pesan
+        document.getElementById("successMsg").innerHTML = ""; 
     };
 
     document.getElementById("closePopup").onclick = function () {
         document.getElementById("popup").style.display = "none";
-        document.getElementById("successMsg").innerHTML = ""; // reset pesan
-        document.getElementById("emailInput").value = "";     // kosongkan input email juga
+        document.getElementById("successMsg").innerHTML = ""; 
+        document.getElementById("emailInput").value = "";     
     };
+
+    //buat audio musik
     document.addEventListener("DOMContentLoaded", function() {
         const audioPlayer = document.getElementById('audio-player');
         const cassetteImg = document.getElementById('cassette-animation');
