@@ -59,11 +59,11 @@
             <div class="remember-forgot">
                 <label>
                     <input type="checkbox"> Remember me </label>
-                    <a href="#" id="forgotPassword">Forgot Password?</a>
+                    <span id="forgotPassword">Forgot Password?</span>
                 </label>
             </div>
 
-            <button type="submit" class="btn">Login</button>
+              <button type="button" class="btn" onclick="window.location.href='dahsboard.html'">Login</button>
 
             <div class="register-link">
                 <p>Don't have an account? 
@@ -72,7 +72,7 @@
             </div>
         </form>
     </div>
-     <footer>
+    <footer>
       <div id="player-container">
         
         <img id="cassette-animation" src="music.png" alt="Putar Musik">
@@ -141,7 +141,6 @@
         const audioPlayer = document.getElementById('audio-player');
         const cassetteImg = document.getElementById('cassette-animation');
         
-       
         cassetteImg.addEventListener('click', () => {
           
           if (audioPlayer.paused) {
@@ -150,10 +149,7 @@
             audioPlayer.pause(); 
           }
         });
-       
-
-        
-        
+      
         audioPlayer.addEventListener('play', () => {
           cassetteImg.classList.add('spinning');
         });
