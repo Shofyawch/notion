@@ -209,3 +209,21 @@ input[type="password"] {
     font-size: 20px;
     font-weight: bold;
 }
+
+#cassette-animation {
+    width: 100px; 
+            cursor: pointer;
+            position: fixed;   
+            bottom: 50px;      
+            right: 100px;       
+            z-index: 1000;     
+        }
+
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .spinning {
+            animation: spin 2s linear infinite;
+        }
