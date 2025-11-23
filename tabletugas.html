@@ -11,8 +11,10 @@
 
     <style>
         
-    body {
+       body {
             font-family: 'Fredoka', sans-serif;
+            
+           /* Pastikan file bg1.gif ada di folder yang sama */
             background-image: url('bg1.gif');
             background-size: cover;     
             background-position: center;  
@@ -34,6 +36,115 @@
             font-size: 3rem;
             margin-bottom: 20px;
         }
+
+        /* --- STYLE BARU UNTUK SIDEBAR TRANSPARAN --- */
+        
+        /* Tombol Buka Sidebar */
+        .menu-btn {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            /* Membuat tombol menu juga sedikit transparan */
+            background-color: rgba(255, 255, 255, 0.8);
+            color: #61e1ce;
+            border: 2px dashed #61e1ce;
+            padding: 10px 15px;
+            font-size: 1.5rem;
+            border-radius: 10px;
+            cursor: pointer;
+            z-index: 2000;
+            transition: 0.3s;
+            box-shadow: 0px 5px 10px rgba(0,0,0,0.1);
+        }
+
+        .menu-btn:hover {
+            background-color: #61e1ce;
+            color: white;
+            border-style: solid;
+        }
+
+        /* Container Sidebar */
+        .sidebar {
+            height: 100%;
+            width: 0; /* Awalnya tertutup */
+            position: fixed;
+            z-index: 2001;
+            top: 0;
+            left: 0;
+            
+            /* --- BAGIAN INI YANG DIUBAH MENJADI TRANSPARAN --- */
+            background-color: rgba(255, 255, 255, 0.25); /* Putih dengan transparansi 25% */
+            backdrop-filter: blur(10px); /* Efek kaca buram (Glassmorphism) */
+            -webkit-backdrop-filter: blur(10px); /* Support untuk Safari */
+            border-right: 1px solid rgba(255, 255, 255, 0.5); /* Garis batas tipis */
+            /* ----------------------------------------------- */
+
+            overflow-x: hidden;
+            transition: 0.4s;
+            box-shadow: 5px 0 15px rgba(0, 0, 0, 0.1);
+            padding-top: 60px;
+            white-space: nowrap;
+        }
+
+        /* Link di dalam Sidebar */
+        .sidebar a {
+            padding: 15px 25px;
+            text-decoration: none;
+            font-size: 1.2rem;
+            color: #333; /* Warna teks lebih gelap agar terbaca di background transparan */
+            font-weight: 700;
+            display: block;
+            transition: 0.3s;
+            border-bottom: 1px dashed rgba(255, 255, 255, 0.5);
+            text-shadow: 0px 0px 2px rgba(255,255,255,0.8); /* Shadow putih agar teks jelas */
+        }
+
+        .sidebar a:hover {
+            background-color: rgba(255, 255, 255, 0.4); /* Highlight saat hover juga transparan */
+            color: #3ec8ff;
+            padding-left: 35px;
+        }
+
+        /* Tombol Tutup (X) */
+        .sidebar .close-btn {
+            position: absolute;
+            top: 10px;
+            right: 20px;
+            font-size: 2rem;
+            color: #ff6b6b;
+            background: none;
+            border: none;
+            cursor: pointer;
+            text-shadow: 2px 2px 5px rgba(255,255,255,1);
+        }
+
+        /* Judul Menu */
+        .sidebar-title {
+            padding: 0 25px 20px;
+            font-size: 1.5rem;
+            color: #3ec8ff;
+            font-weight: bold;
+            text-align: center;
+            text-shadow: 2px 2px 0px #fff;
+        }
+
+        /* Overlay Hitam Transparan saat menu buka */
+        #overlay {
+            position: fixed;
+            display: none;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0,0,0,0.2); /* Dibuat lebih tipis gelapnya */
+            z-index: 1999;
+            cursor: pointer;
+            backdrop-filter: blur(2px); /* Background belakang ikut sedikit blur */
+        }
+
+        /* --- AKHIR STYLE SIDEBAR --- */
 
         .form-container {
             background-color: #ffffff;
@@ -143,28 +254,49 @@
             background-color: #3ec8ff;
             transform: scale(1.1); 
         }
-
-        #cassette-animation {
-            width: 100px; 
-            cursor: pointer;
-            position: fixed;   
-            bottom: 50px;      
-            right: 100px;       
-            z-index: 1000;     
+         #cassette-animation {
+       width: 100px; 
+          cursor: pointer;
+          
+          
+          position: fixed;   
+          bottom: 50px;      
+          right: 100px;       
+          z-index: 1000;     
         }
 
+        
         @keyframes spin {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
+          from { transform: rotate(0deg); }
+          to { transform: rotate(360deg); }
         }
 
+     
         .spinning {
-            animation: spin 2s linear infinite;
+          animation: spin 2s linear infinite;
         }
+       
 
     </style>
 </head>
 <body>
+
+    <button class="menu-btn" onclick="openNav()">☰ Menu</button>
+
+    <div id="overlay" onclick="closeNav()"></div>
+
+    <div id="mySidebar" class="sidebar">
+        <button class="close-btn" onclick="closeNav()">&times;</button>
+        <div class="sidebar-title">Navigasi</div>
+        
+        <a href="dahsboard.html">Dashboard</a>
+        <a href="study planner.html">Study Planner</a>
+        <a href="calender.html">Kalender</a>
+        <a href="projectmanager.html">Project Manager</a>
+        <a href="media.html">Media</a>
+        <a href="login.html">Logout</a>
+    </div>
+
     <h1> Table Tugas </h1>
 
     <div class="form-container">
@@ -225,6 +357,18 @@
     
     </footer>
     <script>
+        // --- LOGIKA SIDEBAR ---
+        function openNav() {
+            document.getElementById("mySidebar").style.width = "250px";
+            document.getElementById("overlay").style.display = "block";
+        }
+
+        function closeNav() {
+            document.getElementById("mySidebar").style.width = "0";
+            document.getElementById("overlay").style.display = "none";
+        }
+        // --- AKHIR LOGIKA SIDEBAR ---
+
         const formTugas = document.getElementById('form-tugas');
         const isiTabel = document.getElementById('isi-tabel');
 
