@@ -32,7 +32,7 @@ $query = mysqli_query($koneksi, "SELECT * FROM project_manager ORDER BY id_proje
             width: 25vw;
             min-width: 260px;
             height: 100vh;
-            background-color: #1f3c88;
+            background-color: rgba(188, 228, 255, 0.7);
             color: white;
             position: fixed;
             left: 0;
@@ -41,7 +41,8 @@ $query = mysqli_query($koneksi, "SELECT * FROM project_manager ORDER BY id_proje
             box-sizing: border-box;
         }
 
-        .sidebar h2 { margin-bottom: 25px; }
+        .sidebar h2 { 
+            margin-bottom: 25px; }
 
         .sidebar a {
             display: block;
@@ -56,6 +57,12 @@ $query = mysqli_query($koneksi, "SELECT * FROM project_manager ORDER BY id_proje
         .main-content {
             margin-left: 25vw;
             padding: 25px;
+        }
+
+        .main-content h1 {
+            color: #333;
+            margin-bottom: 20px;
+
         }
 
         .cards {
