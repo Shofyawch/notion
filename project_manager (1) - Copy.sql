@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 24, 2025 at 07:50 AM
+-- Generation Time: Nov 24, 2025 at 07:28 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -28,6 +28,7 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `project_manager` (
+  `id` int(255) DEFAULT NULL,
   `id_project` int(255) NOT NULL,
   `name` int(255) DEFAULT NULL,
   `status` enum('In Progress','Completed') DEFAULT NULL,
@@ -42,7 +43,8 @@ CREATE TABLE `project_manager` (
 -- Indexes for table `project_manager`
 --
 ALTER TABLE `project_manager`
-  ADD PRIMARY KEY (`id_project`);
+  ADD PRIMARY KEY (`id_project`),
+  ADD KEY `id` (`id`);
 
 --
 -- AUTO_INCREMENT for dumped tables
@@ -53,6 +55,16 @@ ALTER TABLE `project_manager`
 --
 ALTER TABLE `project_manager`
   MODIFY `id_project` int(255) NOT NULL AUTO_INCREMENT;
+
+--
+-- Constraints for dumped tables
+--
+
+--
+-- Constraints for table `project_manager`
+--
+ALTER TABLE `project_manager`
+  ADD CONSTRAINT `fk_projectmanager_user` FOREIGN KEY (`id`) REFERENCES `project_manager` (`id_project`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
