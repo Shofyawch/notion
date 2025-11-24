@@ -32,7 +32,7 @@ CREATE TABLE `notes` (
   `id` int(11) DEFAULT NULL,
   `note` text NOT NULL,
   `created_at` date NOT NULL DEFAULT current_timestamp(),
-  `updated at` datetime NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+  `updated at` datetime NOT NULL DEFAULT cu rrent_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
