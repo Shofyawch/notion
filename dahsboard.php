@@ -1,3 +1,13 @@
+<?php
+session_start();
+include "koneksi.php";
+
+$user_id = $_SESSION['id'];
+
+// Ambil notes dari database
+$notes = mysqli_query($koneksi, "SELECT * FROM notes WHERE id='$user_id' ORDER BY created_at DESC");
+?>
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -80,15 +90,6 @@
         transform: scale(1.02);
       }
 
-      /* Notes Section */
-      .notes {
-        margin-top: 25px;
-        background: #eeff0054;
-        padding: 15px;
-        border-radius: 10px;
-        border: 1px solid #eee;
-      }
-
       /* Calendar */
       .calendar {
         margin-top: 25px;
@@ -149,23 +150,65 @@
           </div>
         </div>
 
-        <!-- Notes -->
         <div class="notes">
-          <h2>notes 🗒️</h2>
-          <textarea
-            style="
-              width: 100%;
-              height: 120px;
-              border-radius: 10px;
-              border: 1px solid #ddd;
-              padding: 10px;
-              font-size: 15px;
-            "
-          >
-Write your notes here...
-            </textarea
-          >
-        </div>
+  <h2>notes 🗒️</h2>
+
+  <!-- Form Tambah Note -->
+  <form action="note_add.php" method="POST">
+    <textarea
+      name="note"
+      style="
+        width: 100%;
+        height: 120px;
+        border-radius: 10px;
+        border: 1px solid #ddd;
+        padding: 10px;
+        font-size: 15px;
+      "
+      placeholder="Write your notes here..."
+      required
+    ></textarea>
+    <button
+      type="submit"
+      style="
+        margin-top: 10px;
+        padding: 8px 15px;
+        border-radius: 8px;
+        background: #ffd447;
+        border: none;
+        cursor: pointer;
+        font-weight: bold;
+      "
+    >
+      Save note
+    </button>
+  </form>
+
+  <hr style="margin: 15px 0;" />
+
+  <!-- List Notes -->
+  <?php while($n = mysqli_fetch_assoc($notes)) { ?>
+    <div
+      style="
+        background: #fff9b8;
+        padding: 10px;
+        border-radius: 8px;
+        margin-bottom: 10px;
+        border: 1px solid #eee;
+      "
+    >
+      <p style="margin: 0;"><?= $n['note'] ?></p>
+      <small style="color: gray;">
+        <?= $n['created_at'] ?>
+      </small>
+      <br />
+      <a href="note_delete.php?id=<?= $n['id'] ?>" style="color:red; font-size:13px;">
+        delete
+      </a>
+    </div>
+  <?php } ?>
+</div>
+
 
         <!-- Calendar -->
         <div class="calendar">
