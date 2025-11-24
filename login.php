@@ -2,30 +2,27 @@
 session_start();
 include "koneksi.php";
 
-if(isset($_POST['login'])){
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     $username = $_POST['username'];
     $password = $_POST['password'];
 
-    $query = "SELECT * FROM user WHERE username='$username'";
+    $query = "SELECT * FROM user WHERE nama='$username'";
     $result = mysqli_query($koneksi, $query);
     $row = mysqli_fetch_assoc($result);
 
-    if($row){
-        if(password_verify($password, $row['password'])){
-            
-            $_SESSION['id'] = $row['id'];
+    if ($row && password_verify($password, $row['password'])) {
 
-            header("Location: dashboard.php");
-            exit;
-        } else {
-            echo "Password salah!";
-        }
+        $_SESSION['id'] = $row['id'];
+        header("Location: dahsboard.php");
+        exit;
+
     } else {
-        echo "Username tidak ditemukan!";
+        echo "<script>alert('Username atau password salah!');</script>";
     }
 }
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">
