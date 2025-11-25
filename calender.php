@@ -57,7 +57,7 @@
 
     <div id="mySidebar" class="sidebar">
         <button class="close-btn" onclick="closeNav()">&times;</button>
-        <a href="dashboard.php">Dashboard</a>
+        <a href="dahsboard.php">Dashboard</a>
         <a href="tabletugas.php">Table Tugas</a>
         <a href="studyplanner.html">Study Planner</a>
         <a href="projectmanager.php">Project Manager</a>
