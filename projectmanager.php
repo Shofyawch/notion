@@ -130,6 +130,7 @@ $query = mysqli_query($koneksi, "SELECT * FROM project_manager ORDER BY id_proje
     <a href="tabletugas.php">Tabel tugas</a>
     <a href="calender.php">Calender</a>
     <a href="study planner.html">Study planner</a>
+    <a href="todo.html">To Do List</a>
     <a href="media.html">Media</a>
 </div>
 

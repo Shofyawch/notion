@@ -154,6 +154,7 @@
         <a href="calender.php">Kalender</a>
         <a href="projectmanager.php">Project Manager</a>
         <a href="media.html">Media</a>
+        <a href="todo.html">To Do List</a>
         <a href="login.php">Logout</a>
     </div>
 
