@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 24, 2025 at 07:50 AM
+-- Generation Time: Nov 24, 2025 at 08:46 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -24,35 +24,43 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Table structure for table `project_manager`
+-- Table structure for table `tugas`
 --
 
-CREATE TABLE `project_manager` (
-  `id_project` int(255) NOT NULL,
-  `name` int(255) DEFAULT NULL,
-  `status` enum('In Progress','Completed') DEFAULT NULL,
-  `deadline` timestamp NOT NULL DEFAULT current_timestamp()
+CREATE TABLE `tugas` (
+  `id` int(11) NOT NULL,
+  `mapel` varchar(100) NOT NULL,
+  `detail` text NOT NULL,
+  `deadline` varchar(50) NOT NULL,
+  `status` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `tugas`
+--
+
+INSERT INTO `tugas` (`id`, `mapel`, `detail`, `deadline`, `status`) VALUES
+(1, 'b inggris', 'menghafal kalkulus', 'jumat 22 nov', 'Belum ❌');
 
 --
 -- Indexes for dumped tables
 --
 
 --
--- Indexes for table `project_manager`
+-- Indexes for table `tugas`
 --
-ALTER TABLE `project_manager`
-  ADD PRIMARY KEY (`id_project`);
+ALTER TABLE `tugas`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- AUTO_INCREMENT for dumped tables
 --
 
 --
--- AUTO_INCREMENT for table `project_manager`
+-- AUTO_INCREMENT for table `tugas`
 --
-ALTER TABLE `project_manager`
-  MODIFY `id_project` int(255) NOT NULL AUTO_INCREMENT;
+ALTER TABLE `tugas`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
