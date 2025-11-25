@@ -149,12 +149,12 @@
     <div id="mySidebar" class="sidebar">
         <button class="close-btn" onclick="closeNav()">&times;</button>
         <div class="sidebar-title">Navigasi</div>
-        <a href="dahsboard.html">Dashboard</a>
-        <a href="study planner.html">Study Planner</a>
+        <a href="dahsboard.php">Dashboard</a>
+        <a href="studyplanner.html">Study Planner</a>
         <a href="calender.php">Kalender</a>
-        <a href="#">Project Manager</a>
+        <a href="projectmanager.php">Project Manager</a>
         <a href="media.html">Media</a>
-        <a href="login.html">Logout</a>
+        <a href="login.php">Logout</a>
     </div>
 
     <h1> Table Tugas </h1>

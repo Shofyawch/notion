@@ -161,6 +161,7 @@ $tasks = mysqli_query($koneksi,
 
         <div class="grid">
             <div class="card">
+                <a href="todo.html">
                 <img src="107958.gif">
                 <div>📝 to do list ,!</div>
             </div>
@@ -207,7 +208,7 @@ $tasks = mysqli_query($koneksi,
 
         <!-- Calendar -->
         <div class="calendar">
-            <a href="calender.html"><h2>calendar 📅</h2></a>
+            <a href="http://localhost/notion%20github/notion/calender.php"><h2>calendar 📅</h2></a>
             <input type="date"
                 style="padding: 8px; font-size: 16px; border-radius: 6px; border: 1px solid #ddd;">
         </div>

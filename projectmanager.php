@@ -125,10 +125,12 @@ $query = mysqli_query($koneksi, "SELECT * FROM project_manager ORDER BY id_proje
 
 <div class="sidebar">
     <h2>Menu</h2>
-    <a href="projectmanager.php">📋 Project Manager</a>
-    <a href="#">👥 Users</a>
-    <a href="#">⚙️ Settings</a>
-    <a href="#">🚪 Logout</a>
+    <a href="dahsboard.php">Dashboard</a>
+    <a href="projectmanager.php">Project Manager</a>
+    <a href="tabletugas.php">Tabel tugas</a>
+    <a href="calender.php">Calender</a>
+    <a href="study planner.html">Study planner</a>
+    <a href="media.html">Media</a>
 </div>
 
 <div class="main-content">
