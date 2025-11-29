@@ -161,7 +161,7 @@ $tasks = mysqli_query($koneksi,
 
         <div class="grid">
             <div class="card">
-                <a href="todo.html">
+                <a href="todo.php">
                 <img src="107958.gif">
                 <div>📝 to do list ,!</div>
             </div>
