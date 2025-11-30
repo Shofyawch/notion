@@ -1,3 +1,22 @@
+<?php
+include 'koneksi.php';
+
+if (isset($_POST['add'])) {
+    $time_range = $_POST['time_range'];
+    $activity = $_POST['activity'];
+
+    mysqli_query($koneksi, "INSERT INTO studyplanner (time_range, activity)
+                        VALUES ('$time_range', '$activity')");
+}
+
+if (isset($_GET['delete'])) {
+    $id = $_GET['delete'];
+    mysqli_query($koneksi, "DELETE FROM studyplanner WHERE id='$id'");
+}
+
+$data = mysqli_query($koneksi, "SELECT * FROM studyplanner ORDER BY id DESC");
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -322,27 +341,58 @@
         <div class="main">
 
             <div class="studyplanner">
-                <h3>Study Plan</h3>
-                <table>
-                    <thead>
-                        <tr><th>Time</th><th>Activity</th></tr>
-                    </thead>
-                    <tbody>
-                        <tr><td>06:00 - 07:00</td><td>Morning Exercise</td></tr>
-                        <tr><td>07:00 - 08:00</td><td>Breakfast & Prep</td></tr>
-                        <tr><td>08:00 - 12:00</td><td>School Classes</td></tr>
-                        <tr><td>12:00 - 13:00</td><td>Lunch Break</td></tr>
-                        <tr><td>13:00 - 15:00</td><td>Afternoon Study</td></tr>
-                        <tr><td>15:00 - 16:00</td><td>Extracurricular</td></tr>
-                        <tr><td>16:00 - 17:00</td><td>Relaxation</td></tr>
-                        <tr><td>17:00 - 18:00</td><td>Dinner</td></tr>
-                        <tr><td>18:00 - 20:00</td><td>Homework</td></tr>
-                        <tr><td>20:00 - 21:00</td><td>Prep for Next Day</td></tr>
-                        <tr><td>21:00 - 22:00</td><td>Wind Down</td></tr>
-                        <tr><td>22:00 - 06:00</td><td>Sleep</td></tr>
-                    </tbody>
-                </table>
-            </div>
+    <h3>Study Plan</h3>
+
+    <!-- FORM TAMBAH -->
+    <form method="POST" style="margin-bottom:15px;">
+        <input type="text" name="time_range" placeholder="06:00 - 07:00" required>
+        <input type="text" name="activity" placeholder="Activity..." required>
+        <button name="add" class="todo-btn">Add</button>
+    </form>
+
+    <!-- TABEL DATA -->
+    <table>
+        <thead>
+            <tr>
+                <th>Time</th>
+                <th>Activity</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            <?php while ($row = mysqli_fetch_assoc($data)) { ?>
+                <tr>
+                    <td><?= $row['time_range'] ?></td>
+                    <td><?= $row['activity'] ?></td>
+                    <td>
+
+                        <!-- Tombol Edit -->
+                        <button onclick="openEdit(
+                            '<?= $row['id'] ?>',
+                            '<?= $row['time_range'] ?>',
+                            '<?= $row['activity'] ?>'
+                        )"
+                        class="todo-btn"
+                        style="background:#3ec8ff; padding:5px 10px;">
+                            Edit
+                        </button>
+
+                        <!-- Tombol Delete -->
+                        <a href="studyplan.php?delete=<?= $row['id'] ?>" 
+                           onclick="return confirm('Delete?')"
+                           class="todo-btn"
+                           style="background:#ff6b6b; padding:5px 10px; text-decoration:none;">
+                            Delete
+                        </a>
+
+                    </td>
+                </tr>
+            <?php } ?>
+        </tbody>
+    </table>
+</div>
+
 
             <div class="right-column">
                 <div class="class-schedule" style="background: white; padding: 20px; border-radius: 20px; box-shadow: 0 10px 20px rgba(0,0,0,0.1); overflow-x: auto;">
