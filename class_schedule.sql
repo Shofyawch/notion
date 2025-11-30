@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 24, 2025 at 07:28 PM
+-- Generation Time: Nov 30, 2025 at 04:47 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -24,15 +24,18 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Table structure for table `project_manager`
+-- Table structure for table `class_schedule`
 --
 
-CREATE TABLE `project_manager` (
-  `id` int(255) DEFAULT NULL,
-  `id_project` int(255) NOT NULL,
-  `name` int(255) DEFAULT NULL,
-  `status` enum('In Progress','Completed') DEFAULT NULL,
-  `deadline` timestamp NOT NULL DEFAULT current_timestamp()
+CREATE TABLE `class_schedule` (
+  `id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `time_slot` varchar(20) NOT NULL,
+  `monday` varchar(50) DEFAULT NULL,
+  `tuesday` varchar(50) DEFAULT NULL,
+  `wednesday` varchar(50) DEFAULT NULL,
+  `thursday` varchar(50) DEFAULT NULL,
+  `friday` varchar(50) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -40,31 +43,31 @@ CREATE TABLE `project_manager` (
 --
 
 --
--- Indexes for table `project_manager`
+-- Indexes for table `class_schedule`
 --
-ALTER TABLE `project_manager`
-  ADD PRIMARY KEY (`id_project`),
-  ADD KEY `id` (`id`);
+ALTER TABLE `class_schedule`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `user_id` (`user_id`);
 
 --
 -- AUTO_INCREMENT for dumped tables
 --
 
 --
--- AUTO_INCREMENT for table `project_manager`
+-- AUTO_INCREMENT for table `class_schedule`
 --
-ALTER TABLE `project_manager`
-  MODIFY `id_project` int(255) NOT NULL AUTO_INCREMENT;
+ALTER TABLE `class_schedule`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- Constraints for dumped tables
 --
 
 --
--- Constraints for table `project_manager`
+-- Constraints for table `class_schedule`
 --
-ALTER TABLE `project_manager`
-  ADD CONSTRAINT `fk_projectmanager_user` FOREIGN KEY (`id`) REFERENCES `project_manager` (`id_project`);
+ALTER TABLE `class_schedule`
+  ADD CONSTRAINT `class_schedule_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

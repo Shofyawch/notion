@@ -48,7 +48,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
           to { transform: rotate(360deg); }
         }
 
-     
         .spinning {
           animation: spin 2s linear infinite;
         }

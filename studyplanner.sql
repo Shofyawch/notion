@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 30, 2025 at 04:45 PM
+-- Generation Time: Nov 30, 2025 at 04:46 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -24,45 +24,42 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tugas`
+-- Table structure for table `studyplanner`
 --
 
-CREATE TABLE `tugas` (
-  `id_tugas` int(11) NOT NULL,
-  `id` int(255) NOT NULL,
-  `mapel` varchar(100) NOT NULL,
-  `detail` text NOT NULL,
-  `deadline` varchar(50) NOT NULL,
-  `status` varchar(50) NOT NULL
+CREATE TABLE `studyplanner` (
+  `id_studyplanner` int(11) NOT NULL,
+  `time_range` varchar(50) NOT NULL,
+  `activity` varchar(255) NOT NULL,
+  `id` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `tugas`
+-- Dumping data for table `studyplanner`
 --
 
-INSERT INTO `tugas` (`id_tugas`, `id`, `mapel`, `detail`, `deadline`, `status`) VALUES
-(1, 0, 'b inggris', 'menghafal kalkulus', 'jumat 22 nov', 'Belum ❌');
+INSERT INTO `studyplanner` (`id_studyplanner`, `time_range`, `activity`, `id`) VALUES
+(2, '06:00 - 07:00', 'Bangun', NULL);
 
 --
 -- Indexes for dumped tables
 --
 
 --
--- Indexes for table `tugas`
+-- Indexes for table `studyplanner`
 --
-ALTER TABLE `tugas`
-  ADD PRIMARY KEY (`id_tugas`),
-  ADD KEY `id` (`id`);
+ALTER TABLE `studyplanner`
+  ADD PRIMARY KEY (`id_studyplanner`);
 
 --
 -- AUTO_INCREMENT for dumped tables
 --
 
 --
--- AUTO_INCREMENT for table `tugas`
+-- AUTO_INCREMENT for table `studyplanner`
 --
-ALTER TABLE `tugas`
-  MODIFY `id_tugas` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+ALTER TABLE `studyplanner`
+  MODIFY `id_studyplanner` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

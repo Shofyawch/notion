@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 24, 2025 at 07:29 PM
+-- Generation Time: Nov 30, 2025 at 04:47 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -15,7 +15,7 @@ SET time_zone = "+00:00";
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8mb4 */
+/*!40101 SET NAMES utf8mb4 */;
 
 --
 -- Database: `multi_user`
@@ -40,7 +40,7 @@ CREATE TABLE `notes` (
 --
 
 INSERT INTO `notes` (`id_note`, `id`, `note`, `created_at`, `updated at`) VALUES
-(1, 5, 'hai gais', '2025-11-25', '2025-11-25 00:17:54');
+(0, 5, 'hai gais', '2025-11-25', '2025-11-29 19:23:40');
 
 --
 -- Indexes for dumped tables
@@ -62,6 +62,16 @@ ALTER TABLE `notes`
 --
 ALTER TABLE `notes`
   MODIFY `id_note` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- Constraints for dumped tables
+--
+
+--
+-- Constraints for table `notes`
+--
+ALTER TABLE `notes`
+  ADD CONSTRAINT `notes_ibfk_1` FOREIGN KEY (`id`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 24, 2025 at 09:45 PM
+-- Generation Time: Nov 30, 2025 at 04:47 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -28,7 +28,7 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `events` (
-  `id` int(11) NOT NULL,
+  `id_events` int(11) NOT NULL,
   `event_date` date NOT NULL,
   `note` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -37,7 +37,7 @@ CREATE TABLE `events` (
 -- Dumping data for table `events`
 --
 
-INSERT INTO `events` (`id`, `event_date`, `note`) VALUES
+INSERT INTO `events` (`id_events`, `event_date`, `note`) VALUES
 (1, '2025-11-01', 'menghafal'),
 (4, '2025-11-02', 'perkalian');
 
@@ -49,7 +49,7 @@ INSERT INTO `events` (`id`, `event_date`, `note`) VALUES
 -- Indexes for table `events`
 --
 ALTER TABLE `events`
-  ADD PRIMARY KEY (`id`),
+  ADD PRIMARY KEY (`id_events`),
   ADD UNIQUE KEY `event_date` (`event_date`);
 
 --
@@ -60,7 +60,7 @@ ALTER TABLE `events`
 -- AUTO_INCREMENT for table `events`
 --
 ALTER TABLE `events`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id_events` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

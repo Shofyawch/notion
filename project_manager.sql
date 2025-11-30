@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 30, 2025 at 04:45 PM
+-- Generation Time: Nov 30, 2025 at 04:46 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -24,32 +24,26 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Table structure for table `todo`
+-- Table structure for table `project_manager`
 --
 
-CREATE TABLE `todo` (
-  `id_todo` int(11) NOT NULL,
-  `id` int(11) DEFAULT NULL,
-  `isi_todo` varchar(255) DEFAULT NULL,
-  `status` tinyint(1) DEFAULT 0
+CREATE TABLE `project_manager` (
+  `id` int(255) DEFAULT NULL,
+  `id_project` int(255) NOT NULL,
+  `name` int(255) DEFAULT NULL,
+  `status` enum('In Progress','Completed') DEFAULT NULL,
+  `deadline` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `todo`
---
-
-INSERT INTO `todo` (`id_todo`, `id`, `isi_todo`, `status`) VALUES
-(1, 5, 'Belajar 30 menit', 1);
 
 --
 -- Indexes for dumped tables
 --
 
 --
--- Indexes for table `todo`
+-- Indexes for table `project_manager`
 --
-ALTER TABLE `todo`
-  ADD PRIMARY KEY (`id_todo`),
+ALTER TABLE `project_manager`
+  ADD PRIMARY KEY (`id_project`),
   ADD KEY `id` (`id`);
 
 --
@@ -57,20 +51,21 @@ ALTER TABLE `todo`
 --
 
 --
--- AUTO_INCREMENT for table `todo`
+-- AUTO_INCREMENT for table `project_manager`
 --
-ALTER TABLE `todo`
-  MODIFY `id_todo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+ALTER TABLE `project_manager`
+  MODIFY `id_project` int(255) NOT NULL AUTO_INCREMENT;
 
 --
 -- Constraints for dumped tables
 --
 
 --
--- Constraints for table `todo`
+-- Constraints for table `project_manager`
 --
-ALTER TABLE `todo`
-  ADD CONSTRAINT `todo_ibfk_1` FOREIGN KEY (`id`) REFERENCES `user` (`id`) ON DELETE CASCADE;
+ALTER TABLE `project_manager`
+  ADD CONSTRAINT `fk_projectmanager_user` FOREIGN KEY (`id`) REFERENCES `project_manager` (`id_project`),
+  ADD CONSTRAINT `project_manager_ibfk_1` FOREIGN KEY (`id`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
