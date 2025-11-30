@@ -10,17 +10,9 @@ body{
     justify-content: center;
     align-items: center;
     min-height: 100vh;
-<<<<<<< Updated upstream
-
-background: url('ikan.gif') no-repeat;
-background-size: cover;
-cursor: url('fish.png'), auto;
-=======
     background: url("videoframe_6145.png") no-repeat;
 background-size: cover;
 background-position: center;
-
->>>>>>> Stashed changes
 }
 
 #bg-video {
@@ -33,11 +25,6 @@ background-position: center;
     z-index: -1;         
     opacity: 1;          
 }
-
-
-
-
-
 
 .wrapper {
     width: 420px;
@@ -231,7 +218,7 @@ input[type="password"] {
     font-weight: bold;
 }
 
-<<<<<<< Updated upstream
+
 #cassette-animation {
     width: 100px; 
             cursor: pointer;
@@ -249,7 +236,7 @@ input[type="password"] {
         .spinning {
             animation: spin 2s linear infinite;
         }
-=======
+
 .bg-gif {
     position: fixed;
     top: 0;
@@ -260,4 +247,4 @@ input[type="password"] {
     z-index: -1;
 }
 
->>>>>>> Stashed changes
+
