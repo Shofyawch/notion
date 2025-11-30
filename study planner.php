@@ -1,20 +1,50 @@
 <?php
-include 'koneksi.php';
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
 
+include 'koneksi.php'; 
+
+session_start();
+$id_user = $_SESSION['user_id'] ?? 1;
+
+// ====== ADD (CREATE) ======
 if (isset($_POST['add'])) {
-    $time_range = $_POST['time_range'];
-    $activity = $_POST['activity'];
+    $time_range = mysqli_real_escape_string($koneksi, $_POST['time_range']);
+    $activity   = mysqli_real_escape_string($koneksi, $_POST['activity']);
 
-    mysqli_query($koneksi, "INSERT INTO studyplanner (time_range, activity)
-                        VALUES ('$time_range', '$activity')");
+    mysqli_query($koneksi, "INSERT INTO studyplanner (time_range, activity, id)
+                        VALUES ('$time_range', '$activity', '$id_user')")
+    or die("INSERT ERROR: " . mysqli_error($koneksi));
+    header("Location: studyplan.php");
+    exit;
 }
 
-if (isset($_GET['delete'])) {
-    $id = $_GET['delete'];
-    mysqli_query($koneksi, "DELETE FROM studyplanner WHERE id='$id'");
+// ====== DELETE ======
+if (isset($_GET['delete']) && $_GET['delete'] !== '') {
+    $id = intval($_GET['delete']);
+    mysqli_query($koneksi, "DELETE FROM studyplanner WHERE id_studyplanner = $id AND id = $id_user")
+    or die("DELETE ERROR: " . mysqli_error($koneksi));
+    header("Location: studyplanner.php");
+    exit;
 }
 
-$data = mysqli_query($koneksi, "SELECT * FROM studyplanner ORDER BY id DESC");
+// ====== UPDATE (EDIT) ======
+if (isset($_POST['edit'])) {
+    $id = intval($_POST['id']);
+    $time_range = mysqli_real_escape_string($koneksi, $_POST['time_range']);
+    $activity   = mysqli_real_escape_string($koneksi, $_POST['activity']);
+
+    mysqli_query($koneksi, "UPDATE studyplanner
+                        SET time_range = '$time_range', activity = '$activity'
+                        WHERE id_studyplanner = $id AND user_id = $id_user")
+    or die("UPDATE ERROR: " . mysqli_error($koneksi));
+    header("Location: studyplan.php");
+    exit;
+}
+
+// ====== SELECT (READ) ======
+$data = mysqli_query($koneksi, "SELECT * FROM studyplanner WHERE id = '$id_user' ORDER BY id_studyplanner DESC")
+    or die("SELECT ERROR: " . mysqli_error($koneksi));
 ?>
 
 <!DOCTYPE html>
@@ -369,22 +399,18 @@ $data = mysqli_query($koneksi, "SELECT * FROM studyplanner ORDER BY id DESC");
 
                         <!-- Tombol Edit -->
                         <button onclick="openEdit(
-                            '<?= $row['id'] ?>',
-                            '<?= $row['time_range'] ?>',
-                            '<?= $row['activity'] ?>'
-                        )"
+    '<?= $row['id_studyplanner'] ?>',
+    '<?= $row['time_range'] ?>',
+    '<?= $row['activity'] ?>'
+)"
+
                         class="todo-btn"
                         style="background:#3ec8ff; padding:5px 10px;">
                             Edit
                         </button>
 
                         <!-- Tombol Delete -->
-                        <a href="studyplan.php?delete=<?= $row['id'] ?>" 
-                           onclick="return confirm('Delete?')"
-                           class="todo-btn"
-                           style="background:#ff6b6b; padding:5px 10px; text-decoration:none;">
-                            Delete
-                        </a>
+                        <a href="studyplan.php?delete=<?= $row['id_studyplanner'] ?>">Delete</a>
 
                     </td>
                 </tr>
@@ -494,7 +520,6 @@ $data = mysqli_query($koneksi, "SELECT * FROM studyplanner ORDER BY id DESC");
             document.getElementById("overlay").style.display = "none";
         }
 
-       
         document.addEventListener("DOMContentLoaded", function() {
             const audioPlayer = document.getElementById('audio-player');
             const cassetteImg = document.getElementById('cassette-animation');
@@ -519,7 +544,33 @@ $data = mysqli_query($koneksi, "SELECT * FROM studyplanner ORDER BY id DESC");
                 cassetteImg.classList.remove('spinning');
             });
         });
+
+        
     </script>
+
+        <!-- ===== MODAL EDIT ===== -->
+<div id="editModal" 
+     style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; 
+            background:rgba(0,0,0,0.5); justify-content:center; align-items:center;">
+
+    <div style="background:white; padding:20px; border-radius:15px; width:300px;">
+        <h3>Edit Study Plan</h3>
+
+        <form method="POST">
+            <input type="hidden" name="id" id="edit_id">
+
+            <label>Time Range</label>
+            <input type="text" name="time_range" id="edit_time" required>
+
+            <label>Activity</label>
+            <input type="text" name="activity" id="edit_activity" required>
+
+            <button type="submit" name="edit" class="todo-btn">Save</button>
+            <button type="button" onclick="closeEdit()" class="todo-btn" 
+                    style="background:#ff6b6b; margin-top:5px;">Cancel</button>
+        </form>
+    </div>
+</div>
 
 </body>
 </html>
