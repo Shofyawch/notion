@@ -40,8 +40,25 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 </head>
 
+<<<<<<< Updated upstream:login.php
 <body>
     
+=======
+        
+        @keyframes spin {
+          from { transform: rotate(0deg); }
+          to { transform: rotate(360deg); }
+        }
+
+     
+        .spinning {
+          animation: spin 2s linear infinite;
+        }
+</style>
+<body >
+    <img src="videoframe_6145.gif" class="bg-gif">
+
+>>>>>>> Stashed changes:login.html
     <div class="wrapper">
         <form action="login.php" method="POST">
             <h1><𝗟𝗢𝗚𝗜𝗡></h1>
