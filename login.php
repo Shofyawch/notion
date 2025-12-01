@@ -7,12 +7,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $username = $_POST['username'];
     $password = $_POST['password'];
 
+<<<<<<< Updated upstream
 <<<<<<< HEAD
     // ambil user berdasarkan username
 =======
     // INI UDA PAS YAH, JANGAN DIGANTI
 >>>>>>> c93ba09ea274471e04578cbff9dd707ae9763e81
     $query = "SELECT * FROM user WHERE nama='$username'";
+=======
+    $query = "SELECT * FROM user WHERE username='$username'";
+>>>>>>> Stashed changes
     $result = mysqli_query($koneksi, $query);
     $row = mysqli_fetch_assoc($result);
 
@@ -22,6 +26,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         // simpan session
         $_SESSION['id'] = $row['id'];
+<<<<<<< Updated upstream
         $_SESSION['level'] = $row['level']; // ← PENTING!
         $_SESSION['nama'] = $row['nama'];
 =======
@@ -48,26 +53,33 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         } else {
             header("Location: dashboard.php");
         }
+=======
+        header("Location: dahsboard.php");
+>>>>>>> Stashed changes
         exit;
     } else {
         echo "<script>alert('Username atau password salah!');</script>";
     }
-}
+} 
 ?>
 
+<<<<<<< Updated upstream
 
 
 <<<<<<< HEAD
 =======
 
 >>>>>>> c93ba09ea274471e04578cbff9dd707ae9763e81
+=======
+ 
+>>>>>>> Stashed changes
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
+    <title>TEstingg</title>
     <link rel="stylesheet" href="login.css">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <video autoplay loop muted playsinline id="bg-video">
@@ -100,7 +112,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <div class="wrapper">
             <form action="login.php" method="POST">
                 <h1>
+<<<<<<< Updated upstream
                     <𝗟𝗢𝗚𝗜𝗡>
+=======
+                    <TE>
+>>>>>>> Stashed changes
                 </h1>
                 <div class="input-box">
                     <input type="text" name="username" placeholder="Username" required>
