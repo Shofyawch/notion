@@ -25,7 +25,8 @@ if (isset($_POST['add_study'])) {
     $time_range = mysqli_real_escape_string($koneksi, $_POST['time_range']);
     $activity   = mysqli_real_escape_string($koneksi, $_POST['activity']);
 
-    mysqli_query($koneksi,
+    mysqli_query(
+        $koneksi,
         "INSERT INTO studyplanner (time_range, activity, id_user)
          VALUES ('$time_range', '$activity', '$id_user')"
     ) or die("INSERT STUDY ERROR: " . mysqli_error($koneksi));
@@ -40,7 +41,8 @@ if (isset($_POST['add_study'])) {
 if (isset($_GET['delete'])) { 
     $id = intval($_GET['delete']);
 
-    mysqli_query($koneksi,
+    mysqli_query(
+        $koneksi,
         "DELETE FROM studyplanner 
          WHERE id_studyplanner = $id AND id_user = $id_user"
     ) or die("DELETE STUDY ERROR: " . mysqli_error($koneksi));
@@ -56,7 +58,8 @@ if (isset($_POST['edit_study'])) {
     $time_range = mysqli_real_escape_string($koneksi, $_POST['time_range']);
     $activity   = mysqli_real_escape_string($koneksi, $_POST['activity']);
 
-    mysqli_query($koneksi,
+    mysqli_query(
+        $koneksi,
         "UPDATE studyplanner SET
              time_range = '$time_range',
              activity   = '$activity'
@@ -68,8 +71,9 @@ if (isset($_POST['edit_study'])) {
     exit;
 }
 
-/* ---- READ STUDY PLAN ---- */
-$study_data = mysqli_query($koneksi,
+/* ---- READ ---- */
+$study_data = mysqli_query(
+    $koneksi,
     "SELECT * FROM studyplanner
      WHERE id_user = '$id_user'
      ORDER BY id_studyplanner DESC"
@@ -90,11 +94,10 @@ if (isset($_POST['add_class'])) {
     $friday    = mysqli_real_escape_string($koneksi, $_POST['friday']);
 
     mysqli_query($koneksi, "
-        INSERT INTO class_schedule (id_user, time_slot, monday, tuesday, wednesday, thursday, friday)
+        INSERT INTO class_schedule (user_id, time_slot, monday, tuesday, wednesday, thursday, friday)
         VALUES ('$id_user', '$time_slot', '$monday', '$tuesday', '$wednesday', '$thursday', '$friday')
     ") or die('ADD CLASS ERROR: ' . mysqli_error($koneksi));
 
-    // Pastikan nama file redirect sudah benar
     header("Location: study_planner.php");
     exit;
 }
@@ -103,11 +106,11 @@ if (isset($_POST['add_class'])) {
 if (isset($_GET['delete_class'])) {
     $id = intval($_GET['delete_class']);
 
-    mysqli_query($koneksi,
+    mysqli_query(
+        $koneksi,
         "DELETE FROM class_schedule WHERE id=$id AND id_user=$id_user"
     ) or die("DELETE CLASS ERROR: " . mysqli_error($koneksi));
 
-    // Pastikan nama file redirect sudah benar
     header("Location: study_planner.php");
     exit;
 }
@@ -122,7 +125,8 @@ if (isset($_POST['edit_class'])) {
     $thursday   = mysqli_real_escape_string($koneksi, $_POST['thursday']);
     $friday     = mysqli_real_escape_string($koneksi, $_POST['friday']);
 
-    mysqli_query($koneksi,
+    mysqli_query(
+        $koneksi,
         "UPDATE class_schedule SET
             time_slot='$time_slot',
             monday='$monday',
@@ -133,17 +137,17 @@ if (isset($_POST['edit_class'])) {
         WHERE id=$id AND id_user=$id_user"
     ) or die("UPDATE CLASS ERROR: " . mysqli_error($koneksi));
 
-    // Pastikan nama file redirect sudah benar
     header("Location: study_planner.php");
     exit;
 }
 
-/* ---- READ CLASS SCHEDULE ---- */
-// Perbaiki: Kolom WHERE harusnya 'id_user', bukan 'user_id'
-$class_data = mysqli_query($koneksi,
+/* ---- READ ---- */
+$class_data = mysqli_query(
+    $koneksi,
     "SELECT * FROM class_schedule
     WHERE id='$id_user' 
     ORDER BY time_slot ASC"
+
 );
 
 $todo = mysqli_query($koneksi,
@@ -154,11 +158,12 @@ $todo = mysqli_query($koneksi,
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Student Planner 2025</title>
-    
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;700&display=swap" rel="stylesheet">
@@ -173,11 +178,12 @@ $todo = mysqli_query($koneksi,
 
         body {
             font-family: 'Fredoka', sans-serif;
-            background-image: url('bg1.gif'); /* Pastikan file ini ada */
-            background-size: cover;    
-            background-position: center;  
-            background-repeat: no-repeat; 
-            background-attachment: fixed; 
+            background-image: url('bg1.gif');
+            /* Pastikan file ini ada */
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
             color: #333;
             min-height: 100vh;
         }
@@ -196,7 +202,7 @@ $todo = mysqli_query($koneksi,
             cursor: pointer;
             z-index: 2000;
             transition: 0.3s;
-            box-shadow: 0px 5px 10px rgba(0,0,0,0.1);
+            box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.1);
         }
 
         .menu-btn:hover {
@@ -212,8 +218,10 @@ $todo = mysqli_query($koneksi,
             z-index: 2001;
             top: 0;
             left: 0;
-            background-color: rgba(255, 255, 255, 0.25); /* Transparan */
-            backdrop-filter: blur(10px); /* Efek Blur */
+            background-color: rgba(255, 255, 255, 0.25);
+            /* Transparan */
+            backdrop-filter: blur(10px);
+            /* Efek Blur */
             -webkit-backdrop-filter: blur(10px);
             border-right: 1px solid rgba(255, 255, 255, 0.5);
             overflow-x: hidden;
@@ -232,7 +240,7 @@ $todo = mysqli_query($koneksi,
             display: block;
             transition: 0.3s;
             border-bottom: 1px dashed rgba(255, 255, 255, 0.5);
-            text-shadow: 0px 0px 2px rgba(255,255,255,0.8);
+            text-shadow: 0px 0px 2px rgba(255, 255, 255, 0.8);
         }
 
         .sidebar a:hover {
@@ -268,7 +276,7 @@ $todo = mysqli_query($koneksi,
             height: 100%;
             top: 0;
             left: 0;
-            background-color: rgba(0,0,0,0.2);
+            background-color: rgba(0, 0, 0, 0.2);
             z-index: 1999;
             backdrop-filter: blur(2px);
         }
@@ -277,7 +285,8 @@ $todo = mysqli_query($koneksi,
         .wrapper {
             max-width: 1200px;
             margin: 0 auto;
-            padding: 80px 20px 100px 20px; /* Padding atas besar agar tidak ketutup tombol menu */
+            padding: 80px 20px 100px 20px;
+            /* Padding atas besar agar tidak ketutup tombol menu */
         }
 
         .header {
@@ -314,7 +323,7 @@ $todo = mysqli_query($koneksi,
             background: #fff;
             padding: 20px;
             border-radius: 20px;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
         }
 
         .right-column {
@@ -385,21 +394,24 @@ $todo = mysqli_query($koneksi,
             flex-wrap: wrap;
         }
 
-        .notification, .todo {
+        .notification,
+        .todo {
             flex: 1;
             background: #fff;
             padding: 20px;
             border-radius: 20px;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
             min-width: 250px;
         }
 
-        .todo ul, .notification ul {
+        .todo ul,
+        .notification ul {
             list-style: none;
             padding: 0;
         }
 
-        .todo li, .notification li {
+        .todo li,
+        .notification li {
             padding: 8px 0;
             border-bottom: 1px dashed #eee;
             display: flex;
@@ -579,8 +591,13 @@ $todo = mysqli_query($koneksi,
         }
 
         @keyframes spin {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
+            from {
+                transform: rotate(0deg);
+            }
+
+            to {
+                transform: rotate(360deg);
+            }
         }
 
         .spinning {
@@ -589,9 +606,12 @@ $todo = mysqli_query($koneksi,
 
         /* Responsive Mobile */
         @media (max-width: 768px) {
-            .main, .bottom-widgets {
+
+            .main,
+            .bottom-widgets {
                 flex-direction: column;
             }
+
             .right-column {
                 width: 100%;
             }
@@ -613,8 +633,8 @@ $todo = mysqli_query($koneksi,
     <div id="mySidebar" class="sidebar">
         <button class="close-btn" onclick="closeNav()">&times;</button>
         <div class="sidebar-title">Student Planner</div>
-        
-        <a href="dashboard.php">Dashboard</a>
+
+        <a href="dahsboard.php">Dashboard</a>
         <a href="tabletugas.php">Table Tugas</a>
         <a href="calender.php">Calender</a>
         <a href="projectmanager.php">Project Manager</a>
@@ -634,12 +654,14 @@ $todo = mysqli_query($koneksi,
             <div class="studyplanner">
                 <h3>Study Plan</h3>
 
-                <form method="POST" style="margin-bottom:15px; display: flex; flex-wrap: wrap; align-items: center; gap: 5px;">
-                    <input type="text" name="time_range" placeholder="06:00 - 07:00" style="flex-grow: 1;" required>
-                    <input type="text" name="activity" placeholder="Activity..." style="flex-grow: 2;" required>
-                    <button name="add_study" class="todo-btn" style="flex-shrink: 0;">Add</button>
+                <!-- FORM TAMBAH -->
+                <form method="POST" style="margin-bottom:15px;">
+                    <input type="text" name="time_range" placeholder="06:00 - 07:00" required>
+                    <input type="text" name="activity" placeholder="Activity..." required>
+                    <button name="add_study" class="todo-btn">Add</button>
                 </form>
 
+                <!-- TABEL DATA -->
                 <table>
                     <thead>
                         <tr>
@@ -648,29 +670,27 @@ $todo = mysqli_query($koneksi,
                             <th>Action</th>
                         </tr>
                     </thead>
-
                     <tbody>
                         <?php while ($row = mysqli_fetch_assoc($study_data)) { ?>
 
                             <tr>
-                                <td><?= htmlspecialchars($row['time_range']) ?></td>
-                                <td><?= htmlspecialchars($row['activity']) ?></td>
+                                <td><?= $row['time_range'] ?></td>
+                                <td><?= $row['activity'] ?></td>
                                 <td>
 
-                                    <button onclick="openEditStudy(
-                                        '<?= htmlspecialchars($row['id_studyplanner']) ?>',
-                                        '<?= htmlspecialchars($row['time_range']) ?>',
-                                        '<?= htmlspecialchars($row['activity']) ?>'
-                                    )"
-                                    class="btn-edit">
+                                    <!-- Tombol Edit -->
+                                    <button type="button"
+                                        onclick='openEdit(<?= json_encode($row['id_studyplanner']) ?>, <?= json_encode($row['time_range']) ?>, <?= json_encode($row['activity']) ?>)'
+                                        class="todo-btn"
+                                        style="background:#3ec8ff; padding:5px 10px;">
                                         Edit
                                     </button>
 
-                                    <a href="study_planner.php?delete=<?= htmlspecialchars($row['id_studyplanner']) ?>" 
-                                       onclick="return confirm('Are you sure you want to delete this item?')"
-                                       class="btn-delete">
-                                       Delete
-                                    </a>
+                                    <!-- Tombol Delete -->
+                                    <a href="study_planner.php?delete_study=<?= $row['id_studyplanner'] ?>"
+                                        onclick="return confirm('Delete this study plan?')"
+                                        class="btn-delete">Delete</a>
+
                                 </td>
                             </tr>
                         <?php } ?>
@@ -683,56 +703,56 @@ $todo = mysqli_query($koneksi,
                 <div class="class-schedule" style="background: white; padding: 20px; border-radius: 20px; box-shadow: 0 10px 20px rgba(0,0,0,0.1); overflow-x: auto;">
 
 
-                <h3>Class Schedule</h3>
+                    <h3>Class Schedule</h3>
 
-                <button class="todo-btn" style="margin-bottom:15px;" onclick="openAddClass()">
-                    + Add Class
-                </button>
+                    <button class="todo-btn" style="margin-bottom:15px;" onclick="openAddClass()">
+                        + Add Class
+                    </button>
 
 
-                <table class="schedule-table">
-                    <thead>
-                        <tr>
-                            <th>Time</th>
-                            <th>Mon</th>
-                            <th>Tue</th>
-                            <th>Wed</th>
-                            <th>Thu</th>
-                            <th>Fri</th>
-                            <th style="width:90px;">Action</th>
-                        </tr>
-                    </thead>
+                    <table class="schedule-table">
+                        <thead>
+                            <tr>
+                                <th>Time</th>
+                                <th>Mon</th>
+                                <th>Tue</th>
+                                <th>Wed</th>
+                                <th>Thu</th>
+                                <th>Fri</th>
+                                <th style="width:90px;">Action</th>
+                            </tr>
+                        </thead>
 
-                    <tbody>
-                    <?php while ($cs = mysqli_fetch_assoc($class_data)) { ?>
-                        <tr>
-                            <td><?= htmlspecialchars($cs['time_slot']) ?></td>
-                            <td><?= htmlspecialchars($cs['monday']) ?></td>
-                            <td><?= htmlspecialchars($cs['tuesday']) ?></td>
-                            <td><?= htmlspecialchars($cs['wednesday']) ?></td>
-                            <td><?= htmlspecialchars($cs['thursday']) ?></td>
-                            <td><?= htmlspecialchars($cs['friday']) ?></td>
+                        <tbody>
+                            <?php while ($cs = mysqli_fetch_assoc($class_data)) { ?>
+                                <tr>
+                                    <td><?= $cs['time_slot'] ?></td>
+                                    <td><?= $cs['monday'] ?></td>
+                                    <td><?= $cs['tuesday'] ?></td>
+                                    <td><?= $cs['wednesday'] ?></td>
+                                    <td><?= $cs['thursday'] ?></td>
+                                    <td><?= $cs['friday'] ?></td>
 
-                            <td>
-                                <button class="btn-edit"
-                                    onclick="openEditClass(
-                                        '<?= htmlspecialchars($cs['id']) ?>',
-                                        '<?= htmlspecialchars($cs['time_slot']) ?>',
-                                        '<?= htmlspecialchars($cs['monday']) ?>',
-                                        '<?= htmlspecialchars($cs['tuesday']) ?>',
-                                        '<?= htmlspecialchars($cs['wednesday']) ?>',
-                                        '<?= htmlspecialchars($cs['thursday']) ?>',
-                                        '<?= htmlspecialchars($cs['friday']) ?>'
-                                    )">Edit</button>
+                                    <td>
+                                        <button class="btn-edit"
+                                            onclick="openEditClass(
+                                '<?= $cs['id'] ?>',
+                                '<?= $cs['time_slot'] ?>',
+                                '<?= $cs['monday'] ?>',
+                                '<?= $cs['tuesday'] ?>',
+                                '<?= $cs['wednesday'] ?>',
+                                '<?= $cs['thursday'] ?>',
+                                '<?= $cs['friday'] ?>'
+                            )">Edit</button>
 
-                                <a href="?delete_class=<?= htmlspecialchars($cs['id']) ?>" 
-                                   onclick="return confirm('Delete?')" 
-                                   class="btn-delete">Delete</a>
-                            </td>
-                        </tr>
-                    <?php } ?>
-                    </tbody>
-                </table>
+                                        <a href="study_planner.php?delete_class=<?= $cs['id'] ?>"
+                                            onclick="return confirm('Delete this class schedule?')"
+                                            class="btn-delete delete_study">Delete</a>
+                                    </td>
+                                </tr>
+                            <?php } ?>
+                        </tbody>
+                    </table>
 
                 </div>
 
@@ -866,8 +886,6 @@ $todo = mysqli_query($koneksi,
 
 
     <script>
-        
-        // --- Sidebar Functions ---
         function openNav() {
             document.getElementById("mySidebar").style.width = "250px";
             document.getElementById("overlay").style.display = "block";
@@ -882,15 +900,15 @@ $todo = mysqli_query($koneksi,
         document.addEventListener("DOMContentLoaded", function() {
             const audioPlayer = document.getElementById('audio-player');
             const cassetteImg = document.getElementById('cassette-animation');
-        
+
             cassetteImg.addEventListener('click', () => {
                 if (audioPlayer.paused) {
-                    audioPlayer.play(); 
+                    audioPlayer.play();
                 } else {
-                    audioPlayer.pause(); 
+                    audioPlayer.pause();
                 }
-            });     
-        
+            });
+
             audioPlayer.addEventListener('play', () => {
                 cassetteImg.classList.add('spinning');
             });
@@ -903,22 +921,97 @@ $todo = mysqli_query($koneksi,
                 cassetteImg.classList.remove('spinning');
             });
         });
+    </script>
 
-        // --- Study Plan Modal Functions ---
-        function openEditStudy(id, time, activity) {
-            document.getElementById('study_id').value = id;
-            document.getElementById('study_time').value = time;
-            document.getElementById('study_activity').value = activity;
-            document.getElementById('editModalStudy').style.display = "flex";
-        }
+    <!-- ===== MODAL EDIT CLASS ===== -->
+    <div id="editModalClass"
+        style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.5); z-index:9999; justify-content:center; align-items:center;">
 
-        function closeEditStudy() {
-            document.getElementById('editModalStudy').style.display = "none";
-        }
+        <div style="background:white; padding:20px; width:340px; border-radius:12px; box-shadow:0 5px 20px rgba(0,0,0,0.3);">
+            <h3>Edit Class Schedule</h3>
 
-        // --- Class Schedule Modal Functions ---
+            <form method="POST">
+                <input type="hidden" name="id" id="class_id">
 
-        // Fungsi untuk membuka modal Edit Class
+                <label style="display:block; margin-top:10px; font-weight:bold;">Time Slot</label>
+                <input type="text" name="time_slot" id="class_time" required>
+
+                <label style="display:block; margin-top:10px; font-weight:bold;">Monday</label>
+                <input type="text" name="monday" id="class_mon">
+
+                <label style="display:block; margin-top:10px; font-weight:bold;">Tuesday</label>
+                <input type="text" name="tuesday" id="class_tue">
+
+                <label style="display:block; margin-top:10px; font-weight:bold;">Wednesday</label>
+                <input type="text" name="wednesday" id="class_wed">
+
+                <label style="display:block; margin-top:10px; font-weight:bold;">Thursday</label>
+                <input type="text" name="thursday" id="class_thu">
+
+                <label style="display:block; margin-top:10px; font-weight:bold;">Friday</label>
+                <input type="text" name="friday" id="class_fri">
+
+                <button type="submit" name="edit_class" class="todo-btn" style="margin-top:15px; width:100%;">Save</button>
+                <button type="button" onclick="closeEditClass()" class="todo-btn" style="background:#ff6b6b; margin-top:5px; width:100%;">Cancel</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- ===== MODAL EDIT STUDY ===== -->
+    <div id="editModalStudy"
+        style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.5); z-index:9999; justify-content:center; align-items:center;">
+
+        <div style="background:white; padding:20px; width:340px; border-radius:12px; box-shadow:0 5px 20px rgba(0,0,0,0.3);">
+            <h3>Edit Study Plan</h3>
+
+            <form method="POST">
+                <input type="hidden" name="id" id="study_id">
+
+                <label style="display:block; margin-top:10px; font-weight:bold;">Time Range</label>
+                <input type="text" name="time_range" id="study_time" required>
+
+                <label style="display:block; margin-top:10px; font-weight:bold;">Activity</label>
+                <input type="text" name="activity" id="study_activity" required>
+
+                <button type="submit" name="edit_study" class="todo-btn" style="margin-top:15px; width:100%;">Save</button>
+                <button type="button" onclick="closeEdit()" class="todo-btn" style="background:#ff6b6b; margin-top:5px; width:100%;">Cancel</button>
+            </form>
+        </div>
+    </div>
+
+    <div id="addModalClass"
+        style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.5); z-index:9999; justify-content:center; align-items:center;">
+
+        <div style="background:white; padding:20px; width:340px; border-radius:12px; box-shadow:0 5px 20px rgba(0,0,0,0.3);">
+            <h3>Add Class Schedule</h3>
+
+            <form method="POST">
+                <label style="display:block; margin-top:10px; font-weight:bold;">Time Slot</label>
+                <input type="text" name="time_slot" required>
+
+                <label style="display:block; margin-top:10px; font-weight:bold;">Monday</label>
+                <input type="text" name="monday">
+
+                <label style="display:block; margin-top:10px; font-weight:bold;">Tuesday</label>
+                <input type="text" name="tuesday">
+
+                <label style="display:block; margin-top:10px; font-weight:bold;">Wednesday</label>
+                <input type="text" name="wednesday">
+
+                <label style="display:block; margin-top:10px; font-weight:bold;">Thursday</label>
+                <input type="text" name="thursday">
+
+                <label style="display:block; margin-top:10px; font-weight:bold;">Friday</label>
+                <input type="text" name="friday">
+
+                <button type="submit" name="add_class" class="todo-btn" style="margin-top:15px; width:100%;">Add</button>
+                <button type="button" onclick="closeAddClass()" class="todo-btn" style="background:#ff6b6b; margin-top:5px; width:100%;">Cancel</button>
+            </form>
+        </div>
+    </div>
+
+
+    <script>
         function openEditClass(id, time, mon, tue, wed, thu, fri) {
             document.getElementById('class_id').value = id;
             document.getElementById('class_time').value = time;
@@ -931,23 +1024,38 @@ $todo = mysqli_query($koneksi,
             document.getElementById('editModalClass').style.display = "flex";
         }
 
-        // Fungsi untuk menutup modal Edit Class
         function closeEditClass() {
             document.getElementById('editModalClass').style.display = "none";
         }
 
-        // **PERBAIKAN DISINI: Hapus fungsi duplikat dan pastikan ID benar**
-        // Fungsi untuk membuka modal Add Class
+        function openAddClass() {
+            document.getElementById("addClassModal").style.display = "flex";
+        }
+
+        function closeAddClass() {
+            document.getElementById("addClassModal").style.display = "none";
+        }
+
         function openAddClass() {
             document.getElementById("addModalClass").style.display = "flex";
         }
 
-        // Fungsi untuk menutup modal Add Class
         function closeAddClass() {
             document.getElementById("addModalClass").style.display = "none";
         }
 
+        function openEdit(id, time, activity) {
+            document.getElementById('study_id').value = id;
+            document.getElementById('study_time').value = time;
+            document.getElementById('study_activity').value = activity;
+            document.getElementById('editModalStudy').style.display = 'flex';
+        }
+
+        function closeEdit() {
+            document.getElementById('editModalStudy').style.display = 'none';
+        }
     </script>
 
 </body>
+
 </html>
