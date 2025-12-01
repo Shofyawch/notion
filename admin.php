@@ -3,11 +3,8 @@
 
 // --- SIMULASI DATA USER DARI DATABASE ---
 // Nanti ganti bagian ini dengan: $result = mysqli_query($conn, "SELECT * FROM users");
-$users_dummy = [
-    ["id" => 1, "name" => "John Doe"],
-    ["id" => 2, "name" => "Sarah Smith"],
-    ["id" => 3, "name" => "Budi Santoso"]
-];
+include "koneksi.php";
+$users = mysqli_query($koneksi, "SELECT id, username FROM users");
 ?>
 
 <!DOCTYPE html>
@@ -50,16 +47,16 @@ $users_dummy = [
                         
                         <select class="form-select" id="userSelect">
                             <option value="" disabled selected>-- Pilih User --</option>
-                            <?php foreach ($users_dummy as $user) : ?>
-                                <option value="<?php echo $user['name']; ?>">
-                                    User <?php echo $user['id']; ?> - <?php echo $user['name']; ?>
-                                </option>
-                            <?php endforeach; ?>
+                            <?php while ($u = mysqli_fetch_assoc($users)) : ?>
+    <option value="<?php echo $u['id']; ?>">
+        User <?php echo $u['id']; ?> - <?php echo $u['username']; ?>
+    </option>
+<?php endwhile; ?>
+
                         </select>
                         
                     </div>
-                </div>
-
+                </div}
                 <hr class="my-4 opacity-25">
 
                 <h6 class="fw-bold mb-3 text-secondary small text-uppercase">User Pages Access</h6>

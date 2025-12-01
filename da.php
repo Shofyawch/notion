@@ -150,7 +150,7 @@ $nama = $_SESSION['nama'];
                     <span class="mr-2 text-ghibli-coral">⭐</span> Aktivitas Terakhir
                 </h2>
                 <ul class="space-y-3" id="recentActivities">
-                 
+                
                     <li class="p-3 bg-ghibli-water/50 rounded-lg flex justify-between items-center text-ghibli-deep-sea/90">
                         <span>User A membuat project baru: "Peta Harta Karun"</span>
                         <span class="text-xs text-gray-500">5 menit lalu</span>
