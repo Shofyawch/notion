@@ -2,50 +2,141 @@
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
-include 'koneksi.php'; 
-
+include 'koneksi.php';
 session_start();
-$id_user = $_SESSION['user_id'] ?? 1;
 
-// ====== ADD (CREATE) ======
-if (isset($_POST['add'])) {
+if (!isset($_SESSION['id'])) {
+    header("Location: login.php");
+    exit;
+}
+
+$id_user = $_SESSION['id'];
+
+/* ============================================================
+   STUDY PLANNER CRUD
+============================================================ */
+
+/* ---- ADD ---- */
+if (isset($_POST['add_study'])) {
     $time_range = mysqli_real_escape_string($koneksi, $_POST['time_range']);
     $activity   = mysqli_real_escape_string($koneksi, $_POST['activity']);
 
-    mysqli_query($koneksi, "INSERT INTO studyplanner (time_range, activity, id)
-                        VALUES ('$time_range', '$activity', '$id_user')")
-    or die("INSERT ERROR: " . mysqli_error($koneksi));
-    header("Location: studyplan.php");
+    mysqli_query($koneksi,
+        "INSERT INTO studyplanner (time_range, activity, id_user)
+         VALUES ('$time_range', '$activity', '$id_user')"
+    ) or die("INSERT ERROR: " . mysqli_error($koneksi));
+
+    header("Location: study_planner.php");
     exit;
 }
 
-// ====== DELETE ======
-if (isset($_GET['delete']) && $_GET['delete'] !== '') {
-    $id = intval($_GET['delete']);
-    mysqli_query($koneksi, "DELETE FROM studyplanner WHERE id_studyplanner = $id AND id = $id_user")
-    or die("DELETE ERROR: " . mysqli_error($koneksi));
-    header("Location: studyplanner.php");
+/* ---- DELETE ---- */
+if (isset($_GET['delete_study'])) {
+    $id = intval($_GET['delete_study']);
+
+    mysqli_query($koneksi,
+        "DELETE FROM studyplanner 
+         WHERE id_studyplanner = $id AND id_user = $id_user"
+    ) or die("DELETE ERROR: " . mysqli_error($koneksi));
+
+    header("Location: study_planner.php");
     exit;
 }
 
-// ====== UPDATE (EDIT) ======
-if (isset($_POST['edit'])) {
-    $id = intval($_POST['id']);
+/* ---- UPDATE ---- */
+if (isset($_POST['edit_study'])) {
+    $id        = intval($_POST['id']);
     $time_range = mysqli_real_escape_string($koneksi, $_POST['time_range']);
     $activity   = mysqli_real_escape_string($koneksi, $_POST['activity']);
 
-    mysqli_query($koneksi, "UPDATE studyplanner
-                        SET time_range = '$time_range', activity = '$activity'
-                        WHERE id_studyplanner = $id AND user_id = $id_user")
-    or die("UPDATE ERROR: " . mysqli_error($koneksi));
-    header("Location: studyplan.php");
+    mysqli_query($koneksi,
+        "UPDATE studyplanner SET
+            time_range = '$time_range',
+            activity   = '$activity'
+         WHERE id_studyplanner = $id AND id_user = $id_user"
+    ) or die("UPDATE ERROR: " . mysqli_error($koneksi));
+
+    header("Location: study_planner.php");
     exit;
 }
 
-// ====== SELECT (READ) ======
-$data = mysqli_query($koneksi, "SELECT * FROM studyplanner WHERE id = '$id_user' ORDER BY id_studyplanner DESC")
-    or die("SELECT ERROR: " . mysqli_error($koneksi));
+/* ---- READ ---- */
+$study_data = mysqli_query($koneksi,
+    "SELECT * FROM studyplanner
+     WHERE id_user = '$id_user'
+     ORDER BY id_studyplanner DESC"
+);
+
+
+/* ============================================================
+   CLASS SCHEDULE CRUD
+============================================================ */
+
+/* ---- ADD ---- */
+// ===== ADD CLASS SCHEDULE =====
+if (isset($_POST['add_class'])) {
+
+    $time_slot = mysqli_real_escape_string($koneksi, $_POST['time_slot']);
+    $monday    = mysqli_real_escape_string($koneksi, $_POST['monday']);
+    $tuesday   = mysqli_real_escape_string($koneksi, $_POST['tuesday']);
+    $wednesday = mysqli_real_escape_string($koneksi, $_POST['wednesday']);
+    $thursday  = mysqli_real_escape_string($koneksi, $_POST['thursday']);
+    $friday    = mysqli_real_escape_string($koneksi, $_POST['friday']);
+
+    mysqli_query($koneksi, "
+        INSERT INTO class_schedule (id_user, time_slot, monday, tuesday, wednesday, thursday, friday)
+        VALUES ('$id_user', '$time_slot', '$monday', '$tuesday', '$wednesday', '$thursday', '$friday')
+    ") or die('ADD CLASS ERROR: ' . mysqli_error($koneksi));
+
+    header("Location: study planner.php");
+    exit;
+}
+
+/* ---- DELETE ---- */
+if (isset($_GET['delete_class'])) {
+    $id = intval($_GET['delete_class']);
+
+    mysqli_query($koneksi,
+        "DELETE FROM class_schedule WHERE id=$id AND id_user=$id_user"
+    ) or die("DELETE ERROR: " . mysqli_error($koneksi));
+
+    header("Location: study planner.php");
+    exit;
+}
+
+/* ---- UPDATE ---- */
+if (isset($_POST['edit_class'])) {
+    $id        = intval($_POST['id']);
+    $time_slot = mysqli_real_escape_string($koneksi, $_POST['time_slot']);
+    $monday    = mysqli_real_escape_string($koneksi, $_POST['monday']);
+    $tuesday   = mysqli_real_escape_string($koneksi, $_POST['tuesday']);
+    $wednesday = mysqli_real_escape_string($koneksi, $_POST['wednesday']);
+    $thursday  = mysqli_real_escape_string($koneksi, $_POST['thursday']);
+    $friday    = mysqli_real_escape_string($koneksi, $_POST['friday']);
+
+    mysqli_query($koneksi,
+        "UPDATE class_schedule SET
+            time_slot='$time_slot',
+            monday='$monday',
+            tuesday='$tuesday',
+            wednesday='$wednesday',
+            thursday='$thursday',
+            friday='$friday'
+        WHERE id=$id AND id_user=$id_user"
+    ) or die("UPDATE ERROR: " . mysqli_error($koneksi));
+
+    header("Location: study planner.php");
+    exit;
+}
+
+/* ---- READ ---- */
+$class_data = mysqli_query($koneksi,
+    "SELECT * FROM class_schedule
+     WHERE user_id='$id_user'
+     ORDER BY time_slot ASC"
+);
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -377,7 +468,7 @@ $data = mysqli_query($koneksi, "SELECT * FROM studyplanner WHERE id = '$id_user'
     <form method="POST" style="margin-bottom:15px;">
         <input type="text" name="time_range" placeholder="06:00 - 07:00" required>
         <input type="text" name="activity" placeholder="Activity..." required>
-        <button name="add" class="todo-btn">Add</button>
+        <button name="add_study" class="todo-btn">Add</button>
     </form>
 
     <!-- TABEL DATA -->
@@ -391,7 +482,8 @@ $data = mysqli_query($koneksi, "SELECT * FROM studyplanner WHERE id = '$id_user'
         </thead>
 
         <tbody>
-            <?php while ($row = mysqli_fetch_assoc($data)) { ?>
+            <?php while ($row = mysqli_fetch_assoc($study_data)) { ?>
+
                 <tr>
                     <td><?= $row['time_range'] ?></td>
                     <td><?= $row['activity'] ?></td>
@@ -410,7 +502,9 @@ $data = mysqli_query($koneksi, "SELECT * FROM studyplanner WHERE id = '$id_user'
                         </button>
 
                         <!-- Tombol Delete -->
-                        <a href="studyplan.php?delete=<?= $row['id_studyplanner'] ?>">Delete</a>
+                        <a href="study planner.php?delete=<?= $row['id_studyplanner'] ?>" 
+    onclick="return confirm('Are you sure you want to delete this item?')">Delete</a>
+
 
                     </td>
                 </tr>
@@ -422,53 +516,59 @@ $data = mysqli_query($koneksi, "SELECT * FROM studyplanner WHERE id = '$id_user'
 
             <div class="right-column">
                 <div class="class-schedule" style="background: white; padding: 20px; border-radius: 20px; box-shadow: 0 10px 20px rgba(0,0,0,0.1); overflow-x: auto;">
-                    <h3>Class Schedule</h3>
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>Time</th>
-                                <th>Mon</th>
-                                <th>Tue</th>
-                                <th>Wed</th>
-                                <th>Thu</th>
-                                <th>Fri</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td><input type="text" placeholder="08:00"></td>
-                                <td><input type="text" placeholder="Math"></td>
-                                <td><input type="text" placeholder="Eng"></td>
-                                <td><input type="text" placeholder="Hist"></td>
-                                <td><input type="text" placeholder="Sci"></td>
-                                <td><input type="text" placeholder="Art"></td>
-                            </tr>
-                            <tr>
-                                <td><input type="text" placeholder="09:00"></td>
-                                <td><input type="text" placeholder="Subject"></td>
-                                <td><input type="text" placeholder="Subject"></td>
-                                <td><input type="text" placeholder="Subject"></td>
-                                <td><input type="text" placeholder="Subject"></td>
-                                <td><input type="text" placeholder="Subject"></td>
-                            </tr>
-                            <tr>
-                                <td><input type="text" placeholder="10:00"></td>
-                                <td><input type="text" placeholder="Subject"></td>
-                                <td><input type="text" placeholder="Subject"></td>
-                                <td><input type="text" placeholder="Subject"></td>
-                                <td><input type="text" placeholder="Subject"></td>
-                                <td><input type="text" placeholder="Subject"></td>
-                            </tr>
-                            <tr>
-                                <td><input type="text" placeholder="11:00"></td>
-                                <td><input type="text" placeholder="Subject"></td>
-                                <td><input type="text" placeholder="Subject"></td>
-                                <td><input type="text" placeholder="Subject"></td>
-                                <td><input type="text" placeholder="Subject"></td>
-                                <td><input type="text" placeholder="Subject"></td>
-                            </tr>
-                        </tbody>
-                    </table>
+
+
+                <h3>Class Schedule</h3>
+
+                <button class="todo-btn" style="margin-bottom:15px;" onclick="openAddClass()">
+    + Add Class
+</button>
+
+
+<table class="schedule-table">
+    <thead>
+        <tr>
+            <th>Time</th>
+            <th>Mon</th>
+            <th>Tue</th>
+            <th>Wed</th>
+            <th>Thu</th>
+            <th>Fri</th>
+            <th style="width:90px;">Action</th>
+        </tr>
+    </thead>
+
+    <tbody>
+    <?php while ($cs = mysqli_fetch_assoc($class_data)) { ?>
+        <tr>
+            <td><?= $cs['time_slot'] ?></td>
+            <td><?= $cs['monday'] ?></td>
+            <td><?= $cs['tuesday'] ?></td>
+            <td><?= $cs['wednesday'] ?></td>
+            <td><?= $cs['thursday'] ?></td>
+            <td><?= $cs['friday'] ?></td>
+
+            <td>
+                <button class="btn-edit"
+                    onclick="openEditClass(
+                        '<?= $cs['id'] ?>',
+                        '<?= $cs['time_slot'] ?>',
+                        '<?= $cs['monday'] ?>',
+                        '<?= $cs['tuesday'] ?>',
+                        '<?= $cs['wednesday'] ?>',
+                        '<?= $cs['thursday'] ?>',
+                        '<?= $cs['friday'] ?>'
+                    )">Edit</button>
+
+                <a href="?delete_class=<?= $cs['id'] ?>" 
+                   onclick="return confirm('Delete?')" 
+                   class="btn-delete">Delete</a>
+            </td>
+        </tr>
+    <?php } ?>
+    </tbody>
+</table>
+
                 </div>
 
                 <div class="bottom-widgets">
@@ -549,28 +649,115 @@ $data = mysqli_query($koneksi, "SELECT * FROM studyplanner WHERE id = '$id_user'
     </script>
 
         <!-- ===== MODAL EDIT ===== -->
-<div id="editModal" 
-     style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; 
-            background:rgba(0,0,0,0.5); justify-content:center; align-items:center;">
+<div id="editModalClass"
+     style="display:none; position:fixed; top:0; left:0; width:100%; height:100%;
+     background:rgba(0,0,0,0.5); justify-content:center; align-items:center;">
 
-    <div style="background:white; padding:20px; border-radius:15px; width:300px;">
-        <h3>Edit Study Plan</h3>
+    <div style="background:white; padding:20px; width:320px; border-radius:12px;">
+        <h3>Edit Class Schedule</h3>
 
+        <table> 
+            <thead> 
+                <tr> 
+                    <th>Time</th> 
+                    <th>Mon</th> 
+                    <th>Tue</th> 
+                    <th>Wed</th> 
+                    <th>Thu</th> <th>Fri</th> </tr> </thead> <tbody> <tr> <td><input type="text" placeholder="08:00"></td> <td><input type="text" placeholder="Math"></td> <td><input type="text" placeholder="Eng"></td> <td><input type="text" placeholder="Hist"></td> <td><input type="text" placeholder="Sci"></td> <td><input type="text" placeholder="Art"></td> </tr> <tr> <td><input type="text" placeholder="09:00"></td> <td><input type="text" placeholder="Subject"></td> <td><input type="text" placeholder="Subject"></td> <td><input type="text" placeholder="Subject"></td> <td><input type="text" placeholder="Subject"></td> <td><input type="text" placeholder="Subject"></td> </tr> <tr> <td><input type="text" placeholder="10:00"></td> <td><input type="text" placeholder="Subject"></td> <td><input type="text" placeholder="Subject"></td> <td><input type="text" placeholder="Subject"></td> <td><input type="text" placeholder="Subject"></td> <td><input type="text" placeholder="Subject"></td> </tr> <tr> <td><input type="text" placeholder="11:00"></td> <td><input type="text" placeholder="Subject"></td> <td><input type="text" placeholder="Subject"></td> <td><input type="text" placeholder="Subject"></td> <td><input type="text" placeholder="Subject"></td> <td><input type="text" placeholder="Subject"></td>
         <form method="POST">
-            <input type="hidden" name="id" id="edit_id">
+            <input type="hidden" name="id" id="class_id">
 
-            <label>Time Range</label>
-            <input type="text" name="time_range" id="edit_time" required>
+            <label>Time Slot</label>
+            <input type="text" name="time_slot" id="class_time" required>
 
-            <label>Activity</label>
-            <input type="text" name="activity" id="edit_activity" required>
+            <label>Monday</label>
+            <input type="text" name="monday" id="class_mon">
 
-            <button type="submit" name="edit" class="todo-btn">Save</button>
-            <button type="button" onclick="closeEdit()" class="todo-btn" 
-                    style="background:#ff6b6b; margin-top:5px;">Cancel</button>
+            <label>Tuesday</label>
+            <input type="text" name="tuesday" id="class_tue">
+
+            <label>Wednesday</label>
+            <input type="text" name="wednesday" id="class_wed">
+
+            <label>Thursday</label>
+            <input type="text" name="thursday" id="class_thu">
+
+            <label>Friday</label>
+            <input type="text" name="friday" id="class_fri">
+
+            <button type="submit" name="edit_class" class="btn">Save</button>
+            <button type="button" onclick="closeEditClass()" class="btn" style="background:#ff6b6b;">Cancel</button>
         </form>
     </div>
 </div>
+
+<div id="addModalClass"
+     style="display:none; position:fixed; top:0; left:0; width:100%; height:100%;
+     background:rgba(0,0,0,0.5); justify-content:center; align-items:center;">
+
+    <div style="background:white; padding:20px; width:320px; border-radius:12px;">
+        <h3>Add Class</h3>
+
+        <form method="POST">
+            <label>Time Slot</label>
+            <input type="text" name="time_slot" required>
+
+            <label>Monday</label>
+            <input type="text" name="monday">
+
+            <label>Tuesday</label>
+            <input type="text" name="tuesday">
+
+            <label>Wednesday</label>
+            <input type="text" name="wednesday">
+
+            <label>Thursday</label>
+            <input type="text" name="thursday">
+
+            <label>Friday</label>
+            <input type="text" name="friday">
+
+            <button type="submit" name="add_class" class="btn">Add</button>
+            <button type="button" onclick="closeAddClass()" class="btn" style="background:#ff6b6b;">Cancel</button>
+        </form>
+    </div>
+</div>
+
+
+<script>
+function openEditClass(id, time, mon, tue, wed, thu, fri) {
+    document.getElementById('class_id').value = id;
+    document.getElementById('class_time').value = time;
+    document.getElementById('class_mon').value = mon;
+    document.getElementById('class_tue').value = tue;
+    document.getElementById('class_wed').value = wed;
+    document.getElementById('class_thu').value = thu;
+    document.getElementById('class_fri').value = fri;
+
+    document.getElementById('editModalClass').style.display = "flex";
+}
+
+function closeEditClass() {
+    document.getElementById('editModalClass').style.display = "none";
+}
+
+function openAddClass() {
+    document.getElementById("addClassModal").style.display = "flex";
+}
+
+function closeAddClass() {
+    document.getElementById("addClassModal").style.display = "none";
+}
+
+function openAddClass() {
+    document.getElementById("addModalClass").style.display = "flex";
+}
+
+function closeAddClass() {
+    document.getElementById("addModalClass").style.display = "none";
+}
+
+</script>
 
 </body>
 </html>

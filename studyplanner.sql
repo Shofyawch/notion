@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 30, 2025 at 04:46 PM
+-- Generation Time: Dec 01, 2025 at 12:04 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -29,17 +29,10 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `studyplanner` (
   `id_studyplanner` int(11) NOT NULL,
+  `id_user` int(11) NOT NULL,
   `time_range` varchar(50) NOT NULL,
-  `activity` varchar(255) NOT NULL,
-  `id` int(11) DEFAULT NULL
+  `activity` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `studyplanner`
---
-
-INSERT INTO `studyplanner` (`id_studyplanner`, `time_range`, `activity`, `id`) VALUES
-(2, '06:00 - 07:00', 'Bangun', NULL);
 
 --
 -- Indexes for dumped tables
@@ -49,7 +42,8 @@ INSERT INTO `studyplanner` (`id_studyplanner`, `time_range`, `activity`, `id`) V
 -- Indexes for table `studyplanner`
 --
 ALTER TABLE `studyplanner`
-  ADD PRIMARY KEY (`id_studyplanner`);
+  ADD PRIMARY KEY (`id_studyplanner`),
+  ADD KEY `id` (`id_user`);
 
 --
 -- AUTO_INCREMENT for dumped tables
@@ -60,6 +54,16 @@ ALTER TABLE `studyplanner`
 --
 ALTER TABLE `studyplanner`
   MODIFY `id_studyplanner` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- Constraints for dumped tables
+--
+
+--
+-- Constraints for table `studyplanner`
+--
+ALTER TABLE `studyplanner`
+  ADD CONSTRAINT `studyplanner_ibfk_1` FOREIGN KEY (`id_user`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

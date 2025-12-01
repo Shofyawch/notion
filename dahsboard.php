@@ -1,12 +1,13 @@
 <?php
-session_start();
 include "koneksi.php";
 
-// Cek login
+session_start();
 if (!isset($_SESSION['id'])) {
     header("Location: login.php");
     exit;
 }
+$id_user = $_SESSION['id'];
+
 
 $user_id = $_SESSION['id'];
 
@@ -174,7 +175,7 @@ $tasks = mysqli_query($koneksi,
             </div>
 
             <div class="card">
-                <a href="study planner.html">
+                <a href="study planner.php">
                     <img src="We17sl.gif">
                     <div>✏️ Study / Goals planner ,!</div>
                 </a>
