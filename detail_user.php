@@ -34,13 +34,13 @@ $q_project = mysqli_query($koneksi, "SELECT * FROM project_manager WHERE id = '$
 
 // PERBAIKAN DI SINI: Mengubah 'id_user' menjadi 'id' atau 'id_user' sesuai database asli
 // Coba gunakan 'id' dulu, jika tabel studyplanner kamu pakai 'id'
-$q_study   = mysqli_query($koneksi, "SELECT * FROM studyplanner WHERE id = '$id_user'"); 
+$q_study   = mysqli_query($koneksi, "SELECT * FROM studyplanner WHERE id_user = '$id_user'"); 
 // JIKA MASIH ERROR: Ganti 'id' menjadi 'id_user' pada baris di atas ^
 
 // KHUSUS EVENT/CALENDAR
 // Pastikan kamu sudah menjalankan SQL ALTER TABLE untuk menambah kolom id/id_user di tabel events
 // Jika di database kolomnya 'id_user', pakai 'id_user'. Jika 'id', pakai 'id'.
-$q_event   = mysqli_query($koneksi, "SELECT * FROM events WHERE id_user = '$id_user' ORDER BY event_date ASC");
+$q_event = mysqli_query($koneksi, "SELECT * FROM events WHERE id = '$id_user' ORDER BY event_date ASC");
 
 // Debugging: Cek jika query gagal
 if (!$q_study) { echo "Error Study Planner: " . mysqli_error($koneksi); }
