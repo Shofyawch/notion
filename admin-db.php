@@ -162,7 +162,7 @@
             <div class="col-lg-8">
                 
                 <h2 class="mb-4 text-center text-dark fw-bold" style="text-shadow: 2px 2px 4px rgba(255,255,255,0.8);">
-                    <i class="bi bi-shield-lock-fill text-primary"></i> Admin Dashboard
+                    <i class="bi bi-shield-lock-fill text-primary"></i> admin Dashboard
                 </h2>
 
                 <div class="card admin-card">

@@ -7,79 +7,37 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $username = $_POST['username'];
     $password = $_POST['password'];
 
-<<<<<<< Updated upstream
-<<<<<<< HEAD
-    // ambil user berdasarkan username
-=======
-    // INI UDA PAS YAH, JANGAN DIGANTI
->>>>>>> c93ba09ea274471e04578cbff9dd707ae9763e81
     $query = "SELECT * FROM user WHERE nama='$username'";
-=======
-    $query = "SELECT * FROM user WHERE username='$username'";
->>>>>>> Stashed changes
     $result = mysqli_query($koneksi, $query);
     $row = mysqli_fetch_assoc($result);
 
-<<<<<<< HEAD
-    // cek password
     if ($row && password_verify($password, $row['password'])) {
 
-        // simpan session
         $_SESSION['id'] = $row['id'];
-<<<<<<< Updated upstream
-        $_SESSION['level'] = $row['level']; // ← PENTING!
-        $_SESSION['nama'] = $row['nama'];
-=======
-    // Cek password
-    if ($row && password_verify($password, $row['password'])) {
-
-        // Simpan session
-        $_SESSION['id'] = $row['id'];
-        $_SESSION['level'] = $row['level']; 
+        $_SESSION['level'] = $row['level'];
         $_SESSION['nama'] = $row['nama'];
 
-        // Redirect sesuai level
-        if ($row['level'] === 'admin') {
-            header("Location: da.php");      // halaman admin
-        } else {
-            header("Location: dahsboard.php"); // halaman user
-        }
-        exit;
->>>>>>> c93ba09ea274471e04578cbff9dd707ae9763e81
-
-        // redirect sesuai level
         if ($row['level'] === 'admin') {
             header("Location: da.php");
         } else {
             header("Location: dashboard.php");
         }
-=======
-        header("Location: dahsboard.php");
->>>>>>> Stashed changes
         exit;
     } else {
         echo "<script>alert('Username atau password salah!');</script>";
     }
-} 
+}
 ?>
 
-<<<<<<< Updated upstream
 
 
-<<<<<<< HEAD
-=======
-
->>>>>>> c93ba09ea274471e04578cbff9dd707ae9763e81
-=======
- 
->>>>>>> Stashed changes
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TEstingg</title>
+    <title>Login</title>
     <link rel="stylesheet" href="login.css">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <video autoplay loop muted playsinline id="bg-video">
@@ -112,11 +70,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <div class="wrapper">
             <form action="login.php" method="POST">
                 <h1>
-<<<<<<< Updated upstream
                     <𝗟𝗢𝗚𝗜𝗡>
-=======
-                    <TE>
->>>>>>> Stashed changes
                 </h1>
                 <div class="input-box">
                     <input type="text" name="username" placeholder="Username" required>
