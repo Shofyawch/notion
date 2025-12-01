@@ -7,14 +7,25 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $username = $_POST['username'];
     $password = $_POST['password'];
 
+    // INI UDA PAS YAH, JANGAN DIGANTI
     $query = "SELECT * FROM user WHERE nama='$username'";
     $result = mysqli_query($koneksi, $query);
     $row = mysqli_fetch_assoc($result);
 
+    // Cek password
     if ($row && password_verify($password, $row['password'])) {
 
+        // Simpan session
         $_SESSION['id'] = $row['id'];
-        header("Location: dahsboard.php");
+        $_SESSION['level'] = $row['level']; 
+        $_SESSION['nama'] = $row['nama'];
+
+        // Redirect sesuai level
+        if ($row['level'] === 'admin') {
+            header("Location: da.php");      // halaman admin
+        } else {
+            header("Location: dahsboard.php"); // halaman user
+        }
         exit;
 
     } else {
@@ -22,6 +33,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 }
 ?>
+
+
 
 
 <!DOCTYPE html>

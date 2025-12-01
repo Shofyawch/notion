@@ -1,3 +1,20 @@
+<?php
+session_start();
+
+if (!isset($_SESSION['id'])) {
+    header("Location: login.php");
+    exit;
+}
+
+if ($_SESSION['level'] !== 'admin') {
+    echo "<script>alert('Anda tidak punya akses ke halaman admin!');</script>";
+    header("Location: dashboard.php"); // pindahin ke dashboard user biasa
+    exit;
+}
+
+$nama = $_SESSION['nama'];
+?>
+
 <!DOCTYPE html>
 <html lang="id">
 <head>
