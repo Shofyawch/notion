@@ -1,5 +1,18 @@
 <?php
-// include 'db.php'; // Aktifkan ini nanti jika database sudah siap
+// 1. HUBUNGKAN KE DATABASE
+include 'koneksi.php';
+
+// 2. AMBIL DATA USER UNTUK DROPDOWN
+// Mengambil semua user (bisa ditambahkan WHERE level='user' jika perlu)
+$query_users = mysqli_query($koneksi, "SELECT * FROM user ORDER BY nama ASC");
+
+// 3. AMBIL STATISTIK PROJECT (Global)
+// Menghitung total project
+$total_project = mysqli_fetch_assoc(mysqli_query($koneksi, "SELECT COUNT(*) AS total FROM project_manager"))['total'];
+// Menghitung project selesai
+$completed = mysqli_fetch_assoc(mysqli_query($koneksi, "SELECT COUNT(*) AS total FROM project_manager WHERE status='Completed'"))['total'];
+// Menghitung project berjalan
+$in_progress = mysqli_fetch_assoc(mysqli_query($koneksi, "SELECT COUNT(*) AS total FROM project_manager WHERE status='In Progress'"))['total'];
 
 // --- SIMULASI DATA USER DARI DATABASE ---
 // Nanti ganti bagian ini dengan: $result = mysqli_query($conn, "SELECT * FROM users");
@@ -59,7 +72,6 @@ $users = mysqli_query($koneksi, "SELECT id, username FROM user");
             border-style: solid;
         }
 
-        /* Sidebar Container */
         .sidebar {
             height: 100%;
             width: 0;
@@ -80,7 +92,6 @@ $users = mysqli_query($koneksi, "SELECT id, username FROM user");
             box-shadow: 5px 0 15px rgba(0, 0, 0, 0.1);
         }
 
-        /* Link Sidebar */
         .sidebar a {
             padding: 15px 25px;
             text-decoration: none;
@@ -112,7 +123,6 @@ $users = mysqli_query($koneksi, "SELECT id, username FROM user");
             cursor: pointer;
         }
 
-        /* Judul Sidebar */
         .sidebar-title {
             position: absolute;
             top: 25px;
@@ -120,10 +130,8 @@ $users = mysqli_query($koneksi, "SELECT id, username FROM user");
             font-size: 1.5rem;
             font-weight: bold;
             color: #212529;
-            font-family: 'Fredoka', sans-serif;
         }
 
-        /* Overlay */
         #overlay {
             position: fixed;
             display: none;
@@ -182,6 +190,45 @@ $users = mysqli_query($koneksi, "SELECT id, username FROM user");
             padding-top: 80px;
             padding-bottom: 50px;
         }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .bg-gradient-blue {
+            background: linear-gradient(45deg, #4099ff, #73b4ff);
+        }
+
+        .bg-gradient-green {
+            background: linear-gradient(45deg, #2ed8b6, #59e0c5);
+        }
+
+        .bg-gradient-orange {
+            background: linear-gradient(45deg, #FFB64D, #ffcb80);
+        }
+
+        .list-group-item {
+            border-left: none;
+            border-right: none;
+            padding: 15px 20px;
+            transition: 0.3s;
+            background: transparent;
+        }
+
+        .list-group-item:hover {
+            background-color: rgba(0, 0, 0, 0.05);
+            transform: translateX(5px);
+        }
+
+        .btn-open {
+            border-radius: 20px;
+            padding: 5px 15px;
+        }
+
+        .container {
+            padding-top: 80px;
+            padding-bottom: 50px;
+        }
     </style>
 </head>
 
@@ -199,18 +246,46 @@ $users = mysqli_query($koneksi, "SELECT id, username FROM user");
 
         <a href="admin-db.php"><i class="bi bi-speedometer2 me-2"></i> Admin Dashboard</a>
         <div class="border-top my-2"></div>
-        <a href="#" class="text-danger"><i class="bi bi-box-arrow-left me-2"></i> Logout</a>
+        <a href="logout.php" class="text-danger"><i class="bi bi-box-arrow-left me-2"></i> Logout</a>
     </div>
 
     <div class="container">
-        <div class="card admin-card">
+
+        <div class="row mb-4 justify-content-center">
+            <div class="col-md-4 mb-3">
+                <div class="card stat-card bg-gradient-blue">
+                    <div class="card-body">
+                        <h5 class="card-title">Total Projects</h5>
+                        <h2 class="mb-0 fw-bold"><i class="bi bi-folder2-open"></i> <?php echo $total_project; ?></h2>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-3">
+                <div class="card stat-card bg-gradient-green">
+                    <div class="card-body">
+                        <h5 class="card-title">Completed</h5>
+                        <h2 class="mb-0 fw-bold"><i class="bi bi-check-circle"></i> <?php echo $completed; ?></h2>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-3">
+                <div class="card stat-card bg-gradient-orange">
+                    <div class="card-body">
+                        <h5 class="card-title">In Progress</h5>
+                        <h2 class="mb-0 fw-bold"><i class="bi bi-hourglass-split"></i> <?php echo $in_progress; ?></h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card admin-card mx-auto" style="max-width: 600px;">
             <div class="card-header">
                 <i class="bi bi-grid-1x2-fill me-2"></i> MANAGE CONTENT
             </div>
             <div class="card-body p-4">
 
                 <div class="mb-4">
-                    <label class="form-label fw-bold text-muted small text-uppercase">Select User</label>
+                    <label class="form-label fw-bold text-muted small text-uppercase">Select User Account</label>
                     <div class="input-group">
                         <span class="input-group-text bg-white"><i class="bi bi-person-circle"></i></span>
 
