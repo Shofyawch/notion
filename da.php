@@ -1,4 +1,5 @@
 <?php
+include "koneksi.php";
 session_start();
 
 if (!isset($_SESSION['id'])) {
@@ -115,7 +116,12 @@ $nama = $_SESSION['nama'];
                     </span>
                     <div>
                         <p class="text-sm font-medium text-gray-500 uppercase">Total Pengguna</p>
-                        <p class="text-3xl font-bold text-ghibli-deep-sea" id="totalUsers">128</p>
+                        <?php
+                        $q = mysqli_query($koneksi, "SELECT COUNT(*) as total FROM user");
+                        $count = mysqli_fetch_assoc($q)['total'];
+
+                        echo '<p class="text-3xl font-bold text-ghibli-deep-sea">' . $count . '</p>';
+                        ?>
                     </div>
                 </div>
             </div>
@@ -130,7 +136,12 @@ $nama = $_SESSION['nama'];
                     </span>
                     <div>
                         <p class="text-sm font-medium text-gray-500 uppercase">Total Catatan</p>
-                        <p class="text-3xl font-bold text-ghibli-deep-sea" id="totalNotes">450</p>
+                        <?php
+                        $q = mysqli_query($koneksi, "SELECT COUNT(*) as total FROM notes");
+                        $count = mysqli_fetch_assoc($q)['total'];
+
+                        echo '<p class="text-3xl font-bold text-ghibli-deep-sea">' . $count . '</p>';
+                        ?>
                     </div>
                 </div>
             </div>
@@ -145,7 +156,12 @@ $nama = $_SESSION['nama'];
                     </span>
                     <div>
                         <p class="text-sm font-medium text-gray-500 uppercase">Total Project</p>
-                        <p class="text-3xl font-bold text-ghibli-deep-sea" id="totalProjects">92</p>
+                        <?php
+                        $q = mysqli_query($koneksi, "SELECT COUNT(*) as total FROM project_manager");
+                        $count = mysqli_fetch_assoc($q)['total'];
+
+                        echo '<p class="text-3xl font-bold text-ghibli-deep-sea">' . $count . '</p>';
+                        ?>
                     </div>
                 </div>
             </div>
@@ -160,11 +176,6 @@ $nama = $_SESSION['nama'];
                     <span class="mr-2 text-ghibli-coral">⭐</span> Aktivitas Terakhir
                 </h2>
                 <ul class="space-y-3" id="recentActivities">
-<<<<<<< HEAD
-
-=======
-                
->>>>>>> c93ba09ea274471e04578cbff9dd707ae9763e81
                     <li class="p-3 bg-ghibli-water/50 rounded-lg flex justify-between items-center text-ghibli-deep-sea/90">
                         <span>User A membuat project baru: "Peta Harta Karun"</span>
                         <span class="text-xs text-gray-500">5 menit lalu</span>
@@ -228,31 +239,6 @@ $nama = $_SESSION['nama'];
                 setTimeout(() => notificationArea.remove(), 300);
             }, 3000);
         }
-
-        document.querySelectorAll('.action-button').forEach(button => {
-            button.addEventListener('click', () => {
-                const actionText = button.textContent.trim().split('\n').pop().trim();
-                showConsoleMessage(`Aksi "${actionText}" diklik. Mengarahkan ke halaman terkait...`);
-            });
-        });
-
-        window.onload = () => {
-            const usersElement = document.getElementById('totalUsers');
-            let currentUsers = parseInt(usersElement.textContent);
-
-
-            const targetUsers = currentUsers + Math.floor(Math.random() * 20); // Tambah 0-19
-            let count = currentUsers;
-
-            const interval = setInterval(() => {
-                count++;
-                usersElement.textContent = count;
-                if (count >= targetUsers) {
-                    clearInterval(interval);
-                    usersElement.textContent = targetUsers;
-                }
-            }, 50);
-        };
     </script>
 </body>
 
