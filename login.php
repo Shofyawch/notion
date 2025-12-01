@@ -7,16 +7,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $username = $_POST['username'];
     $password = $_POST['password'];
 
-<<<<<<< HEAD
     // ambil user berdasarkan username
-=======
-    // INI UDA PAS YAH, JANGAN DIGANTI
->>>>>>> c93ba09ea274471e04578cbff9dd707ae9763e81
     $query = "SELECT * FROM user WHERE nama='$username'";
     $result = mysqli_query($koneksi, $query);
     $row = mysqli_fetch_assoc($result);
 
-<<<<<<< HEAD
     // cek password
     if ($row && password_verify($password, $row['password'])) {
 
@@ -24,23 +19,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $_SESSION['id'] = $row['id'];
         $_SESSION['level'] = $row['level']; // ← PENTING!
         $_SESSION['nama'] = $row['nama'];
-=======
-    // Cek password
-    if ($row && password_verify($password, $row['password'])) {
-
-        // Simpan session
-        $_SESSION['id'] = $row['id'];
-        $_SESSION['level'] = $row['level']; 
-        $_SESSION['nama'] = $row['nama'];
-
-        // Redirect sesuai level
-        if ($row['level'] === 'admin') {
-            header("Location: da.php");      // halaman admin
-        } else {
-            header("Location: dahsboard.php"); // halaman user
-        }
-        exit;
->>>>>>> c93ba09ea274471e04578cbff9dd707ae9763e81
 
         // redirect sesuai level
         if ($row['level'] === 'admin') {
@@ -57,10 +35,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 
 
-<<<<<<< HEAD
-=======
-
->>>>>>> c93ba09ea274471e04578cbff9dd707ae9763e81
 <!DOCTYPE html>
 <html lang="en">
 
