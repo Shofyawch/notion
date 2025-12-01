@@ -7,20 +7,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $username = $_POST['username'];
     $password = $_POST['password'];
 
-    // ambil user berdasarkan username
     $query = "SELECT * FROM user WHERE nama='$username'";
     $result = mysqli_query($koneksi, $query);
     $row = mysqli_fetch_assoc($result);
 
-    // cek password
     if ($row && password_verify($password, $row['password'])) {
 
-        // simpan session
         $_SESSION['id'] = $row['id'];
-        $_SESSION['level'] = $row['level']; // ← PENTING!
+        $_SESSION['level'] = $row['level'];
         $_SESSION['nama'] = $row['nama'];
 
-        // redirect sesuai level
         if ($row['level'] === 'admin') {
             header("Location: da.php");
         } else {
