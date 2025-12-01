@@ -168,7 +168,7 @@ $tasks = mysqli_query($koneksi,
             </div>
 
             <div class="card">
-                <a href="media.html">
+                <a href="media.php">
                     <img src="icegif-6415.gif">
                     <div>🍀 media ,!</div>
                 </a>

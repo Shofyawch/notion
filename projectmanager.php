@@ -1,13 +1,26 @@
 <?php
 include "koneksi.php";
+session_start();
+$user_id = $_SESSION['id']; // id dari tabel users
 
 // AMBIL TOTAL PROJECT
-$total = mysqli_fetch_assoc(mysqli_query($koneksi, "SELECT COUNT(*) AS total FROM project_manager"))['total'];
-$completed = mysqli_fetch_assoc(mysqli_query($koneksi, "SELECT COUNT(*) AS total FROM project_manager WHERE status='Completed'"))['total'];
-$progress = mysqli_fetch_assoc(mysqli_query($koneksi, "SELECT COUNT(*) AS total FROM project_manager WHERE status='In Progress'"))['total'];
+$total = mysqli_fetch_assoc(mysqli_query($koneksi, 
+    "SELECT COUNT(*) AS total FROM project_manager WHERE id=$user_id"
+))['total'];
+
+$completed = mysqli_fetch_assoc(mysqli_query($koneksi, 
+    "SELECT COUNT(*) AS total FROM project_manager WHERE status='Completed' AND id=$user_id"
+))['total'];
+
+$progress = mysqli_fetch_assoc(mysqli_query($koneksi, 
+    "SELECT COUNT(*) AS total FROM project_manager WHERE status='In Progress' AND id=$user_id"
+))['total'];
 
 // AMBIL DATA PROJECT
-$query = mysqli_query($koneksi, "SELECT * FROM project_manager ORDER BY id_project DESC");
+$query = mysqli_query($koneksi, 
+    "SELECT * FROM project_manager WHERE id=$user_id ORDER BY id_project DESC"
+);
+
 ?>
 
 <!DOCTYPE html>
@@ -129,9 +142,9 @@ $query = mysqli_query($koneksi, "SELECT * FROM project_manager ORDER BY id_proje
     <a href="projectmanager.php">Project Manager</a>
     <a href="tabletugas.php">Tabel tugas</a>
     <a href="calender.php">Calender</a>
-    <a href="study planner.html">Study planner</a>
-    <a href="todo.html">To Do List</a>
-    <a href="media.html">Media</a>
+    <a href="study planner.php">Study planner</a>
+    <a href="todo.php">To Do List</a>
+    <a href="media.php">Media</a>
 </div>
 
 <div class="main-content">
@@ -171,20 +184,28 @@ $query = mysqli_query($koneksi, "SELECT * FROM project_manager ORDER BY id_proje
                 </tr>
             </thead>
             <tbody>
+    <?php if (mysqli_num_rows($query) > 0): ?>
+        <?php while ($row = mysqli_fetch_assoc($query)): ?>
+            <tr>
+                <td><?= $row['name'] ?></td>
+                <td><?= $row['deadline'] ?></td>
+                <td><?= $row['status'] ?></td>
+                <td><a href="edit_project.php?id=<?= $row['id_project'] ?>">Edit</a>
+            <a href="delete_project.php?id=<?= $row['id_project'] ?>">Delete</a>
+            </td>
+                
+            </tr>
+        <?php endwhile; ?>
 
-                <?php while($d = mysqli_fetch_assoc($query)){ ?>
-                <tr>
-                    <td><?= $d['nama_project'] ?></td>
-                    <td><?= $d['status'] ?></td>
-                    <td><?= $d['deadline'] ?></td>
-                    <td>
-                        <a class="btn-edit" href="edit_project.php?id=<?= $d['id_project'] ?>">Edit</a> | 
-                        <a class="btn-del" href="delete_project.php?id=<?= $d['id_project'] ?>" onclick="return confirm('Yakin hapus?')">Delete</a>
-                    </td>
-                </tr>
-                <?php } ?>
+    <?php else: ?>
+        <tr>
+            <td colspan="4" style="text-align:center; color:gray;">
+                Belum ada proyek
+            </td>
+        </tr>
+    <?php endif; ?>
+</tbody>
 
-            </tbody>
         </table>
     </div>
 

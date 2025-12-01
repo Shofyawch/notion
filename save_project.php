@@ -1,11 +1,18 @@
 <?php
+session_start();
 include "koneksi.php";
+
+$user_id = $_SESSION['id'];  // ambil id user yang login
 
 $nama = $_POST['nama_project'];
 $status = $_POST['status'];
 $deadline = $_POST['deadline'];
 
-mysqli_query($koneksi, "INSERT INTO project_manager VALUES (NULL, '$nama', '$status', '$deadline')");
+$query = "INSERT INTO project_manager (name, status, deadline, id)
+          VALUES ('$nama', '$status', '$deadline', '$user_id')";
 
-header("Location: projectmanager.php");
+mysqli_query($koneksi, $query);
+
+header('Location: projectmanager.php');
+exit;
 ?>

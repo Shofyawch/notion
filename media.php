@@ -1,3 +1,15 @@
+<?php
+include "koneksi.php";
+session_start();
+
+if (!isset($_SESSION['id'])) {
+    die("User belum login.");
+}
+
+$id_user = $_SESSION['id'];
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -11,12 +23,11 @@
 
     <style>
       body {
-        font-family: "Fredoka", sans-serif; /* Menggunakan font Fredoka */
+        font-family: "Fredoka", sans-serif;
         background: #00ffff42;
         margin: 0;
         padding: 25px;
-        /* Tambahan padding atas agar judul tidak ketutup tombol menu */
-        padding-top: 80px; 
+        padding-top: 80px;
       }
 
       h1 {
@@ -36,9 +47,7 @@
         color: #555;
       }
 
-      /* --- STYLE SIDEBAR & NAVIGASI --- */
-      
-      /* Tombol Menu (Hamburger) */
+      /* --- SIDEBAR --- */
       .menu-btn {
         position: fixed;
         top: 20px;
@@ -62,17 +71,15 @@
         border-style: solid;
       }
 
-      /* Sidebar Container */
       .sidebar {
         height: 100%;
-        width: 0; /* Default tertutup */
+        width: 0;
         position: fixed;
         z-index: 2001;
         top: 0;
         left: 0;
-        background-color: rgba(255, 255, 255, 0.4); /* Transparan */
-        backdrop-filter: blur(15px); /* Efek kaca buram */
-        -webkit-backdrop-filter: blur(15px);
+        background-color: rgba(255, 255, 255, 0.4);
+        backdrop-filter: blur(15px);
         border-right: 1px solid rgba(255, 255, 255, 0.6);
         overflow-x: hidden;
         transition: 0.4s;
@@ -81,7 +88,6 @@
         box-shadow: 5px 0 15px rgba(0, 0, 0, 0.1);
       }
 
-      /* Link dalam Sidebar */
       .sidebar a {
         padding: 15px 25px;
         text-decoration: none;
@@ -96,11 +102,10 @@
       .sidebar a:hover {
         background-color: rgba(255, 255, 255, 0.6);
         color: #ff0062;
-        padding-left: 35px; /* Efek geser */
+        padding-left: 35px;
       }
 
-      /* Tombol Close (X) */
-      .sidebar .close-btn {
+      .close-btn {
         position: absolute;
         top: 15px;
         right: 20px;
@@ -111,7 +116,6 @@
         cursor: pointer;
       }
 
-      /* Judul di Sidebar */
       .sidebar-title {
         position: absolute;
         top: 25px;
@@ -121,7 +125,6 @@
         color: #ff0062;
       }
 
-      /* Overlay Gelap Background */
       #overlay {
         position: fixed;
         display: none;
@@ -134,9 +137,7 @@
         backdrop-filter: blur(2px);
       }
 
-      /* --- AKHIR STYLE SIDEBAR --- */
-
-      /* Main container */
+      /* MAIN */
       .media-container {
         margin-top: 25px;
         background: #fff20036;
@@ -146,7 +147,6 @@
         box-shadow: 0 0 10px rgba(255, 163, 204, 0.25);
       }
 
-      /* Upload box */
       .upload-box {
         border: 2px dashed #ff8dbd;
         padding: 30px;
@@ -156,20 +156,22 @@
         cursor: pointer;
         margin-bottom: 25px;
         transition: 0.3s;
-        color: white; /* Text color inside pink box */
+        color: white;
       }
 
       .upload-box:hover {
         background: #fffb006c;
         border-color: #ff74b0;
-        color: #ff0062; /* Text color on hover */
+        color: #ff0062;
       }
 
-      .upload-box input {
-        display: none;
-      }
+      .upload-box input { display: none; }
 
-      /* Preview grid */
+      #upload {
+    display: none;
+}
+
+
       .preview-grid {
         display: grid;
         grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
@@ -192,76 +194,97 @@
     </style>
   </head>
 
-  <body>
+<body>
 
-    <button class="menu-btn" onclick="openNav()">☰ Menu</button>
+<button class="menu-btn" onclick="openNav()">☰ Menu</button>
 
-    <div id="overlay" onclick="closeNav()"></div>
+<div id="overlay" onclick="closeNav()"></div>
 
-    <div id="mySidebar" class="sidebar">
-        <div class="sidebar-title">Navigasi</div>
-        <button class="close-btn" onclick="closeNav()">&times;</button>
+<div id="mySidebar" class="sidebar">
+  <div class="sidebar-title">Navigasi</div>
+  <button class="close-btn" onclick="closeNav()">&times;</button>
         
-        <a href="dahsboard.html">Dashboard</a>
-        <a href="tabletugas.php">Table Tugas</a>
-        <a href="studyplanner.php">Study planner</a>
-        <a href="projectmanager.php">Project Manager</a>
-        <a href="calender.php">Calender</a>
-        <a href="todo.html">To Do List</a>
-        <a href="login.php">Logout</a>
-    </div>
+  <a href="dahsboard.php">Dashboard</a>
+  <a href="tabletugas.php">Table Tugas</a>
+  <a href="studyplanner.php">Study planner</a>
+  <a href="projectmanager.php">Project Manager</a>
+  <a href="calender.php">Calender</a>
+  <a href="todo.php">To Do List</a>
+  <a href="media.php">Media Upload</a>
+  <a href="logout.php">Logout</a>
+</div>
 
-    <h1>Media Upload 𓇼</h1>
-    <div class="subtitle">Add your files & images here</div>
+<h1>Media Upload 𓇼</h1>
 
-    <div class="media-container">
-      <label class="upload-box">
-        <p style="font-size: 16px; margin: 0">📁 Click here to upload images</p>
-        <input type="file" id="upload" accept="image/*" multiple />
-      </label>
+<div class="media-container">
 
-      <div class="preview-grid" id="preview"></div>
-    </div>
+<form action="media_upload.php" method="POST" enctype="multipart/form-data">
+  
+  <input type="hidden" name="id_user" value="<?= $id_user ?>">
 
-    <br />
-    <img src="swipe-up-swipe-ezgif.com-gif-maker.gif" width="200" style="border-radius: 10px;" />
+  <label class="upload-box" for="upload">
+    <p style="font-size:16px;margin:0;">📁 Click here to upload images</p>
+  </label>
 
-    <script>
-      // --- LOGIKA SIDEBAR ---
-      function openNav() {
-        document.getElementById("mySidebar").style.width = "260px";
-        document.getElementById("overlay").style.display = "block";
-      }
+  <input id="upload" type="file" name="images[]" accept="image/*" multiple required>
 
-      function closeNav() {
-        document.getElementById("mySidebar").style.width = "0";
-        document.getElementById("overlay").style.display = "none";
-      }
 
-      // --- LOGIKA UPLOAD GAMBAR ---
-      const upload = document.getElementById("upload");
-      const preview = document.getElementById("preview");
+  <button type="submit" style="
+      background:#ff0062; 
+      color:white; 
+      padding:12px 20px; 
+      border:none; 
+      border-radius:10px;
+      cursor:pointer;
+      font-size:16px;
+      margin-top:15px;">
+      Upload
+  </button>
+</form>
 
-      upload.addEventListener("change", function () {
-        // Jangan clear innerHTML agar gambar lama tidak hilang saat nambah baru
-        // Jika ingin reset total, uncomment baris di bawah:
-        // preview.innerHTML = ""; 
+<div class="preview-grid" id="preview"></div>
 
-        [...this.files].forEach((file) => {
-          const reader = new FileReader();
-          reader.onload = function (e) {
-            const item = document.createElement("div");
-            item.classList.add("preview-item");
+<?php
+$images = mysqli_query($koneksi,
+  "SELECT * FROM media_upload WHERE id_user='$id_user' ORDER BY uploaded_at DESC"
+);
 
-            item.innerHTML = `
-            <img src="${e.target.result}">
-          `;
+while ($img = mysqli_fetch_assoc($images)): ?>
+  <div class="preview-item">
+    <img src="<?= $img['filepath'] ?>">
+  </div>
+<?php endwhile; ?>
 
-            preview.appendChild(item);
-          };
-          reader.readAsDataURL(file);
-        });
-      });
-    </script>
-  </body>
+</div>
+
+<br /> <img src="swipe-up-swipe-ezgif.com-gif-maker.gif" width="200" style="border-radius: 10px;" />
+
+<script>
+  function openNav() {
+    document.getElementById("mySidebar").style.width = "260px";
+    document.getElementById("overlay").style.display = "block";
+  }
+  function closeNav() {
+    document.getElementById("mySidebar").style.width = "0";
+    document.getElementById("overlay").style.display = "none";
+  }
+
+  const upload = document.getElementById("upload");
+  const preview = document.getElementById("preview");
+
+  upload.addEventListener("change", function () {
+    [...this.files].forEach((file) => {
+      const reader = new FileReader();
+      reader.onload = function (e) {
+        const item = document.createElement("div");
+        item.classList.add("preview-item");
+        item.innerHTML = `<img src="${e.target.result}">`;
+        preview.appendChild(item);
+      };
+      reader.readAsDataURL(file);
+    });
+  });
+</script>
+
+</body>
 </html>

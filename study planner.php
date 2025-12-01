@@ -124,13 +124,13 @@ if (isset($_POST['edit_class'])) {
 
     mysqli_query($koneksi,
         "UPDATE class_schedule SET
-             time_slot='$time_slot',
-             monday='$monday',
-             tuesday='$tuesday',
-             wednesday='$wednesday',
-             thursday='$thursday',
-             friday='$friday'
-         WHERE id=$id AND id_user=$id_user"
+            time_slot='$time_slot',
+            monday='$monday',
+            tuesday='$tuesday',
+            wednesday='$wednesday',
+            thursday='$thursday',
+            friday='$friday'
+        WHERE id=$id AND id_user=$id_user"
     ) or die("UPDATE CLASS ERROR: " . mysqli_error($koneksi));
 
     // Pastikan nama file redirect sudah benar
@@ -142,9 +142,14 @@ if (isset($_POST['edit_class'])) {
 // Perbaiki: Kolom WHERE harusnya 'id_user', bukan 'user_id'
 $class_data = mysqli_query($koneksi,
     "SELECT * FROM class_schedule
-     WHERE id_user='$id_user' 
-     ORDER BY time_slot ASC"
+    WHERE id='$id_user' 
+    ORDER BY time_slot ASC"
 );
+
+$todo = mysqli_query($koneksi,
+    "SELECT * FROM todo WHERE id = '$id_user' ORDER BY id DESC"
+);
+
 ?>
 
 <!DOCTYPE html>
@@ -429,6 +434,85 @@ $class_data = mysqli_query($koneksi,
             transform: scale(1.05);
         }
         
+        /* CARD STYLE = sama seperti class schedule */
+.card {
+    background: white;
+    padding: 25px;
+    border-radius: 18px;
+    box-shadow: 0 10px 20px rgba(255,105,180,0.3);
+    margin-top: 25px;
+}
+
+/* TODO LIST FORMAT */
+.todo-list {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 20px;
+}
+
+.todo-list li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 15px;
+    border-bottom: 1px solid #ddd;
+    font-size: 17px;
+}
+
+.todo-list li:last-child {
+    border-bottom: none;
+}
+
+.todo-actions a {
+    margin-left: 10px;
+    font-size: 20px;
+    text-decoration: none;
+}
+
+.todo-check { 
+    color: #2ecc71;
+    font-weight: bold;
+}
+
+.todo-del { 
+    color: #e74c3c;
+    font-weight: bold;
+}
+
+.empty {
+    text-align: center;
+    color: #888;
+    padding: 15px;
+}
+
+/* TODO INPUT */
+.todo-form {
+    display: flex;
+    gap: 10px;
+}
+
+.todo-form input {
+    flex: 1;
+    padding: 12px;
+    border: 2px solid #85d7ff;
+    border-radius: 10px;
+    font-size: 16px;
+}
+
+.todo-form button {
+    padding: 12px 20px;
+    background: #55c0ea;
+    border: none;
+    color: white;
+    border-radius: 12px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.todo-form button:hover {
+    background: #3ca8d6;
+}
+
         .btn-edit {
             background:#3ec8ff; 
             padding:5px 10px;
@@ -534,7 +618,7 @@ $class_data = mysqli_query($koneksi,
         <a href="tabletugas.php">Table Tugas</a>
         <a href="calender.php">Calender</a>
         <a href="projectmanager.php">Project Manager</a>
-        <a href="media.html">Media</a>
+        <a href="media.php">Media</a>
         <a href="login.php">Logout</a>
     </div>
 
@@ -663,21 +747,32 @@ $class_data = mysqli_query($koneksi,
                         </ul>
                     </div>
 
-                    <div class="todo">
-                        <h3>To-Do List</h3>
-                        <ul>
-                            <li><input type="checkbox"> Finish homework</li>
-                            <li><input type="checkbox"> Review notes</li>
-                            <li><input type="checkbox"> Prepare tomorrow</li>
-                        </ul>
-                        <input class="todo-input" placeholder="New task...">
-                        <button class="todo-btn">Add</button>
-                    </div>
+<!-- TO-DO LIST -->
+<div class="card">
+    <h2>To-Do List</h2>
 
-                </div>
-            </div>
-        </div>
-    </div>
+    <ul class="todo-list">
+        <?php if(mysqli_num_rows($todo) > 0): ?>
+            <?php while($t = mysqli_fetch_assoc($todo)): ?>
+                <li>
+                    <span><?= htmlspecialchars($t['isi_todo']) ?></span>
+
+                    <div class="todo-actions">
+                        <a class="todo-check" href="todo_check.php?id=<?= $t['id'] ?>">✔</a>
+                        <a class="todo-del" href="todo_delete.php?id=<?= $t['id'] ?>" onclick="return confirm('Delete?')">✖</a>
+                    </div>
+                </li>
+            <?php endwhile; ?>
+        <?php else: ?>
+            <li class="empty">Belum ada tugas…</li>
+        <?php endif; ?>
+    </ul>
+
+    <form class="todo-form" action="todo_add.php" method="POST">
+        <input type="text" name="task" placeholder="New task..." required>
+        <button type="submit">Add</button>
+    </form>
+</div>
 
     <footer>
         <div id="player-container">
