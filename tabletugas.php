@@ -150,11 +150,11 @@
         <button class="close-btn" onclick="closeNav()">&times;</button>
         <div class="sidebar-title">Navigasi</div>
         <a href="dashboard.php">Dashboard</a>
-        <a href="study_planner.html">Study Planner</a>
+        <a href="study_planner.php">Study Planner</a>
         <a href="calender.php">Kalender</a>
         <a href="projectmanager.php">Project Manager</a>
-        <a href="media.html">Media</a>
-        <a href="todo.html">To Do List</a>
+        <a href="media.php">Media</a>
+        <a href="todo.php">To Do List</a>
         <a href="login.php">Logout</a>
     </div>
 
