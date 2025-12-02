@@ -272,6 +272,11 @@ $query = mysqli_query($koneksi, "SELECT * FROM project_manager WHERE id=$user_id
         <a href="study_planner.php"><i class="bi bi-journal-text me-2"></i> Study Planner</a>
         <a href="todo.php"><i class="bi bi-check2-square me-2"></i> To Do List</a>
         <a href="media.php"><i class="bi bi-images me-2"></i> Media</a>
+
+         
+        <div style="border-top: 1px dashed rgba(0,0,0,0.1); margin: 10px 0;"></div>
+        <a href="login.php" style="color:#ff6b6b;"><i class="bi bi-box-arrow-left me-2"></i> Logout</a>
+    </div>
     
     </div>
 
