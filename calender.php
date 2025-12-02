@@ -120,6 +120,8 @@
         <a href="study_planner.php"><i class="bi bi-journal-text me-2"></i> Study Planner</a>
         <a href="projectmanager.php"><i class="bi bi-kanban me-2"></i> Project Manager</a>
         <a href="media.php"><i class="bi bi-images me-2"></i> Media</a>
+         <a href="login.php"><i class=""></i> Logout</a>
+
         
         <div style="border-top: 1px dashed rgba(0,0,0,0.1); margin: 10px 0;"></div>
         <a href="login.php" style="color:#ff1493;"><i class="bi bi-box-arrow-left me-2"></i> Logout</a>
