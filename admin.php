@@ -2,7 +2,7 @@
 session_start();
 include 'koneksi.php';
 
-// Cek sesi login admin (Opsional, aktifkan jika sudah ada sistem login)
+// Cek sesi login admin (Opsional)
 // if (!isset($_SESSION['admin_logged_in'])) { header("Location: login.php"); exit; }
 
 // Menggunakan $koneksi untuk mengambil data user
@@ -23,7 +23,7 @@ $query_users = mysqli_query($koneksi, "SELECT * FROM user ORDER BY id DESC");
     <style>
         body {
             font-family: 'Fredoka', sans-serif;
-            background-image: url('bg2.gif'); /* Pastikan file ini ada, atau ganti warna */
+            background-image: url('bg2.gif'); /* Pastikan file ini ada */
             background-size: cover;
             background-attachment: fixed;
             background-position: center;
@@ -31,13 +31,13 @@ $query_users = mysqli_query($koneksi, "SELECT * FROM user ORDER BY id DESC");
 
         /* --- STYLE SIDEBAR GLASSMORPHISM --- */
         
-        /* Tombol Menu */
+        /* Tombol Menu (Hamburger) */
         .menu-btn {
             position: fixed;
             top: 20px;
             left: 20px;
             background-color: rgba(255, 255, 255, 0.9);
-            color: #0d6efd; /* Bootstrap Primary Blue */
+            color: #0d6efd;
             border: 2px dashed #0d6efd;
             padding: 8px 15px;
             font-size: 1.1rem;
@@ -60,15 +60,17 @@ $query_users = mysqli_query($koneksi, "SELECT * FROM user ORDER BY id DESC");
         /* Sidebar Container */
         .sidebar {
             height: 100%;
-            width: 0;
+            width: 0; /* Default tertutup */
             position: fixed;
             z-index: 2050;
             top: 0;
             left: 0;
-            background-color: rgba(255, 255, 255, 0.65); /* Transparan */
-            backdrop-filter: blur(15px); /* Efek Blur */
+            /* Efek Kaca */
+            background-color: rgba(255, 255, 255, 0.65); 
+            backdrop-filter: blur(15px);
             -webkit-backdrop-filter: blur(15px);
             border-right: 1px solid rgba(255, 255, 255, 0.8);
+            
             overflow-x: hidden;
             transition: 0.4s;
             padding-top: 80px;
@@ -90,12 +92,12 @@ $query_users = mysqli_query($koneksi, "SELECT * FROM user ORDER BY id DESC");
         }
 
         .sidebar a:hover {
-            background-color: rgba(13, 110, 253, 0.1); /* Biru muda transparan */
+            background-color: rgba(13, 110, 253, 0.15);
             color: #0d6efd;
             padding-left: 35px;
         }
 
-        /* Close Button */
+        /* Tombol Close Sidebar */
         .sidebar .close-btn {
             position: absolute;
             top: 15px;
@@ -118,7 +120,7 @@ $query_users = mysqli_query($koneksi, "SELECT * FROM user ORDER BY id DESC");
             font-family: 'Fredoka', sans-serif;
         }
 
-        /* Overlay */
+        /* Overlay Background Gelap */
         #overlay {
             position: fixed;
             display: none;
@@ -135,10 +137,9 @@ $query_users = mysqli_query($koneksi, "SELECT * FROM user ORDER BY id DESC");
         .card-custom { 
             margin-bottom: 20px; 
             box-shadow: 0 4px 8px rgba(0,0,0,0.1); 
-            background-color: rgba(255, 255, 255, 0.95); /* Sedikit transparan */
+            background-color: rgba(255, 255, 255, 0.95);
         }
         
-        /* Container padding agar tidak ketutup tombol menu */
         .container-custom {
             padding-top: 80px;
             padding-bottom: 50px;
@@ -157,7 +158,9 @@ $query_users = mysqli_query($koneksi, "SELECT * FROM user ORDER BY id DESC");
         <div class="sidebar-title">Admin Panel</div>
         <button class="close-btn" onclick="closeNav()">&times;</button>
         
-        <a href="admin-db.php"><i class="bi bi-speedometer2 me-2"></i> Admin Panel Monitoring</a>
+        <a href="admin-db.php"><i class="bi bi-people-fill me-2"></i> Daftar User</a>
+        
+        <div class="border-top my-2"></div>
         <a href="logout.php" class="text-danger"><i class="bi bi-box-arrow-left me-2"></i> Logout</a>
     </div>
 
@@ -260,4 +263,19 @@ $query_users = mysqli_query($koneksi, "SELECT * FROM user ORDER BY id DESC");
         </div>
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        function openNav() {
+            document.getElementById("mySidebar").style.width = "280px";
+            document.getElementById("overlay").style.display = "block";
+        }
+
+        function closeNav() {
+            document.getElementById("mySidebar").style.width = "0";
+            document.getElementById("overlay").style.display = "none";
+        }
+    </script>
+
+</body>
+</html>
