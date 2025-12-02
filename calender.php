@@ -60,9 +60,9 @@
         <a href="Dashboard.php">Dashboard</a>
         <a href="todo.php">To Do List</a>
         <a href="tabletugas.php">Table Tugas</a>
-        <a href="study_planner.html">Study Planner</a>
+        <a href="study_planner.php">Study Planner</a>
         <a href="projectmanager.php">Project Manager</a>
-        <a href="media.html">Media</a>
+        <a href="media.php">Media</a>
         <a href="login.php">Login</a>
     </div>
 
