@@ -8,16 +8,18 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;700&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
 
     <style>
         /* CSS SAMA PERSIS SEPERTI SEBELUMNYA */
         body {
             font-family: 'Fredoka', sans-serif;
-            background-image: url('bg1.gif'); /* Pastikan file ini ada */
-            background-size: cover;     
-            background-position: center;  
-            background-repeat: no-repeat; 
-            background-attachment: fixed; 
+            background-image: url('bg1.gif'); 
+            background-size: cover;    
+            background-position: center;  
+            background-repeat: no-repeat;
+            background-attachment: fixed;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -27,13 +29,13 @@
         }
 
         h1 {
-            color: #61e1ce; 
-            text-shadow: 3px 3px 0px #acfad1; 
+            color: #61e1ce;
+            text-shadow: 3px 3px 0px #acfad1;
             font-size: 3rem;
             margin-bottom: 20px;
         }
 
-        /* --- STYLE SIDEBAR --- */
+        /* --- STYLE SIDEBAR GLASSMORPHISM --- */
         .menu-btn {
             position: fixed;
             top: 20px; left: 20px;
@@ -52,22 +54,40 @@
             background-color: #61e1ce; color: white; border-style: solid;
         }
         .sidebar {
-            height: 100%; width: 0; position: fixed; z-index: 2001; top: 0; left: 0;
+            height: 100%; 
+            width: 0; 
+            position: fixed; 
+            z-index: 2001; 
+            top: 0; left: 0;
+            
+            /* Glassmorphism Effect */
             background-color: rgba(255, 255, 255, 0.25);
-            backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+            backdrop-filter: blur(10px); 
+            -webkit-backdrop-filter: blur(10px);
             border-right: 1px solid rgba(255, 255, 255, 0.5);
-            overflow-x: hidden; transition: 0.4s;
             box-shadow: 5px 0 15px rgba(0, 0, 0, 0.1);
-            padding-top: 60px; white-space: nowrap;
+            /* End Glassmorphism */
+
+            overflow-x: hidden; 
+            transition: 0.4s;
+            padding-top: 60px; 
+            white-space: nowrap;
         }
         .sidebar a {
-            padding: 15px 25px; text-decoration: none; font-size: 1.2rem;
-            color: #333; font-weight: 700; display: block; transition: 0.3s;
+            padding: 15px 25px; 
+            text-decoration: none; 
+            font-size: 1.2rem;
+            color: #333; 
+            font-weight: 700; 
+            display: block; 
+            transition: 0.3s;
             border-bottom: 1px dashed rgba(255, 255, 255, 0.5);
             text-shadow: 0px 0px 2px rgba(255,255,255,0.8);
         }
         .sidebar a:hover {
-            background-color: rgba(255, 255, 255, 0.4); color: #3ec8ff; padding-left: 35px;
+            background-color: rgba(255, 255, 255, 0.4); 
+            color: #3ec8ff; 
+            padding-left: 35px;
         }
         .sidebar .close-btn {
             position: absolute; top: 10px; right: 20px; font-size: 2rem;
@@ -85,7 +105,12 @@
             cursor: pointer; backdrop-filter: blur(2px);
         }
 
-        /* --- STYLE FORM & TABLE --- */
+        /* Utility Class untuk Margin Kanan Ikon */
+        .me-2 {
+            margin-right: 0.5rem;
+        }
+        
+        /* --- STYLE FORM & TABLE (Tidak Berubah) --- */
         .form-container {
             background-color: #ffffff; padding: 25px; border-radius: 20px;
             box-shadow: 0px 10px 20px rgba(255, 105, 180, 0.3);
@@ -143,19 +168,24 @@
 </head>
 <body>
 
-    <button class="menu-btn" onclick="openNav()">☰ Menu</button>
+    <button class="menu-btn" onclick="openNav()"><i class="bi bi-list"></i> Menu</button>
     <div id="overlay" onclick="closeNav()"></div>
 
     <div id="mySidebar" class="sidebar">
         <button class="close-btn" onclick="closeNav()">&times;</button>
-        <div class="sidebar-title">Navigasi</div>
-        <a href="dashboard.php">Dashboard</a>
-        <a href="study_planner.php">Study Planner</a>
-        <a href="calender.php">Kalender</a>
-        <a href="projectmanager.php">Project Manager</a>
-        <a href="media.php">Media</a>
-        <a href="todo.php">To Do List</a>
-        <a href="login.php">Logout</a>
+        <div class="sidebar-title">Navigasi Tugas</div>
+        
+        <a href="dashboard.php"><i class="bi bi-house-door-fill me-2"></i> Dashboard</a>
+        <a href="study_planner.php"><i class="bi bi-journal-text me-2"></i> Study Planner</a>
+        <a href="calender.php"><i class="bi bi-calendar-event me-2"></i> Kalender</a>
+        <a href="projectmanager.php"><i class="bi bi-kanban me-2"></i> Project Manager</a>
+        <a href="media.php"><i class="bi bi-images me-2"></i> Media</a>
+        <a href="todo.php"><i class="bi bi-check2-square me-2"></i> To Do List</a>
+         <a href="login.php"><i class=""></i> Logout</a>
+
+        
+        <div style="border-top: 1px dashed rgba(0,0,0,0.1); margin: 10px 0;"></div>
+        <a href="login.php" style="color:#ff6b6b;"><i class="bi bi-box-arrow-left me-2"></i> Logout</a>
     </div>
 
     <h1> Table Tugas </h1>
@@ -185,7 +215,7 @@
             </tr>
         </thead>
         <tbody id="isi-tabel">
-            </tbody>
+             </tbody>
     </table>
 
     <footer>
