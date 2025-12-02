@@ -203,10 +203,10 @@ $id_user = $_SESSION['id'];
 <div id="mySidebar" class="sidebar">
   <div class="sidebar-title">Navigasi</div>
   <button class="close-btn" onclick="closeNav()">&times;</button>
-        
-  <a href="dahsboard.php">Dashboard</a>
+  
+  <a href="dashboard.php">Dashboard</a>
   <a href="tabletugas.php">Table Tugas</a>
-  <a href="studyplanner.php">Study planner</a>
+  <a href="study_planner.php">Study planner</a>
   <a href="projectmanager.php">Project Manager</a>
   <a href="calender.php">Calender</a>
   <a href="todo.php">To Do List</a>

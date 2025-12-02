@@ -149,8 +149,8 @@
     <div id="mySidebar" class="sidebar">
         <button class="close-btn" onclick="closeNav()">&times;</button>
         <div class="sidebar-title">Navigasi</div>
-        <a href="dahsboard.php">Dashboard</a>
-        <a href="studyplanner.html">Study Planner</a>
+        <a href="dashboard.php">Dashboard</a>
+        <a href="study_planner.html">Study Planner</a>
         <a href="calender.php">Kalender</a>
         <a href="projectmanager.php">Project Manager</a>
         <a href="media.html">Media</a>

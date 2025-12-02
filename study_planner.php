@@ -633,8 +633,9 @@ $todo = mysqli_query($koneksi,
     <div id="mySidebar" class="sidebar">
         <button class="close-btn" onclick="closeNav()">&times;</button>
         <div class="sidebar-title">Student Planner</div>
-
-        <a href="dahsboard.php">Dashboard</a>
+        
+        <a href="dashboard.php">Dasboard</a>
+        <a href="todo.php">To Do List</a>
         <a href="tabletugas.php">Table Tugas</a>
         <a href="calender.php">Calender</a>
         <a href="projectmanager.php">Project Manager</a>
