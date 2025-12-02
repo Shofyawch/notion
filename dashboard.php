@@ -175,7 +175,7 @@ $tasks = mysqli_query($koneksi,
             </div>
 
             <div class="card">
-                <a href="study planner.php">
+                <a href="study_planner.php">
                     <img src="We17sl.gif">
                     <div>✏️ Study / Goals planner ,!</div>
                 </a>
@@ -209,7 +209,7 @@ $tasks = mysqli_query($koneksi,
 
         <!-- Calendar -->
         <div class="calendar">
-            <a href="http://localhost/notion%20github/notion/calender.php"><h2>calendar 📅</h2></a>
+            <a href="calender.php"><h2>calendar 📅</h2></a>
             <input type="date"
                 style="padding: 8px; font-size: 16px; border-radius: 6px; border: 1px solid #ddd;">
         </div>
