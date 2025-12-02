@@ -40,7 +40,7 @@ $q_study   = mysqli_query($koneksi, "SELECT * FROM studyplanner WHERE id_user = 
 // KHUSUS EVENT/CALENDAR
 // Pastikan kamu sudah menjalankan SQL ALTER TABLE untuk menambah kolom id/id_user di tabel events
 // Jika di database kolomnya 'id_user', pakai 'id_user'. Jika 'id', pakai 'id'.
-$q_event = mysqli_query($koneksi, "SELECT * FROM events WHERE id = '$id_user' ORDER BY event_date ASC");
+$q_event = mysqli_query($koneksi, "SELECT * FROM events WHERE id_user = '$id_user' ORDER BY event_date ASC");
 
 // Debugging: Cek jika query gagal
 if (!$q_study) { echo "Error Study Planner: " . mysqli_error($koneksi); }

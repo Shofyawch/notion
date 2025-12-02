@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 01, 2025 at 05:32 PM
+-- Generation Time: Dec 02, 2025 at 07:53 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -29,20 +29,10 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `events` (
   `id_events` int(11) NOT NULL,
-  `event_date` date NOT NULL,
+  `event_date` date DEFAULT NULL,
   `note` text NOT NULL,
   `id_user` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `events`
---
-
-INSERT INTO `events` (`id_events`, `event_date`, `note`, `id_user`) VALUES
-(1, '2025-11-01', 'menghafal', 0),
-(4, '2025-11-02', 'perkalian', 0),
-(5, '2025-12-01', 'p', 0),
-(6, '2025-12-02', 'tessssss', 0);
 
 --
 -- Indexes for dumped tables
@@ -53,7 +43,7 @@ INSERT INTO `events` (`id_events`, `event_date`, `note`, `id_user`) VALUES
 --
 ALTER TABLE `events`
   ADD PRIMARY KEY (`id_events`),
-  ADD UNIQUE KEY `event_date` (`event_date`);
+  ADD KEY `fk_events_user` (`id_user`);
 
 --
 -- AUTO_INCREMENT for dumped tables
@@ -64,6 +54,16 @@ ALTER TABLE `events`
 --
 ALTER TABLE `events`
   MODIFY `id_events` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
+-- Constraints for dumped tables
+--
+
+--
+-- Constraints for table `events`
+--
+ALTER TABLE `events`
+  ADD CONSTRAINT `fk_events_user` FOREIGN KEY (`id_user`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
