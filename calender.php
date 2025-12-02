@@ -5,11 +5,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Kalender Database</title>
 
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=M+PLUS+Rounded+1c:wght@700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;700&display=swap" rel="stylesheet"> 
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+
     <style>
         /* --- STYLE SAMA SEPERTI SEBELUMNYA (Saya persingkat agar fokus ke logika) --- */
-        @import url('https://fonts.googleapis.com/css2?family=Fredoka+One&family=M+PLUS+Rounded+1c:wght@700&display=swap');
-        @import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@400;700&display=swap'); 
-
+        
         body {
             margin: 0;
             font-family: 'M PLUS Rounded 1c', sans-serif;
@@ -19,16 +24,67 @@
             background-position: center;
         }
         
-        /* ... (Copy paste style CSS kamu yang sebelumnya di sini) ... */
-        /* Agar tidak terlalu panjang, saya menggunakan style penting saja di sini */
-        
-        .menu-btn { position: fixed; top: 20px; left: 20px; background-color: rgba(255,255,255,0.8); color: #ff1493; border: 2px dashed #ff1493; padding: 10px 15px; font-size: 1.5rem; border-radius: 10px; cursor: pointer; z-index: 2000; font-family: 'Fredoka One'; }
-        .sidebar { height: 100%; width: 0; position: fixed; z-index: 2001; top: 0; left: 0; background-color: rgba(255,255,255,0.85); backdrop-filter: blur(10px); overflow-x: hidden; transition: 0.4s; padding-top: 60px; box-shadow: 5px 0 15px rgba(0,0,0,0.1); }
-        .sidebar a { padding: 15px 25px; text-decoration: none; font-size: 1.2rem; color: #333; display: block; transition: 0.3s; font-family: 'Fredoka'; }
-        .sidebar a:hover { background-color: pink; color: white; }
-        .sidebar .close-btn { position: absolute; top: 10px; right: 25px; font-size: 36px; margin-left: 50px; background: none; border: none; color: #ff1493; cursor: pointer; }
-        #overlay { position: fixed; display: none; width: 100%; height: 100%; top: 0; left: 0; background-color: rgba(0,0,0,0.5); z-index: 1999; }
+        /* --- STYLE SIDEBAR GLASSMORPHISM --- */
+        .menu-btn { 
+            position: fixed; top: 20px; left: 20px; 
+            background-color: rgba(255,255,255,0.8); 
+            color: #ff1493; 
+            border: 2px dashed #ff1493; 
+            padding: 10px 15px; 
+            font-size: 1.5rem; 
+            border-radius: 10px; 
+            cursor: pointer; 
+            z-index: 2000; 
+            font-family: 'Fredoka One'; 
+            transition: 0.3s;
+            box-shadow: 0px 5px 10px rgba(0,0,0,0.1);
+        }
+        .menu-btn:hover { background-color: #ff1493; color: white; border-style: solid; }
 
+        .sidebar { 
+            height: 100%; width: 0; position: fixed; z-index: 2001; top: 0; left: 0; 
+            /* Glassmorphism Effect */
+            background-color: rgba(255, 255, 255, 0.25);
+            backdrop-filter: blur(10px); 
+            -webkit-backdrop-filter: blur(10px);
+            border-right: 1px solid rgba(255, 255, 255, 0.5);
+            /* End Glassmorphism */
+            overflow-x: hidden; transition: 0.4s; padding-top: 60px; 
+            box-shadow: 5px 0 15px rgba(0,0,0,0.1);
+            white-space: nowrap;
+        }
+        .sidebar a { 
+            padding: 15px 25px; 
+            text-decoration: none; 
+            font-size: 1.2rem; 
+            color: #333; 
+            display: block; 
+            transition: 0.3s; 
+            font-family: 'Fredoka'; 
+            font-weight: 700;
+            border-bottom: 1px dashed rgba(255, 255, 255, 0.5);
+            text-shadow: 0px 0px 2px rgba(255,255,255,0.8);
+        }
+        .sidebar a:hover { 
+            background-color: rgba(255, 192, 203, 0.5); /* Pink semi-transparan */
+            color: #ff1493; 
+            padding-left: 35px;
+        }
+        .sidebar .close-btn { 
+            position: absolute; top: 10px; right: 20px; font-size: 2rem;
+            color: #ff1493; background: none; border: none; cursor: pointer;
+            text-shadow: 2px 2px 5px rgba(255,255,255,1);
+        }
+        .sidebar-title {
+            padding: 0 25px 20px; font-size: 1.5rem; color: #ff69b4;
+            font-weight: bold; text-align: center; text-shadow: 2px 2px 0px #fff;
+        }
+        #overlay { position: fixed; display: none; width: 100%; height: 100%; top: 0; left: 0; background-color: rgba(0,0,0,0.2); z-index: 1999; backdrop-filter: blur(2px); cursor: pointer; }
+
+        /* Utility Class untuk Margin Kanan Ikon */
+        .me-2 { margin-right: 0.5rem; }
+
+        /* --- KALENDER & Konten Lain (Tidak Berubah) --- */
         .main-content { display: flex; flex-direction: column; align-items: center; padding-top: 80px; min-height: 100vh; }
         .calendar-header { display: flex; justify-content: space-between; align-items: center; padding: 20px; background: #ffc0cb; border-radius: 15px; border: 4px solid #333; width: 90%; max-width: 800px; margin-bottom: 20px; }
         .calendar-header h2 { font-family: 'Fredoka One'; color: #ff1493; margin: 0; text-shadow: 2px 2px 0 #fff; }
@@ -52,18 +108,21 @@
 </head>
 <body>
 
-    <button class="menu-btn" onclick="openNav()">☰ Menu</button>
+    <button class="menu-btn" onclick="openNav()"><i class="bi bi-list"></i> Menu</button>
     <div id="overlay" onclick="closeNav()"></div>
 
     <div id="mySidebar" class="sidebar">
         <button class="close-btn" onclick="closeNav()">&times;</button>
-        <a href="Dashboard.php">Dashboard</a>
-        <a href="todo.php">To Do List</a>
-        <a href="tabletugas.php">Table Tugas</a>
-        <a href="study_planner.php">Study Planner</a>
-        <a href="projectmanager.php">Project Manager</a>
-        <a href="media.php">Media</a>
-        <a href="login.php">Login</a>
+        <div class="sidebar-title">Navigasi Kalender</div>
+        <a href="Dashboard.php"><i class="bi bi-house-door-fill me-2"></i> Dashboard</a>
+        <a href="todo.php"><i class="bi bi-check2-square me-2"></i> To Do List</a>
+        <a href="tabletugas.php"><i class="bi bi-table me-2"></i> Table Tugas</a>
+        <a href="study_planner.php"><i class="bi bi-journal-text me-2"></i> Study Planner</a>
+        <a href="projectmanager.php"><i class="bi bi-kanban me-2"></i> Project Manager</a>
+        <a href="media.php"><i class="bi bi-images me-2"></i> Media</a>
+        
+        <div style="border-top: 1px dashed rgba(0,0,0,0.1); margin: 10px 0;"></div>
+        <a href="login.php" style="color:#ff1493;"><i class="bi bi-box-arrow-left me-2"></i> Logout</a>
     </div>
 
     <div class="main-content">
