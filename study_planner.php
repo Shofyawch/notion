@@ -1,13 +1,10 @@
 <?php
-// PHP Configuration
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
-// File koneksi.php dan sesi harus di-include
 include 'koneksi.php';
 session_start();
 
-// Redirect jika user belum login
 if (!isset($_SESSION['id'])) {
     header("Location: login.php");
     exit;
@@ -19,9 +16,7 @@ $id_user = $_SESSION['id'];
     STUDY PLANNER CRUD
 ============================================================ */
 
-/* ---- ADD STUDY PLAN ---- */
 if (isset($_POST['add_study'])) {
-    // Penggunaan mysqli_real_escape_string untuk keamanan
     $time_range = mysqli_real_escape_string($koneksi, $_POST['time_range']);
     $activity   = mysqli_real_escape_string($koneksi, $_POST['activity']);
 
@@ -31,28 +26,23 @@ if (isset($_POST['add_study'])) {
          VALUES ('$time_range', '$activity', '$id_user')"
     ) or die("INSERT STUDY ERROR: " . mysqli_error($koneksi));
 
-    // Pastikan nama file redirect sudah benar
     header("Location: study_planner.php");
     exit;
 }
 
-/* ---- DELETE STUDY PLAN ---- */
-// Perbaiki: Parameter GET yang digunakan di HTML adalah 'delete', bukan 'delete_study'
 if (isset($_GET['delete'])) { 
     $id = intval($_GET['delete']);
 
     mysqli_query(
         $koneksi,
         "DELETE FROM studyplanner 
-         WHERE id_studyplanner = $id AND id_user = $id_user"
+        WHERE id_studyplanner = $id AND id_user = $id_user"
     ) or die("DELETE STUDY ERROR: " . mysqli_error($koneksi));
 
-    // Pastikan nama file redirect sudah benar
     header("Location: study_planner.php");
     exit;
 }
 
-/* ---- UPDATE STUDY PLAN ---- */
 if (isset($_POST['edit_study'])) {
     $id         = intval($_POST['id']);
     $time_range = mysqli_real_escape_string($koneksi, $_POST['time_range']);
@@ -61,22 +51,20 @@ if (isset($_POST['edit_study'])) {
     mysqli_query(
         $koneksi,
         "UPDATE studyplanner SET
-             time_range = '$time_range',
-             activity   = '$activity'
-         WHERE id_studyplanner = $id AND id_user = $id_user"
+            time_range = '$time_range',
+            activity   = '$activity'
+        WHERE id_studyplanner = $id AND id_user = $id_user"
     ) or die("UPDATE STUDY ERROR: " . mysqli_error($koneksi));
 
-    // Pastikan nama file redirect sudah benar
     header("Location: study_planner.php");
     exit;
 }
 
-/* ---- READ ---- */
 $study_data = mysqli_query(
     $koneksi,
     "SELECT * FROM studyplanner
-     WHERE id_user = '$id_user'
-     ORDER BY id_studyplanner DESC"
+    WHERE id_user = '$id_user'
+    ORDER BY id_studyplanner DESC"
 );
 
 
@@ -84,7 +72,6 @@ $study_data = mysqli_query(
     CLASS SCHEDULE CRUD
 ============================================================ */
 
-/* ---- ADD CLASS SCHEDULE ---- */
 if (isset($_POST['add_class'])) {
     $time_slot = mysqli_real_escape_string($koneksi, $_POST['time_slot']);
     $monday    = mysqli_real_escape_string($koneksi, $_POST['monday']);
@@ -102,7 +89,6 @@ if (isset($_POST['add_class'])) {
     exit;
 }
 
-/* ---- DELETE CLASS SCHEDULE ---- */
 if (isset($_GET['delete_class'])) {
     $id = intval($_GET['delete_class']);
 
@@ -169,7 +155,6 @@ $todo = mysqli_query($koneksi,
     <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;700&display=swap" rel="stylesheet">
 
     <style>
-        /* --- GLOBAL STYLE --- */
         * {
             box-sizing: border-box;
             margin: 0;
@@ -179,7 +164,6 @@ $todo = mysqli_query($koneksi,
         body {
             font-family: 'Fredoka', sans-serif;
             background-image: url('bg1.gif');
-            /* Pastikan file ini ada */
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
@@ -188,7 +172,6 @@ $todo = mysqli_query($koneksi,
             min-height: 100vh;
         }
 
-        /* --- STYLE SIDEBAR TRANSPARAN (GLASSMORPHISM) --- */
         .menu-btn {
             position: fixed;
             top: 20px;
@@ -219,9 +202,7 @@ $todo = mysqli_query($koneksi,
             top: 0;
             left: 0;
             background-color: rgba(255, 255, 255, 0.25);
-            /* Transparan */
             backdrop-filter: blur(10px);
-            /* Efek Blur */
             -webkit-backdrop-filter: blur(10px);
             border-right: 1px solid rgba(255, 255, 255, 0.5);
             overflow-x: hidden;
@@ -281,12 +262,10 @@ $todo = mysqli_query($koneksi,
             backdrop-filter: blur(2px);
         }
 
-        /* --- PLANNER LAYOUT --- */
         .wrapper {
             max-width: 1200px;
             margin: 0 auto;
             padding: 80px 20px 100px 20px;
-            /* Padding atas besar agar tidak ketutup tombol menu */
         }
 
         .header {
@@ -310,7 +289,6 @@ $todo = mysqli_query($koneksi,
             font-weight: bold;
         }
 
-        /* Grid Layout Utama */
         .main {
             display: flex;
             flex-wrap: wrap;
@@ -334,7 +312,6 @@ $todo = mysqli_query($koneksi,
             gap: 20px;
         }
 
-        /* Styles untuk Tabel */
         h3 {
             color: #3ec8ff;
             margin-bottom: 15px;
@@ -360,7 +337,6 @@ $todo = mysqli_query($koneksi,
             border-bottom: 1px dashed #ddd;
         }
         
-        /* Form elements */
         input[type="text"] {
             width: 100%;
             border: none;
@@ -369,7 +345,7 @@ $todo = mysqli_query($koneksi,
             border-radius: 5px;
             font-family: 'Fredoka', sans-serif;
             color: #555;
-            margin-bottom: 10px; /* Tambahkan margin agar input tidak menempel */
+            margin-bottom: 10px; 
         }
         
         .studyplanner form input[type="text"] {
@@ -381,13 +357,11 @@ $todo = mysqli_query($koneksi,
             margin-left: 5px;
         }
 
-
         input[type="text"]:focus {
             outline: 2px solid #3ec8ff;
             background: #fff;
         }
 
-        /* Widgets Bawah (Notif & ToDo) */
         .bottom-widgets {
             display: flex;
             gap: 20px;
@@ -446,85 +420,81 @@ $todo = mysqli_query($koneksi,
             transform: scale(1.05);
         }
         
-        /* CARD STYLE = sama seperti class schedule */
-.card {
-    background: white;
-    padding: 25px;
-    border-radius: 18px;
-    box-shadow: 0 10px 20px rgba(255,105,180,0.3);
-    margin-top: 25px;
-}
+        .card {
+            background: white;
+            padding: 25px;
+            border-radius: 18px;
+            box-shadow: 0 10px 20px rgba(255,105,180,0.3);
+            margin-top: 25px;
+        }
 
-/* TODO LIST FORMAT */
-.todo-list {
-    list-style: none;
-    padding: 0;
-    margin: 0 0 20px;
-}
+    .todo-list {
+        list-style: none;
+        padding: 0;
+        margin: 0 0 20px;
+    }
 
-.todo-list li {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 12px 15px;
-    border-bottom: 1px solid #ddd;
-    font-size: 17px;
-}
+    .todo-list li {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 12px 15px;
+        border-bottom: 1px solid #ddd;
+        font-size: 17px;
+    }
 
-.todo-list li:last-child {
-    border-bottom: none;
-}
+    .todo-list li:last-child {
+        border-bottom: none;
+    }
 
-.todo-actions a {
-    margin-left: 10px;
-    font-size: 20px;
-    text-decoration: none;
-}
+    .todo-actions a {
+        margin-left: 10px;
+        font-size: 20px;
+        text-decoration: none;
+    }
 
-.todo-check { 
-    color: #2ecc71;
-    font-weight: bold;
-}
+    .todo-check { 
+        color: #2ecc71;
+        font-weight: bold;
+    }
 
-.todo-del { 
-    color: #e74c3c;
-    font-weight: bold;
-}
+    .todo-del { 
+        color: #e74c3c;
+        font-weight: bold;
+    }
 
-.empty {
-    text-align: center;
-    color: #888;
-    padding: 15px;
-}
+    .empty {
+        text-align: center;
+        color: #888;
+        padding: 15px;
+    }
 
-/* TODO INPUT */
-.todo-form {
-    display: flex;
-    gap: 10px;
-}
+    .todo-form {
+        display: flex;
+        gap: 10px;
+    }
 
-.todo-form input {
-    flex: 1;
-    padding: 12px;
-    border: 2px solid #85d7ff;
-    border-radius: 10px;
-    font-size: 16px;
-}
+    .todo-form input {
+        flex: 1;
+        padding: 12px;
+        border: 2px solid #85d7ff;
+        border-radius: 10px;
+        font-size: 16px;
+    }
 
-.todo-form button {
-    padding: 12px 20px;
-    background: #55c0ea;
-    border: none;
-    color: white;
-    border-radius: 12px;
-    cursor: pointer;
-    font-size: 16px;
-}
+    .todo-form button {
+        padding: 12px 20px;
+        background: #55c0ea;
+        border: none;
+        color: white;
+        border-radius: 12px;
+        cursor: pointer;
+        font-size: 16px;
+    }
 
-.todo-form button:hover {
-    background: #3ca8d6;
-}
-
+    .todo-form button:hover {
+        background: #3ca8d6;
+    }
         .btn-edit {
             background:#3ec8ff; 
             padding:5px 10px;
@@ -540,7 +510,6 @@ $todo = mysqli_query($koneksi,
             opacity: 0.8;
         }
 
-        /* CSS untuk Modal */
         .modal {
             display: none; 
             position: fixed; 
@@ -575,7 +544,6 @@ $todo = mysqli_query($koneksi,
             margin-bottom: 0;
         }
 
-        /* --- MUSIC PLAYER --- */
         #cassette-animation {
             width: 100px;
             cursor: pointer;
@@ -604,7 +572,6 @@ $todo = mysqli_query($koneksi,
             animation: spin 2s linear infinite;
         }
 
-        /* Responsive Mobile */
         @media (max-width: 768px) {
 
             .main,
@@ -655,14 +622,12 @@ $todo = mysqli_query($koneksi,
             <div class="studyplanner">
                 <h3>Study Plan</h3>
 
-                <!-- FORM TAMBAH -->
                 <form method="POST" style="margin-bottom:15px;">
                     <input type="text" name="time_range" placeholder="06:00 - 07:00" required>
                     <input type="text" name="activity" placeholder="Activity..." required>
                     <button name="add_study" class="todo-btn">Add</button>
                 </form>
 
-                <!-- TABEL DATA -->
                 <table>
                     <thead>
                         <tr>
@@ -679,7 +644,6 @@ $todo = mysqli_query($koneksi,
                                 <td><?= $row['activity'] ?></td>
                                 <td>
 
-                                    <!-- Tombol Edit -->
                                     <button type="button"
                                         onclick='openEdit(<?= json_encode($row['id_studyplanner']) ?>, <?= json_encode($row['time_range']) ?>, <?= json_encode($row['activity']) ?>)'
                                         class="todo-btn"
@@ -687,7 +651,6 @@ $todo = mysqli_query($koneksi,
                                         Edit
                                     </button>
 
-                                    <!-- Tombol Delete -->
                                     <a href="study_planner.php?delete_study=<?= $row['id_studyplanner'] ?>"
                                         onclick="return confirm('Delete this study plan?')"
                                         class="btn-delete">Delete</a>
@@ -768,7 +731,6 @@ $todo = mysqli_query($koneksi,
                         </ul>
                     </div>
 
-<!-- TO-DO LIST -->
 <div class="card">
     <h2>To-Do List</h2>
 
@@ -924,7 +886,6 @@ $todo = mysqli_query($koneksi,
         });
     </script>
 
-    <!-- ===== MODAL EDIT CLASS ===== -->
     <div id="editModalClass"
         style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.5); z-index:9999; justify-content:center; align-items:center;">
 
@@ -958,7 +919,6 @@ $todo = mysqli_query($koneksi,
         </div>
     </div>
 
-    <!-- ===== MODAL EDIT STUDY ===== -->
     <div id="editModalStudy"
         style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.5); z-index:9999; justify-content:center; align-items:center;">
 
@@ -1010,7 +970,6 @@ $todo = mysqli_query($koneksi,
             </form>
         </div>
     </div>
-
 
     <script>
         function openEditClass(id, time, mon, tue, wed, thu, fri) {

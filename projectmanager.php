@@ -1,12 +1,9 @@
 <?php
 include "koneksi.php";
 session_start();
-// Pastikan user sudah login (opsional, disarankan)
-// if (!isset($_SESSION['id'])) { header("Location: login.php"); exit; }
 
-$user_id = $_SESSION['id']; // id dari tabel users
+$user_id = $_SESSION['id']; 
 
-// AMBIL TOTAL PROJECT
 $total_query = mysqli_query($koneksi, "SELECT COUNT(*) AS total FROM project_manager WHERE id=$user_id");
 $total = mysqli_fetch_assoc($total_query)['total'];
 
@@ -16,7 +13,6 @@ $completed = mysqli_fetch_assoc($completed_query)['total'];
 $progress_query = mysqli_query($koneksi, "SELECT COUNT(*) AS total FROM project_manager WHERE status='In Progress' AND id=$user_id");
 $progress = mysqli_fetch_assoc($progress_query)['total'];
 
-// AMBIL DATA PROJECT
 $query = mysqli_query($koneksi, "SELECT * FROM project_manager WHERE id=$user_id ORDER BY id_project DESC");
 ?>
 
@@ -111,10 +107,9 @@ $query = mysqli_query($koneksi, "SELECT * FROM project_manager WHERE id=$user_id
         .sidebar a:hover {
             background-color: rgba(255, 255, 255, 0.6);
             color: #55c0ea;
-            padding-left: 40px; /* Efek geser */
+            padding-left: 40px; 
         }
 
-        /* Tombol Close (X) */
         .sidebar .close-btn {
             position: absolute;
             top: 20px;
@@ -126,7 +121,6 @@ $query = mysqli_query($koneksi, "SELECT * FROM project_manager WHERE id=$user_id
             cursor: pointer;
         }
 
-        /* Overlay Gelap saat menu terbuka */
         #overlay {
             position: fixed;
             display: none;
@@ -139,12 +133,12 @@ $query = mysqli_query($koneksi, "SELECT * FROM project_manager WHERE id=$user_id
             backdrop-filter: blur(3px);
         }
 
-        /* --- KONTEN UTAMA --- */
+
         .main-content {
             padding: 40px 20px;
-            padding-top: 80px; /* Jarak agar tidak ketutup tombol menu */
+            padding-top: 80px; 
             max-width: 1000px;
-            margin: 0 auto; /* Tengah */
+            margin: 0 auto; 
         }
 
         .main-content h1 {
@@ -353,7 +347,6 @@ $query = mysqli_query($koneksi, "SELECT * FROM project_manager WHERE id=$user_id
     </div>
 
     <script>
-        // --- LOGIKA SIDEBAR ---
         function openNav() {
             document.getElementById("mySidebar").style.width = "280px";
             document.getElementById("overlay").style.display = "block";

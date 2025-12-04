@@ -29,8 +29,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 ?>
 
-
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -134,12 +132,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 document.getElementById("emailInput").value = "";
             };
 
-            // Klik X → tutup popup
             closePopup.onclick = function() {
                 popup.style.display = "none";
             };
 
-            // Klik luar popup → tutup
             window.onclick = function(event) {
                 if (event.target == popup) {
                     popup.style.display = "none";
@@ -163,8 +159,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     "📩 Link reset password telah dikirim ke " + email;
             };
 
-
-            //buat audio musik
             document.addEventListener("DOMContentLoaded", function() {
                 const audioPlayer = document.getElementById('audio-player');
                 const cassetteImg = document.getElementById('cassette-animation');

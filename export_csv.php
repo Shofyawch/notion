@@ -27,7 +27,6 @@ $query = "SELECT
           LEFT JOIN media_upload m ON u.id = m.id_user
           ORDER BY u.id ASC";
 
-// Menggunakan $koneksi untuk eksekusi query
 $result = mysqli_query($koneksi, $query);
 
 while ($row = mysqli_fetch_assoc($result)) {

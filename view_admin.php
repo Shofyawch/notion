@@ -1,13 +1,7 @@
 <?php
-// 1. Tangkap Data dari URL
 $page = isset($_GET['page']) ? $_GET['page'] : 'error';
 $user = isset($_GET['user']) ? $_GET['user'] : 'Guest';
 $title = isset($_GET['title']) ? $_GET['title'] : 'Content';
-
-// 2. Logika Penentuan Konten (Switch PHP)
-// Nanti di dalam setiap 'case', Anda bisa memasukkan query MySQL
-// Contoh: $sql = "SELECT * FROM todos WHERE username = '$user'";
-
 ?>
 
 <!DOCTYPE html>
@@ -47,7 +41,6 @@ $title = isset($_GET['title']) ? $_GET['title'] : 'Content';
             
             <?php switch ($page): 
                 
-                // --- KASUS 1: TO DO LIST ---
                 case 'todo': ?>
                     <div class="card-body">
                         <table class="table table-hover">
@@ -62,7 +55,6 @@ $title = isset($_GET['title']) ? $_GET['title'] : 'Content';
 
                 
                 <?php 
-                // --- KASUS 2: CALENDAR ---
                 case 'calendar': ?>
                     <div class="card-body text-center py-5">
                         <i class="bi bi-calendar3 display-1 text-success mb-3"></i>
@@ -73,7 +65,6 @@ $title = isset($_GET['title']) ? $_GET['title'] : 'Content';
 
 
                 <?php 
-                // --- KASUS 3: STUDY PLANNER ---
                 case 'study': ?>
                     <div class="card-body">
                         <div class="row">
@@ -90,7 +81,6 @@ $title = isset($_GET['title']) ? $_GET['title'] : 'Content';
 
 
                 <?php 
-                // --- KASUS 4: PROJECT MANAGER ---
                 case 'project': ?>
                     <div class="card-body">
                         <div class="row text-center">
@@ -103,7 +93,6 @@ $title = isset($_GET['title']) ? $_GET['title'] : 'Content';
 
 
                 <?php 
-                // --- KASUS 5: NOTES ---
                 case 'notes': ?>
                     <div class="card-body">
                         <div class="list-group">
@@ -117,7 +106,6 @@ $title = isset($_GET['title']) ? $_GET['title'] : 'Content';
 
 
                 <?php 
-                // --- DEFAULT: ERROR ---
                 default: ?>
                     <div class="card-body text-center text-danger py-5">
                         <h3><i class="bi bi-exclamation-triangle"></i></h3>

@@ -38,7 +38,7 @@ if (isset($_POST['add_user'])) {
         header("Location: management.php");
         exit;
     }
-}/* ---- DELETE USER ---- */
+}
 if (isset($_GET['delete_user'])) {
     $id = intval($_GET['delete_user']);
 
@@ -51,7 +51,6 @@ if (isset($_GET['delete_user'])) {
     exit;
 }
 
-/* ---- UPDATE USER ---- */
 if (isset($_POST['edit_user'])) {
     $id       = intval($_POST['id']);
     $nama     = mysqli_real_escape_string($koneksi, $_POST['nama']);
@@ -73,7 +72,6 @@ if (isset($_POST['edit_user'])) {
     exit;
 }
 
-/* ---- CHANGE LEVEL ---- */
 if (isset($_POST['change_level'])) {
     $id        = intval($_POST['id']);
     $new_level = mysqli_real_escape_string($koneksi, $_POST['level']);
@@ -87,7 +85,6 @@ if (isset($_POST['change_level'])) {
     exit;
 }
 
-/* ---- READ ALL USERS ---- */
 $users = mysqli_query(
     $koneksi,
     "SELECT id, nama, username, email, level FROM user ORDER BY id DESC"
@@ -743,7 +740,6 @@ $users = mysqli_query(
     </div>
 
     <script>
-        // Toggle Sidebar
         function toggleSidebar() {
             const sidebar = document.getElementById('sidebar');
             const overlay = document.getElementById('overlay');
@@ -751,7 +747,6 @@ $users = mysqli_query(
             overlay.classList.toggle('active');
         }
 
-        // Add User Modal
         function openAddUserModal() {
             document.getElementById('addUserModal').classList.add('show');
             document.getElementById('nama').focus();
@@ -761,7 +756,6 @@ $users = mysqli_query(
             document.getElementById('addUserModal').classList.remove('show');
         }
 
-        // Edit User Modal
         function openEditUserModal(id, nama, username, email, level) {
             document.getElementById('edit_user_id').value = id;
             document.getElementById('edit_nama').value = nama;
@@ -775,7 +769,6 @@ $users = mysqli_query(
             document.getElementById('editUserModal').classList.remove('show');
         }
 
-        // Change Level Modal
         function openChangeLevelModal(id, currentLevel) {
             document.getElementById('change_level_id').value = id;
             document.getElementById('new_level').value = currentLevel;
@@ -786,7 +779,6 @@ $users = mysqli_query(
             document.getElementById('changeLevelModal').classList.remove('show');
         }
 
-        // Close modals on background click
         window.onclick = function(event) {
             const addModal = document.getElementById('addUserModal');
             const editModal = document.getElementById('editUserModal');
@@ -803,7 +795,6 @@ $users = mysqli_query(
             }
         }
 
-        // Form validation
         function validateAddUserForm() {
             const nama = document.getElementById('nama').value.trim();
             const username = document.getElementById('username').value.trim();
@@ -849,7 +840,6 @@ $users = mysqli_query(
             return true;
         }
 
-        // Search functionality
         document.getElementById('searchInput').addEventListener('keyup', function() {
             const searchTerm = this.value.toLowerCase();
             const rows = document.querySelectorAll('.user-row');

@@ -1,12 +1,10 @@
 <?php
-// Pastikan file koneksi.php Anda sudah menggunakan $koneksi
 include 'koneksi.php'; 
 
 header('Content-Type: application/json');
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    // Sanitize input
-    $tanggal = $_POST['tanggal'] ?? ''; // Format: YYYY-MM-DD
+    $tanggal = $_POST['tanggal'] ?? ''; 
     $catatan = $_POST['catatan'] ?? '';
 
     if (empty($tanggal) || empty($catatan)) {
@@ -14,8 +12,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         exit;
     }
 
-    // Query menggunakan ON DUPLICATE KEY UPDATE
-    // Jika tanggal sudah ada (UNIQUE), catatan akan di-UPDATE. Jika belum ada, di-INSERT.
     $query = "INSERT INTO catatan_kalender (tanggal, catatan) 
               VALUES (?, ?)
               ON DUPLICATE KEY UPDATE catatan = VALUES(catatan)";

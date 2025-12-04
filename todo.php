@@ -201,22 +201,19 @@ input.add-input {
     border-style: solid;
 }
 
-/* Sidebar Container */
 .sidebar {
     height: 100%;
-    width: 0; /* Awalnya tertutup */
+    width: 0; 
     position: fixed;
     z-index: 2050;
     top: 0;
     left: 0;
     
-    /* --- EFEK KACA (GLASSMORPHISM) --- */
-    background-color: rgba(255, 255, 255, 0.45); /* Putih Transparan */
-    backdrop-filter: blur(15px); /* Efek Blur */
+    background-color: rgba(255, 255, 255, 0.45); 
+    backdrop-filter: blur(15px); 
     -webkit-backdrop-filter: blur(15px);
     border-right: 1px solid rgba(255, 255, 255, 0.6);
     box-shadow: 5px 0 25px rgba(0, 0, 0, 0.1);
-    /* -------------------------------- */
 
     overflow-x: hidden;
     transition: 0.4s;
@@ -247,10 +244,9 @@ input.add-input {
 .sidebar a:hover {
     background-color: rgba(143, 168, 115, 0.15); /* Hijau muda transparan */
     color: #8fa873;
-    padding-left: 40px; /* Efek geser */
+    padding-left: 40px; 
 }
 
-/* Tombol Close (X) */
 .sidebar .close-btn {
     position: absolute;
     top: 20px;
@@ -262,7 +258,6 @@ input.add-input {
     cursor: pointer;
 }
 
-/* Overlay Gelap saat menu terbuka */
 #overlay {
     position: fixed;
     display: none;
@@ -274,7 +269,6 @@ input.add-input {
     z-index: 2040;
     backdrop-filter: blur(3px);
 }
-/* --- END SIDEBAR STYLE --- */
 </style>
 </head>
 
@@ -371,7 +365,6 @@ input.add-input {
 </div>
 
 <script>
-// Logika untuk menambahkan Self-Reward ke DOM (Frontend saja)
 function addReward() {
     const input = document.getElementById("newReward");
     const text = input.value.trim();
@@ -385,7 +378,6 @@ function addReward() {
     input.value = "";
 }
 
-// --- LOGIKA SIDEBAR ---
 const sidebar = document.getElementById("mySidebar");
 const overlay = document.getElementById("overlay");
 

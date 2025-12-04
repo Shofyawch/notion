@@ -10,7 +10,6 @@ if (!isset($_SESSION['id'])) {
 }
 $id_user = $_SESSION['id'];
 
-// ====== ADD (CREATE) ======
 if (isset($_POST['add'])) {
     $time_slot = mysqli_real_escape_string($koneksi, $_POST['time_slot']);
     $monday    = mysqli_real_escape_string($koneksi, $_POST['monday']);
@@ -27,7 +26,6 @@ if (isset($_POST['add'])) {
     exit;
 }
 
-// ====== DELETE ======
 if (isset($_GET['delete'])) {
     $id = intval($_GET['delete']);
     mysqli_query($koneksi, "DELETE FROM class_schedule WHERE id = $id AND user_id = $id_user")
@@ -37,7 +35,6 @@ if (isset($_GET['delete'])) {
     exit;
 }
 
-// ====== UPDATE ======
 if (isset($_POST['edit'])) {
     $id = intval($_POST['id']);
     $time_slot = mysqli_real_escape_string($koneksi, $_POST['time_slot']);
@@ -56,7 +53,6 @@ if (isset($_POST['edit'])) {
     exit;
 }
 
-// ====== SELECT (READ) ======
 $data = mysqli_query($koneksi, "SELECT * FROM class_schedule WHERE user_id = '$id_user' ORDER BY time_slot ASC")
     or die("SELECT ERROR: " . mysqli_error($koneksi));
 ?>

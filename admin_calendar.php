@@ -14,7 +14,6 @@
             background-attachment: fixed; background-position: center;
         }
         
-        /* Style Tambahan Khusus Admin */
         .admin-badge {
             background-color: #ff1493; color: white; padding: 5px 10px;
             border-radius: 5px; font-family: 'Fredoka One'; font-size: 0.8rem;
@@ -22,7 +21,6 @@
             box-shadow: 0 2px 5px rgba(0,0,0,0.2);
         }
 
-        /* Copy Paste Style Anda sebelumnya disini... */
         .menu-btn { position: fixed; top: 20px; left: 20px; background-color: rgba(255,255,255,0.8); color: #ff1493; border: 2px dashed #ff1493; padding: 10px 15px; font-size: 1.5rem; border-radius: 10px; cursor: pointer; z-index: 2000; font-family: 'Fredoka One'; }
         .sidebar { height: 100%; width: 0; position: fixed; z-index: 2001; top: 0; left: 0; background-color: rgba(255,255,255,0.85); backdrop-filter: blur(10px); overflow-x: hidden; transition: 0.4s; padding-top: 60px; box-shadow: 5px 0 15px rgba(0,0,0,0.1); }
         .sidebar a { padding: 15px 25px; text-decoration: none; font-size: 1.2rem; color: #333; display: block; transition: 0.3s; font-family: 'Fredoka'; }
@@ -40,7 +38,6 @@
         th, td { border: 2px solid #333; width: 14.28%; vertical-align: top; height: 100px; padding: 5px; }
         th { background: #ffe6f2; font-family: 'Fredoka One'; color: #444; }
         
-        /* Cursor pointer untuk menandakan bisa diedit */
         td:hover:not(.empty) { background-color: #fff0f5; cursor: pointer; border: 2px dashed #ff1493; }
         
         .date-number { font-size: 1.2em; font-weight: bold; }
@@ -88,7 +85,6 @@
     </audio>
 
     <script>
-        // --- SIDEBAR ---
         function openNav() {
             document.getElementById("mySidebar").style.width = "280px";
             document.getElementById("overlay").style.display = "block";
@@ -98,7 +94,6 @@
             document.getElementById("overlay").style.display = "none";
         }
 
-        // --- LOGIKA KALENDER ---
         const monthYearEl = document.getElementById('monthYear');
         const calendarBody = document.getElementById('calendarBody');
         const prevBtn = document.getElementById('prevMonth');
@@ -107,7 +102,6 @@
         let currentDate = new Date();
         let eventsData = {}; 
 
-        // 1. Render Kalender
         function renderCalendar() {
             calendarBody.innerHTML = ''; 
 
@@ -137,7 +131,6 @@
                         hasDate = true;
                         
                         const formattedDate = String(date).padStart(2, '0');
-                        // Format Tanggal harus YYYY-MM-DD agar cocok dengan Database SQL
                         const fullDateStr = `${year}-${formattedMonth}-${formattedDate}`;
 
                         let dateNum = document.createElement('div');
@@ -145,25 +138,19 @@
                         dateNum.textContent = date;
                         cell.appendChild(dateNum);
 
-                        // Cek apakah ada event di object eventsData
                         let noteContent = eventsData[fullDateStr] || "";
                         let noteDiv = document.createElement('div');
                         noteDiv.classList.add('note');
                         noteDiv.textContent = noteContent;
                         cell.appendChild(noteDiv);
 
-                        // --- INTERAKSI ADMIN: KLIK UNTUK EDIT ---
                         cell.addEventListener('click', () => {
-                            // Prompt untuk input teks
                             const newNote = prompt(`[ADMIN] Edit Event tanggal ${formattedDate}-${formattedMonth}:`, noteContent);
                             
-                            // Jika user tidak menekan Cancel (null)
                             if (newNote !== null) {
-                                // Update tampilan sementara (biar kerasa cepet)
                                 noteDiv.textContent = newNote;
                                 eventsData[fullDateStr] = newNote;
 
-                                // KIRIM KE DATABASE
                                 saveEvent(fullDateStr, newNote);
                             }
                         });
@@ -177,10 +164,8 @@
             }
         }
 
-        // 2. Fetch Data dari Database
         async function fetchEvents() {
             try {
-                // Panggil file PHP get_events.php
                 const response = await fetch('get_events.php');
                 eventsData = await response.json();
                 renderCalendar(); 
@@ -189,31 +174,26 @@
             }
         }
 
-        // 3. Simpan Data ke Database
         async function saveEvent(dateStr, noteText) {
             try {
-                // Panggil file PHP save_event.php
                 const response = await fetch('save_event.php', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ date: dateStr, note: noteText })
                 });
                 const result = await response.json();
-                console.log(result.message); // Cek console browser untuk status sukses
+                console.log(result.message); 
             } catch (error) {
                 alert("Gagal menyimpan ke server!");
                 console.error(error);
             }
         }
 
-        // Tombol Navigasi
         prevBtn.onclick = () => { currentDate.setMonth(currentDate.getMonth() - 1); fetchEvents(); };
         nextBtn.onclick = () => { currentDate.setMonth(currentDate.getMonth() + 1); fetchEvents(); };
 
-        // Start
-        fetchEvents(); // Load data pertama kali
+        fetchEvents(); 
 
-        // Audio Player (Sama)
         const audioPlayer = document.getElementById('audio-player');
         const cassetteImg = document.getElementById('cassette-animation');
         cassetteImg.addEventListener('click', () => {

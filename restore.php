@@ -11,7 +11,6 @@ if (isset($_POST['restore'])) {
         
         $sql = explode(';', $contents);
         
-        // Menggunakan $koneksi untuk mematikan foreign key check sementara
         mysqli_query($koneksi, "SET FOREIGN_KEY_CHECKS = 0");
 
         $sukses = 0;
@@ -20,7 +19,6 @@ if (isset($_POST['restore'])) {
         foreach ($sql as $query) {
             $query = trim($query);
             if (!empty($query)) {
-                // Menggunakan $koneksi untuk eksekusi query restore
                 if (mysqli_query($koneksi, $query)) {
                     $sukses++;
                 } else {
@@ -29,7 +27,6 @@ if (isset($_POST['restore'])) {
             }
         }
 
-        // Nyalakan kembali foreign key check
         mysqli_query($koneksi, "SET FOREIGN_KEY_CHECKS = 1");
         fclose($handle);
 

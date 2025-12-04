@@ -9,7 +9,7 @@ if (!isset($_SESSION['id'])) {
 
 if ($_SESSION['level'] !== 'admin') {
     echo "<script>alert('Anda tidak punya akses ke halaman admin!');</script>";
-    header("Location: da.php"); // pindahin ke dashboard user biasa
+    header("Location: da.php"); 
     exit;
 }
 

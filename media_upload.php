@@ -19,10 +19,8 @@ if (!empty($_FILES['images']['name'][0])) {
 
         $tmp = $_FILES['images']['tmp_name'][$key];
 
-        // nama asli
         $filename = $name;
 
-        // nama file baru
         $newName = time() . "_" . rand(1000, 9999) . "_" . $name;
         $path = "uploads/" . $newName;
 
@@ -41,7 +39,6 @@ if (!empty($_FILES['images']['name'][0])) {
         }
     }
 
-    // setelah semua selesai
     header("Location: media.php?uploaded=1");
     exit;
 } else {

@@ -2,16 +2,14 @@
 session_start();
 include "koneksi.php";
 
-// CEK LOGIN
 if (!isset($_SESSION['id'])) {
     header("Location: login.php");
     exit;
 }
 
-$id = $_GET['id'];          // id project
-$user_id = $_SESSION['id']; // id user yang login
+$id = $_GET['id'];          
+$user_id = $_SESSION['id']; 
 
-// CEK apakah project ini milik user
 $data = mysqli_fetch_assoc(mysqli_query($koneksi,
     "SELECT * FROM project_manager WHERE id_project=$id AND id=$user_id"
 ));

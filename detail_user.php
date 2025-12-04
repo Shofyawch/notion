@@ -1,52 +1,32 @@
 <?php
 include 'koneksi.php';
 
-// Cek ID User
 if (!isset($_GET['id'])) {
     header("Location: admin-db.php");
     exit;
 }
 
-$id_user = (int)$_GET['id']; // Casting ke int untuk keamanan dasar
+$id_user = (int)$_GET['id']; 
 
-// 1. Ambil Data User
 $q_user = mysqli_query($koneksi, "SELECT * FROM user WHERE id = '$id_user'");
 $d_user = mysqli_fetch_assoc($q_user);
 
-// Jika user tidak ditemukan
 if (!$d_user) {
     echo "User tidak ditemukan.";
     exit;
 }
 
-// 2. Query ke 5 Tabel Konten
-// Perhatikan nama kolom FK yang berbeda-beda sesuai database Anda:
-// Todo -> kolom `id`
-// ... kode atas tetap sama ...
-
-// 2. Query ke 5 Tabel Konten
-// Kita asumsikan nama kolom penghubung di semua tabel adalah 'id'
-// (Sesuai dengan pola tabel todo, notes, dan project_manager kamu)
-
 $q_todo    = mysqli_query($koneksi, "SELECT * FROM todo WHERE id = '$id_user'");
 $q_notes   = mysqli_query($koneksi, "SELECT * FROM notes WHERE id = '$id_user'");
 $q_project = mysqli_query($koneksi, "SELECT * FROM project_manager WHERE id = '$id_user'");
 
-// PERBAIKAN DI SINI: Mengubah 'id_user' menjadi 'id' atau 'id_user' sesuai database asli
-// Coba gunakan 'id' dulu, jika tabel studyplanner kamu pakai 'id'
 $q_study   = mysqli_query($koneksi, "SELECT * FROM studyplanner WHERE id_user = '$id_user'"); 
-// JIKA MASIH ERROR: Ganti 'id' menjadi 'id_user' pada baris di atas ^
 
-// KHUSUS EVENT/CALENDAR
-// Pastikan kamu sudah menjalankan SQL ALTER TABLE untuk menambah kolom id/id_user di tabel events
-// Jika di database kolomnya 'id_user', pakai 'id_user'. Jika 'id', pakai 'id'.
 $q_event = mysqli_query($koneksi, "SELECT * FROM events WHERE id_user = '$id_user' ORDER BY event_date ASC");
 
-// Debugging: Cek jika query gagal
 if (!$q_study) { echo "Error Study Planner: " . mysqli_error($koneksi); }
 if (!$q_event) { echo "Error Events: " . mysqli_error($koneksi); }
 
-// ... lanjut ke HTML ...
 ?>
 
 <!DOCTYPE html>

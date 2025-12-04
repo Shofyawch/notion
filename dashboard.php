@@ -8,15 +8,12 @@ if (!isset($_SESSION['id'])) {
 }
 $id_user = $_SESSION['id'];
 
-
 $user_id = $_SESSION['id'];
 
-// Ambil notes
 $notes = mysqli_query($koneksi,
     "SELECT * FROM notes WHERE id='$user_id' ORDER BY created_at DESC"
 );
 
-// Ambil tasks
 $tasks = mysqli_query($koneksi,
     "SELECT * FROM tasks WHERE id='$user_id' ORDER BY created_at DESC"
 );
@@ -74,7 +71,6 @@ $tasks = mysqli_query($koneksi,
             margin-right: 6px;
         }
 
-        /* Cards */
         .grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
@@ -104,7 +100,6 @@ $tasks = mysqli_query($koneksi,
             transform: scale(1.02);
         }
 
-        /* Notes */
         .notes {
             margin-top: 25px;
             background: #fff;
@@ -113,7 +108,6 @@ $tasks = mysqli_query($koneksi,
             border: 1px solid #eee;
         }
 
-        /* Calendar */
         .calendar {
             margin-top: 25px;
             padding: 15px;
@@ -132,11 +126,9 @@ $tasks = mysqli_query($koneksi,
 
 <div class="container">
 
-    <!-- LEFT SIDE -->
     <div class="todo-box">
         <h2>today’s tasks ;</h2>
 
-        <!-- Add Task -->
         <form action="task_add.php" method="POST" style="margin-bottom:10px;">
             <input type="text" name="task_text" placeholder="Add new task..." required
                 style="width: 90%; padding: 8px; border-radius: 6px; border: 1px solid #ccc; margin-bottom: 6px;">
@@ -146,7 +138,6 @@ $tasks = mysqli_query($koneksi,
             </button>
         </form>
 
-        <!-- List Tasks -->
         <?php while($t = mysqli_fetch_assoc($tasks)) { ?>
             <label>
                 <input type="checkbox" <?= $t['is_done'] ? 'checked' : '' ?>>
@@ -155,41 +146,41 @@ $tasks = mysqli_query($koneksi,
         <?php } ?>
     </div>
 
-    <!-- RIGHT SIDE -->
     <div>
 
         <h2>navigation ଳ</h2>
 
         <div class="grid">
-            <div class="card">
-                <a href="todo.php">
-                <img src="107958.gif">
-                <div>📝 to do list ,!</div>
-            </div>
+    <div class="card">
+        <a href="todo.php">
+            <img src="107958.gif">
+            <div>📝 to do list ,!</div>
+        </a>
+    </div>
 
-            <div class="card">
-                <a href="media.php">
-                    <img src="icegif-6415.gif">
-                    <div>🍀 media ,!</div>
-                </a>
-            </div>
+    <div class="card">
+        <a href="media.php">
+            <img src="icegif-6415.gif">
+            <div>🍀 media ,!</div>
+        </a>
+    </div>
 
-            <div class="card">
-                <a href="study_planner.php">
-                    <img src="We17sl.gif">
-                    <div>✏️ Study / Goals planner ,!</div>
-                </a>
-            </div>
+    <div class="card">
+        <a href="study_planner.php">
+            <img src="We17sl.gif">
+            <div>✏️ Study / Goals planner ,!</div>
+        </a>
+    </div>
 
-            <div class="card">
-                <a href="projectmanager.php">
-                    <img src="eb33b949c8da70c163f3e5e99e441947.gif">
-                    <div>📒 project manager ,!</div>
-                </a>
-            </div>
-        </div>
+    <div class="card">
+        <a href="projectmanager.php">
+            <img src="eb33b949c8da70c163f3e5e99e441947.gif">
+            <div>📒 project manager ,!</div>
+        </a>
+    </div>
+</div>
 
-        <!-- Notes Section -->
+
         <div class="notes">
             <h2>notes 🗒️</h2>
 
@@ -207,7 +198,6 @@ $tasks = mysqli_query($koneksi,
             <hr style="margin: 15px 0">
         </div>
 
-        <!-- Calendar -->
         <div class="calendar">
             <a href="calender.php"><h2>calendar 📅</h2></a>
             <input type="date"

@@ -1,30 +1,24 @@
 <?php
-// Koneksi ke database
 $conn = new mysqli("localhost", "root", "", "multi_user");
 
 if ($conn->connect_error) {
     die("Koneksi gagal: " . $conn->connect_error);
 }
 
-// Jalankan hanya jika form dikirim
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
-    // Ambil data dari form
     $nama = $_POST['nama'];
     $email = $_POST['email'];
     $password = $_POST['password'];
     $confirm = $_POST['confirm_password'];
 
-    // Cek confirm password
     if ($password !== $confirm) {
         echo "<script>alert('Password tidak sama!'); window.location='register.php';</script>";
         exit();
     }
 
-    // Enkripsi password
     $hash = password_hash($password, PASSWORD_DEFAULT);
 
-    // Query insert
     $sql = "INSERT INTO user (nama, email, password) VALUES ('$nama', '$email', '$hash')";
 
     if ($conn->query($sql) === TRUE) {

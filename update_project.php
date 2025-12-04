@@ -2,7 +2,7 @@
 include "koneksi.php";
 
 $id = $_POST['id'];
-$nama = $_POST['nama_project'];  // sesuai name di form
+$nama = $_POST['nama_project'];  
 $status = $_POST['status'];
 $deadline = $_POST['deadline'];
 

@@ -1,8 +1,6 @@
 <?php
 include 'koneksi.php';
 
-// Ambil semua data user kecuali yang levelnya admin (jika ada)
-// Pastikan koneksi database ($koneksi) sudah benar di file koneksi.php
 $query = "SELECT * FROM user ORDER BY id DESC";
 $result = mysqli_query($koneksi, $query);
 ?>
@@ -27,15 +25,12 @@ $result = mysqli_query($koneksi, $query);
             background-position: center;
         }
 
-        /* --- STYLE SIDEBAR GLASSMORPHISM --- */
-        
-        /* Tombol Menu */
         .menu-btn {
             position: fixed;
             top: 20px;
             left: 20px;
             background-color: rgba(255, 255, 255, 0.9);
-            color: #0d6efd; /* Bootstrap Primary Blue */
+            color: #0d6efd; 
             border: 2px dashed #0d6efd;
             padding: 8px 15px;
             font-size: 1.1rem;
@@ -55,7 +50,6 @@ $result = mysqli_query($koneksi, $query);
             border-style: solid;
         }
 
-        /* Sidebar Container */
         .sidebar {
             height: 100%;
             width: 0;
@@ -74,7 +68,6 @@ $result = mysqli_query($koneksi, $query);
             box-shadow: 5px 0 15px rgba(0, 0, 0, 0.1);
         }
 
-        /* Link Sidebar */
         .sidebar a {
             padding: 15px 25px;
             text-decoration: none;
@@ -93,7 +86,6 @@ $result = mysqli_query($koneksi, $query);
             padding-left: 35px;
         }
 
-        /* Close Button */
         .sidebar .close-btn {
             position: absolute;
             top: 15px;
@@ -105,7 +97,6 @@ $result = mysqli_query($koneksi, $query);
             cursor: pointer;
         }
 
-        /* Judul Sidebar */
         .sidebar-title {
             position: absolute;
             top: 25px;
@@ -116,7 +107,6 @@ $result = mysqli_query($koneksi, $query);
             font-family: 'Fredoka', sans-serif;
         }
 
-        /* Overlay */
         #overlay {
             position: fixed;
             display: none;
@@ -128,10 +118,9 @@ $result = mysqli_query($koneksi, $query);
             z-index: 2040;
             backdrop-filter: blur(2px);
         }
-        /* --- END SIDEBAR STYLE --- */
 
         .container-custom {
-            padding-top: 80px; /* Jarak agar tidak ketutup tombol menu */
+            padding-top: 80px; 
             padding-bottom: 50px;
         }
 
@@ -209,7 +198,6 @@ $result = mysqli_query($koneksi, $query);
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     
     <script>
-        // --- LOGIKA SIDEBAR ---
         function openNav() {
             document.getElementById("mySidebar").style.width = "280px";
             document.getElementById("overlay").style.display = "block";

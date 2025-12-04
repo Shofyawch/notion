@@ -2,10 +2,6 @@
 session_start();
 include 'koneksi.php';
 
-// Cek sesi login admin (Opsional)
-// if (!isset($_SESSION['admin_logged_in'])) { header("Location: login.php"); exit; }
-
-// Menggunakan $koneksi untuk mengambil data user
 $query_users = mysqli_query($koneksi, "SELECT * FROM user ORDER BY id DESC");
 ?>
 
@@ -29,9 +25,6 @@ $query_users = mysqli_query($koneksi, "SELECT * FROM user ORDER BY id DESC");
             background-position: center;
         }
 
-        /* --- STYLE SIDEBAR GLASSMORPHISM --- */
-        
-        /* Tombol Menu (Hamburger) */
         .menu-btn {
             position: fixed;
             top: 20px;
@@ -57,15 +50,13 @@ $query_users = mysqli_query($koneksi, "SELECT * FROM user ORDER BY id DESC");
             border-style: solid;
         }
 
-        /* Sidebar Container */
         .sidebar {
             height: 100%;
-            width: 0; /* Default tertutup */
+            width: 0; 
             position: fixed;
             z-index: 2050;
             top: 0;
             left: 0;
-            /* Efek Kaca */
             background-color: rgba(255, 255, 255, 0.65); 
             backdrop-filter: blur(15px);
             -webkit-backdrop-filter: blur(15px);
@@ -78,7 +69,6 @@ $query_users = mysqli_query($koneksi, "SELECT * FROM user ORDER BY id DESC");
             box-shadow: 5px 0 15px rgba(0, 0, 0, 0.1);
         }
 
-        /* Link Sidebar */
         .sidebar a {
             padding: 15px 25px;
             text-decoration: none;
@@ -97,7 +87,6 @@ $query_users = mysqli_query($koneksi, "SELECT * FROM user ORDER BY id DESC");
             padding-left: 35px;
         }
 
-        /* Tombol Close Sidebar */
         .sidebar .close-btn {
             position: absolute;
             top: 15px;
@@ -109,7 +98,6 @@ $query_users = mysqli_query($koneksi, "SELECT * FROM user ORDER BY id DESC");
             cursor: pointer;
         }
 
-        /* Judul Sidebar */
         .sidebar-title {
             position: absolute;
             top: 25px;
@@ -120,7 +108,6 @@ $query_users = mysqli_query($koneksi, "SELECT * FROM user ORDER BY id DESC");
             font-family: 'Fredoka', sans-serif;
         }
 
-        /* Overlay Background Gelap */
         #overlay {
             position: fixed;
             display: none;
@@ -132,7 +119,6 @@ $query_users = mysqli_query($koneksi, "SELECT * FROM user ORDER BY id DESC");
             z-index: 2040;
             backdrop-filter: blur(2px);
         }
-        /* --- END SIDEBAR STYLE --- */
 
         .card-custom { 
             margin-bottom: 20px; 
