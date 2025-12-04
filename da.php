@@ -199,19 +199,26 @@ $nama = $_SESSION['nama'];
                 <h2 class="text-2xl font-semibold text-ghibli-deep-sea border-b pb-3 mb-4 flex items-center">
                     <span class="mr-2 text-ghibli-coral">🚀</span> Aksi Cepat
                 </h2>
+                
+                <div class="lg:col-span-1 bg-white p-6 rounded-2xl shadow-lg border border-ghibli-water">
+                <h2 class="text-2xl font-semibold text-ghibli-deep-sea border-b pb-3 mb-4 flex items-center">
+                    <span class="mr-2 text-ghibli-coral">🚀</span> Aksi Cepat
+                </h2>
                 <div class="grid grid-cols-2 gap-4">
-                    <button class="action-button p-4 rounded-xl font-bold text-sm shadow-md">
+                    <a href="management.php" class="action-button p-4 rounded-xl font-bold text-sm shadow-md">
                         <span class="block mb-1">🧑‍💻</span> Kelola Pengguna
-                    </button>
+                    </a>
                     <button class="action-button p-4 rounded-xl font-bold text-sm shadow-md">
                         <span class="block mb-1">📝</span> Kelola Konten
                     </button>
                     <button class="action-button p-4 rounded-xl font-bold text-sm shadow-md">
                         <span class="block mb-1">⚙️</span> Pengaturan
                     </button>
-                    <button class="action-button p-4 rounded-xl font-bold text-sm shadow-md">
-                        <span class="block mb-1">🗄️</span> Database
-                    </button>
+                    <a href="admin-db.php" class="action-button p-4 rounded-xl font-bold text-sm shadow-md text-center block">
+                        <span class="block mb-1">🗄️</span>
+                        Database
+                    </a>
+
                 </div>
 
 
