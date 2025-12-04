@@ -194,42 +194,35 @@ $nama = $_SESSION['nama'];
                     </li>
                 </ul>
             </div>
-
             <div class="lg:col-span-1 bg-white p-6 rounded-2xl shadow-lg border border-ghibli-water">
                 <h2 class="text-2xl font-semibold text-ghibli-deep-sea border-b pb-3 mb-4 flex items-center">
                     <span class="mr-2 text-ghibli-coral">🚀</span> Aksi Cepat
                 </h2>
+                <div class="grid grid-cols-2 gap-4">
+                    <a href="management.php" class="action-button p-4 rounded-xl font-bold text-sm shadow-md">
+                        <span class="block mb-1">🧑‍💻</span> Kelola Pengguna
+                    </a>
+                    <a href="./detail_user.php" class="action-button p-4 rounded-xl font-bold text-sm shadow-md">
+                        <span class="block mb-1">📝</span> Kelola Konten
+                    </a>
+                    <a href="management.php" class="action-button p-4 rounded-xl font-bold text-sm shadow-md text-center block">
+                        <span class="block mb-1">⚙️</span>
+                        Pengaturan
+                    </a>
 
-                <div class="lg:col-span-1 bg-white p-6 rounded-2xl shadow-lg border border-ghibli-water">
-                    <h2 class="text-2xl font-semibold text-ghibli-deep-sea border-b pb-3 mb-4 flex items-center">
-                        <span class="mr-2 text-ghibli-coral">🚀</span> Aksi Cepat
-                    </h2>
-                    <div class="grid grid-cols-2 gap-4">
-                        <a href="management.php" class="action-button p-4 rounded-xl font-bold text-sm shadow-md">
-                            <span class="block mb-1">🧑‍💻</span> Kelola Pengguna
-                        </a>
-                        <button class="action-button p-4 rounded-xl font-bold text-sm shadow-md">
-                            <span class="block mb-1">📝</span> Kelola Konten
-                        </button>
-                        <a href="management.php" class="action-button p-4 rounded-xl font-bold text-sm shadow-md text-center block">
-                            <span class="block mb-1">⚙️</span>
-                            Pengaturan
-                        </a>
+                    <a href="admin-db.php" class="action-button p-4 rounded-xl font-bold text-sm shadow-md text-center block">
+                        <span class="block mb-1">🗄️</span>
+                        Database
+                    </a>
 
-                        <a href="admin-db.php" class="action-button p-4 rounded-xl font-bold text-sm shadow-md text-center block">
-                            <span class="block mb-1">🗄️</span>
-                            Database
-                        </a>
-
-                    </div>
+                </div>
 
 
-                    <div class="mt-8">
+                <div class="mt-8">
 
 
 
-                        <img src="kucing.jpg" alt="Gambar Kucing Pengawas" class="kucing-placeholder">
-                    </div>
+                    <img src="kucing.jpg" alt="Gambar Kucing Pengawas" class="kucing-placeholder">
                 </div>
             </div>
         </div>
