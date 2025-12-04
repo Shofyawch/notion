@@ -23,7 +23,7 @@ $nama = $_SESSION['nama'];
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Dashboard - Lautan Informasi</title>
-    <!-- Memuat Tailwind CSS -->
+
     <script src="https://cdn.tailwindcss.com"></script>
 
     <script>
