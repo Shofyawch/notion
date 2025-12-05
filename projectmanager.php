@@ -30,15 +30,13 @@ $query = mysqli_query($koneksi, "SELECT * FROM project_manager WHERE id=$user_id
         body {
             margin: 0;
             font-family: 'Fredoka', sans-serif;
-            background-image: url('bg3.gif'); /* Pastikan gambar ini ada */
+            background-image: url('bg3.gif'); 
             background-size: cover;
             background-attachment: fixed;
             background-position: center;
         }
 
-        /* --- STYLE SIDEBAR GLASSMORPHISM --- */
         
-        /* Tombol Menu Hamburger */
         .menu-btn {
             position: fixed;
             top: 20px;
@@ -61,22 +59,22 @@ $query = mysqli_query($koneksi, "SELECT * FROM project_manager WHERE id=$user_id
             border-style: solid;
         }
 
-        /* Sidebar Container */
+       
         .sidebar {
             height: 100%;
-            width: 0; /* Awalnya tertutup */
+            width: 0; 
             position: fixed;
             z-index: 2050;
             top: 0;
             left: 0;
             
-            /* --- EFEK KACA (GLASSMORPHISM) --- */
-            background-color: rgba(255, 255, 255, 0.45); /* Putih Transparan */
-            backdrop-filter: blur(15px); /* Efek Blur */
+         
+            background-color: rgba(255, 255, 255, 0.45); 
+            backdrop-filter: blur(15px); 
             -webkit-backdrop-filter: blur(15px);
             border-right: 1px solid rgba(255, 255, 255, 0.6);
             box-shadow: 5px 0 25px rgba(0, 0, 0, 0.1);
-            /* -------------------------------- */
+           
 
             overflow-x: hidden;
             transition: 0.4s;
@@ -179,7 +177,7 @@ $query = mysqli_query($koneksi, "SELECT * FROM project_manager WHERE id=$user_id
             color: #333;
         }
 
-        /* Styles Table */
+       
         .project-table {
             background: rgba(255, 255, 255, 0.95);
             padding: 30px;
@@ -206,7 +204,7 @@ $query = mysqli_query($koneksi, "SELECT * FROM project_manager WHERE id=$user_id
             color: white;
             padding: 15px;
             text-align: left;
-            border-radius: 10px 10px 0 0; /* Rounded atas */
+            border-radius: 10px 10px 0 0; 
         }
         
         table th:first-child { border-top-left-radius: 10px; }
@@ -222,7 +220,7 @@ $query = mysqli_query($koneksi, "SELECT * FROM project_manager WHERE id=$user_id
             border-bottom: none;
         }
 
-        /* Tombol Aksi */
+      
         .btn-add {
             background: #55c0ea;
             color: white;

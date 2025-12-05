@@ -19,7 +19,7 @@ $query_users = mysqli_query($koneksi, "SELECT * FROM user ORDER BY id DESC");
     <style>
         body {
             font-family: 'Fredoka', sans-serif;
-            background-image: url('bg2.gif'); /* Pastikan file ini ada */
+            background-image: url('bg2.gif');
             background-size: cover;
             background-attachment: fixed;
             background-position: center;

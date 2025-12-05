@@ -19,7 +19,7 @@ $result = mysqli_query($koneksi, $query);
     <style>
         body {
             font-family: 'Fredoka', sans-serif;
-            background-image: url('bg2.gif'); /* Pastikan file ini ada */
+            background-image: url('bg2.gif'); 
             background-size: cover;
             background-attachment: fixed;
             background-position: center;
@@ -81,7 +81,7 @@ $result = mysqli_query($koneksi, $query);
         }
 
         .sidebar a:hover {
-            background-color: rgba(13, 110, 253, 0.1); /* Biru muda transparan */
+            background-color: rgba(13, 110, 253, 0.1); 
             color: #0d6efd;
             padding-left: 35px;
         }

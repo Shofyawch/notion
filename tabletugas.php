@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
 
     <style>
-        /* CSS SAMA PERSIS SEPERTI SEBELUMNYA */
+       
         body {
             font-family: 'Fredoka', sans-serif;
             background-image: url('bg1.gif'); 
@@ -35,7 +35,7 @@
             margin-bottom: 20px;
         }
 
-        /* --- STYLE SIDEBAR GLASSMORPHISM --- */
+        
         .menu-btn {
             position: fixed;
             top: 20px; left: 20px;
@@ -105,12 +105,12 @@
             cursor: pointer; backdrop-filter: blur(2px);
         }
 
-        /* Utility Class untuk Margin Kanan Ikon */
+        
         .me-2 {
             margin-right: 0.5rem;
         }
         
-        /* --- STYLE FORM & TABLE (Tidak Berubah) --- */
+        
         .form-container {
             background-color: #ffffff; padding: 25px; border-radius: 20px;
             box-shadow: 0px 10px 20px rgba(255, 105, 180, 0.3);
@@ -158,7 +158,7 @@
         }
         .hapus-btn:hover { background-color: #3ec8ff; transform: scale(1.1); }
         
-        /* Animasi Kaset */
+   
         #cassette-animation {
             width: 100px; cursor: pointer; position: fixed; bottom: 50px; right: 100px; z-index: 1000; 
         }
@@ -229,7 +229,7 @@
     </footer>
 
     <script>
-        // --- LOGIKA SIDEBAR ---
+       
         function openNav() {
             document.getElementById("mySidebar").style.width = "250px";
             document.getElementById("overlay").style.display = "block";
@@ -242,10 +242,10 @@
         const formTugas = document.getElementById('form-tugas');
         const isiTabel = document.getElementById('isi-tabel');
 
-        // --- FUNGSI UNTUK MERENDER TABEL (TIDAK LAGI HARDCODE) ---
+        
         function renderTugas(id, mapel, detail, deadline, status) {
             const barisBaru = document.createElement('tr');
-            // Menyimpan ID database di attribute data-id
+          
             barisBaru.setAttribute('data-id', id);
 
             const selMapel = document.createElement('td');
@@ -269,7 +269,7 @@
             tombolHapus.textContent = 'Hapus';
             tombolHapus.className = 'hapus-btn';
 
-            // EVENT HAPUS MENGHUBUNGI DATABASE
+            
             tombolHapus.addEventListener('click', function() {
                 hapusTugasKeDB(id, barisBaru);
             });
@@ -279,7 +279,7 @@
             isiTabel.appendChild(barisBaru);
         }
 
-        // --- 1. LOAD DATA DARI DATABASE SAAT HALAMAN DIBUKA ---
+      
         document.addEventListener("DOMContentLoaded", function() {
             fetch('ambil_data.php')
             .then(response => response.json())
@@ -290,11 +290,11 @@
             })
             .catch(error => console.error('Error:', error));
 
-            // Logika Musik
+          
             setupMusicPlayer();
         });
 
-        // --- 2. TAMBAH TUGAS KE DATABASE ---
+       
         formTugas.addEventListener('submit', function(event) {
             event.preventDefault();
 
@@ -303,7 +303,7 @@
             const deadline = document.getElementById('input-deadline').value;
             const status = document.getElementById('input-status').value;
 
-            // Buat FormData untuk dikirim ke PHP
+            
             const formData = new FormData();
             formData.append('mapel', mapel);
             formData.append('detail', detail);
@@ -317,7 +317,7 @@
             .then(response => response.text())
             .then(newId => {
                 if(newId !== "Error") {
-                    // Jika sukses, render ke tabel tanpa refresh
+                   
                     renderTugas(newId, mapel, detail, deadline, status);
                     formTugas.reset();
                 } else {
@@ -326,7 +326,7 @@
             });
         });
 
-        // --- 3. HAPUS TUGAS DARI DATABASE ---
+        
         function hapusTugasKeDB(id, elemenBaris) {
             const formData = new FormData();
             formData.append('id', id);
@@ -345,7 +345,7 @@
             });
         }
 
-        // --- SETUP MUSIK ---
+        
         function setupMusicPlayer() {
             const audioPlayer = document.getElementById('audio-player');
             const cassetteImg = document.getElementById('cassette-animation');
