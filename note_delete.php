@@ -6,6 +6,6 @@ $id = $_GET['id'];
 
 mysqli_query($koneksi, "DELETE FROM notes WHERE note_id='$id'");
 
-header("Location: dahsboard.php");
+header("Location: dashboard.php");
 exit;
 ?>

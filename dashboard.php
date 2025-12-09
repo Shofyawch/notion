@@ -129,7 +129,7 @@ $tasks = mysqli_query($koneksi,
     <div class="todo-box">
         <h2>today’s tasks ;</h2>
 
-        <form action="task_add.php" method="POST" style="margin-bottom:10px;">
+        <form action="add_task.php" method="POST" style="margin-bottom:10px;">
             <input type="text" name="task_text" placeholder="Add new task..." required
                 style="width: 90%; padding: 8px; border-radius: 6px; border: 1px solid #ccc; margin-bottom: 6px;">
             <button type="submit"
@@ -184,18 +184,17 @@ $tasks = mysqli_query($koneksi,
         <div class="notes">
             <h2>notes 🗒️</h2>
 
-            <form action="note_add.php" method="POST">
-                <textarea name="note" required
-                    style="width: 100%; height: 120px; border-radius: 10px; border: 1px solid #ddd; padding: 10px; font-size: 15px;"
-                    placeholder="Write your notes here..."></textarea>
+            <form action="note_add.php" method="POST"> 
+                <textarea name="note" required style="width: 100%; height: 120px; border-radius: 10px; border: 1px solid #ddd; padding: 10px; font-size: 15px;" placeholder="Write your notes here...">
 
-                <button type="submit"
-                    style="margin-top: 10px; padding: 8px 15px; border-radius: 8px; background: #ffd447; border: none; cursor: pointer; font-weight: bold;">
-                    Save note
-                </button>
+                </textarea> <button type="submit" style="margin-top: 10px; padding: 8px 15px; border-radius: 8px; background: #ffd447; border: none; cursor: pointer; font-weight: bold;"> 
+                    Save note </button>
             </form>
 
+
             <hr style="margin: 15px 0">
+
+            
         </div>
 
         <div class="calendar">

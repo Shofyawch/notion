@@ -7,5 +7,5 @@ $note = $_POST['note'];
 
 mysqli_query($koneksi, "INSERT INTO notes (id, note) VALUES ('$user_id', '$note')");
 
-header("Location: dahsboard.php");
+header("Location: dashboard.php");
 exit;
