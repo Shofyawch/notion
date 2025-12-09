@@ -144,7 +144,10 @@ $query_users = mysqli_query($koneksi, "SELECT * FROM user ORDER BY id DESC");
         <div class="sidebar-title">Admin Panel</div>
         <button class="close-btn" onclick="closeNav()">&times;</button>
         
-        <a href="admin-db.php"><i class="bi bi-people-fill me-2"></i> Daftar User</a>
+        <a href="da.php"><i class="bi bi-people-fill me-2"></i> Dashboard Admin</a>
+        <a href="admin-db.php"><i class="bi bi-people-fill me-2"></i> Kelola Konten</a>
+        <a href="admin.php"><i class="bi bi-people-fill me-2"></i> Database</a>
+
         
         <div class="border-top my-2"></div>
         <a href="logout.php" class="text-danger"><i class="bi bi-box-arrow-left me-2"></i> Logout</a>

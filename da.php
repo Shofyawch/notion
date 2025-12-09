@@ -210,7 +210,7 @@ $nama = $_SESSION['nama'];
                         Pengaturan
                     </a>
 
-                    <a href="admin-db.php" class="action-button p-4 rounded-xl font-bold text-sm shadow-md text-center block">
+                    <a href="admin.php" class="action-button p-4 rounded-xl font-bold text-sm shadow-md text-center block">
                         <span class="block mb-1">🗄️</span>
                         Database
                     </a>
@@ -219,8 +219,6 @@ $nama = $_SESSION['nama'];
 
 
                 <div class="mt-8">
-
-
 
                     <img src="kucing.jpg" alt="Gambar Kucing Pengawas" class="kucing-placeholder">
                 </div>

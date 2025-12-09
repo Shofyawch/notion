@@ -5,6 +5,8 @@ ini_set('display_errors', 1);
 include 'koneksi.php';
 session_start();
 
+$error = "";
+
 if (!isset($_SESSION['id'])) {
     header("Location: login.php");
     exit;
@@ -132,39 +134,44 @@ $users = mysqli_query(
             color: white;
         }
 
-        .sidebar {
-            width: 280px;
-            height: 100vh;
-            background-color: rgba(188, 228, 255, 0.95);
-            color: white;
-            position: fixed;
-            left: -280px;
-            top: 0;
-            padding: 30px;
-            box-sizing: border-box;
-            overflow-y: auto;
-            transition: left 0.3s ease;
-            z-index: 999;
-        }
+/* SIDEBAR FIX */
 
-        .sidebar.active {
-            left: 0;
-        }
+.sidebar {
+    width: 280px;
+    height: 100vh;
+    background-color: rgba(188, 228, 255, 0.95);
+    color: white;
+    position: fixed;
+    left: -280px;              /* start hidden */
+    top: 0;
+    padding: 30px;
+    box-sizing: border-box;
+    overflow-y: auto;
+    transition: left 0.3s ease-in-out;
+    z-index: 999;
+}
 
-        #overlay {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.5);
-            z-index: 998;
-        }
+.sidebar.active {
+    left: 0;
+}
 
-        #overlay.active {
-            display: block;
-        }
+#overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 998;
+    transition: opacity 0.3s ease;
+}
+
+#overlay.active {
+    display: block;
+    opacity: 1;
+}
+
 
         .sidebar h2 {
             margin-bottom: 25px;
@@ -552,17 +559,16 @@ $users = mysqli_query(
 
 <body>
 
-    <button class="menu-btn" onclick="toggleSidebar()">☰ Menu</button>
-    <div id="overlay" onclick="toggleSidebar()"></div>
+        <button class="menu-btn" onclick="toggleSidebar()">☰ Menu</button>
+        <div id="overlay" onclick="toggleSidebar()"></div>
 
-    <div id="sidebar" class="sidebar">
-        <h2>Menu</h2>
-        <a href="dashboard.php" onclick="toggleSidebar()">Dashboard</a>
-        <a href="study_planner.php" onclick="toggleSidebar()">Study Planner</a>
-        <a href="projectmanager.php" onclick="toggleSidebar()">Project Manager</a>
-        <a href="todo.php" onclick="toggleSidebar()">Todo List</a>
-        <a href="login.php">Logout</a>
-    </div>
+<div id="sidebar" class="sidebar">
+    <h2>Menu</h2>
+    <a href="da.php"><i class="bi bi-people-fill me-2"></i> Dashboard Admin</a>
+        <a href="admin-db.php"><i class="bi bi-people-fill me-2"></i> Kelola Konten</a>
+        <a href="admin.php"><i class="bi bi-people-fill me-2"></i> Database</a>
+</div>
+
 
     <div class="main-content">
 
@@ -573,9 +579,10 @@ $users = mysqli_query(
 
         <div class="content-box">
 
-            <?php if (isset($error)): ?>
-                <div class="error-msg"><?= htmlspecialchars($error) ?></div>
-            <?php endif; ?>
+        <?php if (!empty($error)): ?>
+            <div class="error-msg"><?= htmlspecialchars((string)$error) ?></div>
+    <?php endif; ?>
+
 
             <div class="search-area">
                 <input type="text" id="searchInput" placeholder="Cari Nama, Username, Email, atau Level...">
@@ -619,7 +626,6 @@ $users = mysqli_query(
 
     </div>
 
-    <!-- ===== MODAL ADD USER ===== -->
     <div id="addUserModal" class="modal">
         <div class="modal-content">
             <div class="modal-header">
@@ -666,7 +672,6 @@ $users = mysqli_query(
         </div>
     </div>
 
-    <!-- ===== MODAL EDIT USER ===== -->
     <div id="editUserModal" class="modal">
         <div class="modal-content">
             <div class="modal-header">
@@ -710,7 +715,6 @@ $users = mysqli_query(
         </div>
     </div>
 
-    <!-- ===== MODAL CHANGE LEVEL ===== -->
     <div id="changeLevelModal" class="modal">
         <div class="modal-content">
             <div class="modal-header">
@@ -857,8 +861,23 @@ $users = mysqli_query(
                 }
             });
         });
+
+        function toggleSidebar() {
+    const sidebar = document.getElementById("sidebar");
+    const overlay = document.getElementById("overlay");
+
+    sidebar.classList.toggle("active");
+    overlay.classList.toggle("active");
+}
+
+// Tutup sidebar kalau klik di luar sidebar (overlay)
+document.getElementById("overlay").addEventListener("click", function () {
+    toggleSidebar();
+});
+
     </script>
 
+    
 </body>
 
 </html>

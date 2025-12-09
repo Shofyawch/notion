@@ -48,6 +48,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 <body>
     <style>
+.popup-content{
+    background-color: #77c9ffff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    width: 300px;
+    text-align: center;
+}
+
         @keyframes spin {
             from {
                 transform: rotate(0deg);
@@ -125,7 +134,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             const popup = document.getElementById("popup");
             const closePopup = document.getElementById("closePopup");
 
-            // Klik forgot → buka popup
             forgotPassword.onclick = function() {
                 popup.style.display = "flex";
                 document.getElementById("successMsg").innerHTML = "";
