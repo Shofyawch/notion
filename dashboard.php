@@ -182,20 +182,34 @@ $tasks = mysqli_query($koneksi,
 
 
         <div class="notes">
-            <h2>notes 🗒️</h2>
+    <h2>notes 🗒️</h2>
 
-            <form action="note_add.php" method="POST"> 
-                <textarea name="note" required style="width: 100%; height: 120px; border-radius: 10px; border: 1px solid #ddd; padding: 10px; font-size: 15px;" placeholder="Write your notes here...">
+    <form action="note_add.php" method="POST"> 
+        <textarea name="note" required style="width: 100%; height: 80px; border-radius: 10px; border: 1px solid #ddd; padding: 10px; font-size: 15px;" placeholder="Write your notes here..."></textarea>
+        <button type="submit" style="margin-top: 10px; padding: 8px 15px; border-radius: 8px; background: #ffd447; border: none; cursor: pointer; font-weight: bold;">Save note</button>
+    </form>
 
-                </textarea> <button type="submit" style="margin-top: 10px; padding: 8px 15px; border-radius: 8px; background: #ffd447; border: none; cursor: pointer; font-weight: bold;"> 
-                    Save note </button>
-            </form>
+    <hr style="margin: 20px 0">
 
-
-            <hr style="margin: 15px 0">
-
-            
-        </div>
+    <div class="notes-list">
+        <?php while($n = mysqli_fetch_assoc($notes)) { ?>
+            <div style="background: #fff9e6; padding: 15px; border-radius: 10px; margin-bottom: 10px; border-left: 5px solid #ffd447;">
+                <p style="margin: 0; font-size: 15px; color: #333;">
+                    <?= nl2br(htmlspecialchars($n['note'])) ?>
+                </p>
+                <div style="margin-top: 10px; font-size: 12px; color: #888; display: flex; justify-content: space-between; align-items: center;">
+                    <span>📅 <?= $n['created_at'] ?></span>
+                    <div>
+                        <a href="note_edit.php?id=<?= $n['id_note'] ?>" style="color: blue; text-decoration: none; margin-right: 10px;">Edit</a>
+                        <a href="note_delete.php?id=<?= $n['id_note'] ?>" style="color: red; text-decoration: none;" onclick="return confirm('Hapus catatan ini?')">Delete</a>
+                    </div>
+                </div>
+            </div>
+        <?php } ?>
+        
+        <?php if(mysqli_num_rows($notes) == 0) { echo "<p style='color: #999; font-style: italic;'>Belum ada catatan.</p>"; } ?>
+    </div>
+</div>
 
         <div class="calendar">
             <a href="calender.php"><h2>calendar 📅</h2></a>
